@@ -4,5 +4,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="title_activity_contacts">ContactsActivity</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_nearby_conversations">NearbyConversationsActivity</string>
+    <string name="main_information_temp">This is the main activity, please press the button to redirect</string>
+    <string name="redirect_from_main_button">Redirect</string>
 
 </resources>
