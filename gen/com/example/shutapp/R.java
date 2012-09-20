@@ -55,6 +55,7 @@ public final class R {
         public static final int main_information_temp=0x7f050008;
         public static final int menu_settings=0x7f050002;
         public static final int redirect_from_main_button=0x7f050009;
+        public static final int text_at_map_activity=0x7f05000a;
         public static final int title_activity_chat=0x7f050004;
         public static final int title_activity_contacts=0x7f050005;
         public static final int title_activity_main=0x7f050003;
