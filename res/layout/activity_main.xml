@@ -12,7 +12,8 @@
         android:padding="@dimen/padding_medium"
         android:text="@string/main_information_temp"
         tools:context=".MainActivity" />
-
+
+
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
