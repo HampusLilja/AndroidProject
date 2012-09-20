@@ -23,6 +23,7 @@ public class MapActivity extends Activity {
     public void toChatActivity(View view){
     	Intent intentToRedirect = new Intent(this, ChatActivity.class);
     	startActivity(intentToRedirect);
+    	overridePendingTransition(0, 0);
     }
     
  /*   public void toMapActivity(View view){
@@ -33,5 +34,6 @@ public class MapActivity extends Activity {
     public void toNearbyConversationsActivity(View view){
     	Intent intentToRedirect = new Intent(this, NearbyConversationsActivity.class);
     	startActivity(intentToRedirect);
+    	overridePendingTransition(0, 0);
     } 
 }

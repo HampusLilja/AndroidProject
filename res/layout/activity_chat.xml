@@ -11,15 +11,16 @@
         android:layout_centerVertical="true"
         android:text="@string/title_activity_chat"
         tools:context=".NearbyConversationsActivity" />
-
+
     <FrameLayout
-        android:id="@+id/frameLayout1"
+        android:id="@+id/iconFrame_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/nearby_conversations_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:background="@drawable/ic_left_middle_bar" >
+
     </FrameLayout>
 
     <Button
@@ -58,5 +59,16 @@
         android:layout_toRightOf="@+id/nearby_conversations_button"
         android:background="@drawable/ic_social_chat"
         android:onClick="toChatActivity" />
+
+    <FrameLayout
+        android:id="@+id/banner"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/ic_banner" >
+
+    </FrameLayout>
 
 </RelativeLayout>

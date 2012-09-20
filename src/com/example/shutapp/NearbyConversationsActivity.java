@@ -23,11 +23,13 @@ public class NearbyConversationsActivity extends Activity {
     public void toChatActivity(View view){
     	Intent intentToRedirect = new Intent(this, ChatActivity.class);
     	startActivity(intentToRedirect);
+    	overridePendingTransition(0, 0);
     }
     
     public void toMapActivity(View view){
     	Intent intentToRedirect = new Intent(this, MapActivity.class);
     	startActivity(intentToRedirect);
+    	overridePendingTransition(0, 0);
     }
     
   /* public void toNearbyConversationsActivity(View view){
