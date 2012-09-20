@@ -3,25 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="@string/title_activity_nearby_conversations"
+        android:text="@string/title_activity_settings"
         tools:context=".NearbyConversationsActivity" />
 
-    
-
     <FrameLayout
+        android:id="@+id/iconFrame_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/nearby_conversations_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/ic_most_left_bar" >
+        android:background="@drawable/ic_most_right_bar" >
+
     </FrameLayout>
     
      <FrameLayout
@@ -35,14 +34,14 @@
 
     </FrameLayout>
 
-    <Button
+   <Button
         android:id="@+id/settings_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/ic_action_settings" 
-        android:onClick="toSettingsActivity"	/>
+        android:background="@drawable/ic_action_settings"
+        android:onClick="toSettingsActivity" />
 
     <Button
         android:id="@+id/nearby_conversations_button"

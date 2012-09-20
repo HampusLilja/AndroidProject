@@ -11,5 +11,6 @@
     <string name="main_information_temp">This is the main activity, please press the button to redirect</string>
     <string name="redirect_from_main_button">Redirect</string>
     <string name="text_at_map_activity">Hi this is map activity!</string>
+    <string name="title_activity_settings">SettingsActivity</string>
 
 </resources>

@@ -34,8 +34,9 @@ public final class R {
         public static final int chat_button=0x7f080005;
         public static final int iconFrame_2=0x7f080001;
         public static final int iconFrame_3=0x7f080008;
+        public static final int iconFrame_4=0x7f080009;
         public static final int map_button=0x7f080004;
-        public static final int menu_settings=0x7f080009;
+        public static final int menu_settings=0x7f08000a;
         public static final int nearby_conversations_button=0x7f080002;
         public static final int settings_button=0x7f080003;
         public static final int textView1=0x7f080000;
@@ -45,12 +46,14 @@ public final class R {
         public static final int activity_main=0x7f030001;
         public static final int activity_map=0x7f030002;
         public static final int activity_nearby_conversations=0x7f030003;
+        public static final int activity_settings=0x7f030004;
     }
     public static final class menu {
         public static final int activity_chat=0x7f070000;
         public static final int activity_main=0x7f070001;
         public static final int activity_map=0x7f070002;
         public static final int activity_nearby_conversations=0x7f070003;
+        public static final int activity_settings=0x7f070004;
     }
     public static final class string {
         public static final int app_name=0x7f050000;
@@ -64,6 +67,7 @@ public final class R {
         public static final int title_activity_main=0x7f050003;
         public static final int title_activity_map=0x7f050006;
         public static final int title_activity_nearby_conversations=0x7f050007;
+        public static final int title_activity_settings=0x7f05000b;
     }
     public static final class style {
         public static final int AppTheme=0x7f060000;
