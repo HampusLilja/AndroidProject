@@ -71,4 +71,16 @@
         android:onClick="toChatActivity" 
         android:background="@drawable/ic_social_chat" />
 
+    <ListView
+        android:id="@+id/settingsList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/iconFrame_4"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/banner"
+        android:layout_marginBottom="10dp"
+        android:divider="@drawable/ic_most_left_bar" >
+
+    </ListView>
+
 </RelativeLayout>

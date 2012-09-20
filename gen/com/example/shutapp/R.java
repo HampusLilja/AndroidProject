@@ -36,8 +36,9 @@ public final class R {
         public static final int iconFrame_3=0x7f080008;
         public static final int iconFrame_4=0x7f080009;
         public static final int map_button=0x7f080004;
-        public static final int menu_settings=0x7f08000a;
+        public static final int menu_settings=0x7f08000b;
         public static final int nearby_conversations_button=0x7f080002;
+        public static final int settingsList=0x7f08000a;
         public static final int settings_button=0x7f080003;
         public static final int textView1=0x7f080000;
     }
