@@ -11,6 +11,24 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
+        public static final int background_holo_dark=0x7f040001;
+        public static final int background_holo_light=0x7f040002;
+        public static final int bright_foreground_disabled_holo_dark=0x7f040003;
+        public static final int bright_foreground_disabled_holo_light=0x7f040004;
+        public static final int dim_foreground_disabled_holo_dark=0x7f040006;
+        public static final int dim_foreground_disabled_holo_light=0x7f04000b;
+        public static final int dim_foreground_holo_dark=0x7f040005;
+        public static final int dim_foreground_holo_light=0x7f04000a;
+        public static final int dim_foreground_inverse_disabled_holo_dark=0x7f040008;
+        public static final int dim_foreground_inverse_disabled_holo_light=0x7f04000d;
+        public static final int dim_foreground_inverse_holo_dark=0x7f040007;
+        public static final int dim_foreground_inverse_holo_light=0x7f04000c;
+        public static final int highlighted_text_holo_dark=0x7f04000f;
+        public static final int highlighted_text_holo_light=0x7f040010;
+        public static final int hint_foreground_holo_dark=0x7f040009;
+        public static final int hint_foreground_holo_light=0x7f04000e;
+        public static final int link_text_holo_dark=0x7f040011;
+        public static final int link_text_holo_light=0x7f040012;
         public static final int test=0x7f040000;
     }
     public static final class dimen {
@@ -35,13 +53,15 @@ public final class R {
         public static final int banner=0x7f090006;
         public static final int button1=0x7f090007;
         public static final int chat_button=0x7f090005;
+        public static final int iconFrame_1=0x7f090009;
         public static final int iconFrame_2=0x7f090001;
         public static final int iconFrame_3=0x7f090008;
-        public static final int iconFrame_4=0x7f090009;
+        public static final int iconFrame_4=0x7f09000b;
+        public static final int listOfNearbyConversations=0x7f09000a;
         public static final int map_button=0x7f090004;
-        public static final int menu_settings=0x7f09000b;
+        public static final int menu_settings=0x7f09000d;
         public static final int nearby_conversations_button=0x7f090002;
-        public static final int settingsList=0x7f09000a;
+        public static final int settingsList=0x7f09000c;
         public static final int settings_button=0x7f090003;
         public static final int textView1=0x7f090000;
     }
