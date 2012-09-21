@@ -1,6 +1,8 @@
 package com.example.shutapp;
 
 import android.app.Activity;
+import com.google.android.gcm.GCMRegistrar;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
