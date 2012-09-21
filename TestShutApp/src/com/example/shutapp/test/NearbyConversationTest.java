@@ -58,9 +58,6 @@ public class NearbyConversationTest extends
 		assertNotNull("Can´t find the Map Button", mButton);
 		assertNotNull("Can´t find the Chat Button", cButton);
 		assertNotNull("Can´t find the Settings Button", sButton);
-		assertNotNull("Can´t find the Text View", resultView);
-	    assertEquals("Wrong text in Text View",
-	    		"NearbyConversationsActivity", resultView.getText());
 	}
 	
 	public void testChatButton() {

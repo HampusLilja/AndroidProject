@@ -67,9 +67,6 @@ public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 		resultView = (TextView) nActivity.findViewById(
 	    		com.example.shutapp.R.id.textView1); 
 		
-		assertNotNull("Can´t find the Text View", resultView);
-	    assertEquals("Wrong text",
-	    		"NearbyConversationsActivity", resultView.getText());
 	
 	}
 	
