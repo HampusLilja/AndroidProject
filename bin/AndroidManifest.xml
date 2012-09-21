@@ -6,6 +6,11 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
+    
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"></uses-permission>
+    <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
+    
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -18,8 +23,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />            </intent-filter>
         </activity>
         <activity
             android:name=".ChatActivity"
