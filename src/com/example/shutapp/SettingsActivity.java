@@ -4,17 +4,18 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.support.v4.app.NavUtils;
 
-public class MapActivity extends Activity {
+public class SettingsActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.activity_settings);
     }
 
-    
     public void toChatActivity(View view){
     	Intent intentToRedirect = new Intent(this, ChatActivity.class);
     	startActivity(intentToRedirect);
@@ -28,9 +29,11 @@ public class MapActivity extends Activity {
     	overridePendingTransition(0, 0);
     } 
     
-    public void toSettingsActivity(View view){
-    	Intent intent = new Intent(this, SettingsActivity.class);
+    public void toMapActivity(View view){
+    	Intent intent = new Intent(this, MapActivity.class);
     	startActivity(intent);
     	overridePendingTransition(0, 0);
     } 
+
+    
 }

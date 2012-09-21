@@ -15,15 +15,10 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
-    }
-
     public void redirectFromMain(View view){
     	Intent intentToRedirect = new Intent(this, NearbyConversationsActivity.class);
     	startActivity(intentToRedirect);
+    	overridePendingTransition(0, 0);
     }
     
 }

@@ -2,26 +2,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/title_activity_nearby_conversations"
-        tools:context=".NearbyConversationsActivity" />
-
-    
-
+
     <FrameLayout
+        android:id="@+id/iconFrame_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/nearby_conversations_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:background="@drawable/ic_most_left_bar" >
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/banner"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/ic_banner" >
     </FrameLayout>
 
     <Button
@@ -30,7 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/ic_action_settings" />
+        android:background="@drawable/ic_action_settings"
+        android:onClick="toSettingsActivity" />
 
     <Button
         android:id="@+id/nearby_conversations_button"
@@ -38,8 +39,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:onClick="toNearbyConversationsActivity" 
-        android:background="@drawable/ic_social_group" />
+        android:background="@drawable/ic_social_group"
+        android:onClick="toNearbyConversationsActivity" />
+
     <Button
         android:id="@+id/map_button"
         android:layout_width="wrap_content"
@@ -47,8 +49,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="20dp"
         android:layout_toLeftOf="@+id/settings_button"
-        android:onClick="toMapActivity" 
-        android:background="@drawable/ic_location_map" />
+        android:background="@drawable/ic_location_map"
+        android:onClick="toMapActivity" />
 
     <Button
         android:id="@+id/chat_button"
@@ -57,7 +59,20 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="22dp"
         android:layout_toRightOf="@+id/nearby_conversations_button"
-        android:onClick="toChatActivity" 
-        android:background="@drawable/ic_social_chat" />
+        android:background="@drawable/ic_social_chat"
+        android:onClick="toChatActivity" />
+
+    <ListView
+        android:id="@+id/listOfNearbyConversations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/iconFrame_1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/banner"
+        android:divider="@color/dim_foreground_inverse_holo_light"
+        android:dividerHeight="2dp" >
+
+    </ListView>
 
 </RelativeLayout>
