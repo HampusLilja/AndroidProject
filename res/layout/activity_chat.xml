@@ -50,7 +50,7 @@
         android:layout_marginRight="20dp"
         android:layout_toLeftOf="@+id/settings_button"
         android:background="@drawable/ic_location_map"
-        android:onClick="toMapActivity" />
+        android:onClick="toGpsActivity" />
 
     <Button
         android:id="@+id/chat_button"

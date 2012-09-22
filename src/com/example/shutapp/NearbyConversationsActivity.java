@@ -36,8 +36,8 @@ public class NearbyConversationsActivity extends Activity {
     	overridePendingTransition(0, 0);
     }
     
-    public void toMapActivity(View view){
-    	Intent intentToRedirect = new Intent(this, MapActivity.class);
+    public void toGpsActivity(View view){
+    	Intent intentToRedirect = new Intent(this, GpsActivity.class);
     	startActivity(intentToRedirect);
     	overridePendingTransition(0, 0);
     }

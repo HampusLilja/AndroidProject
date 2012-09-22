@@ -15,8 +15,8 @@ public class ChatActivity extends Activity {
     }
 
     
-    public void toMapActivity(View view){
-    	Intent intent = new Intent(this, MapActivity.class);
+    public void toGpsActivity(View view){
+    	Intent intent = new Intent(this, GpsActivity.class);
     	startActivity(intent);
     	overridePendingTransition(0, 0);
     } 

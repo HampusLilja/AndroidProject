@@ -58,7 +58,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="20dp"
         android:layout_toLeftOf="@+id/settings_button"
-        android:onClick="toMapActivity" 
+        android:onClick="toGpsActivity" 
         android:background="@drawable/ic_location_map" />
 
     <Button
