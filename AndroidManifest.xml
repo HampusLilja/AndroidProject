@@ -6,7 +6,7 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
-    <-- Requesting permissions needed for GCM/Accounts/Multitasking -->
+    <!-- Requesting permissions needed for GCM/Accounts/Multitasking -->
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"></uses-permission>
     <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
@@ -72,7 +72,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <-- This enables the app to recieve msges -->
+        <!-- This enables the app to recieve msges -->
         <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND" >
   		<intent-filter>
     	<action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -80,7 +80,7 @@
     <category android:name="com.example.shutapp" />
   </intent-filter>
 </receiver>
-		<-- Following intent recieved by BroadcastReciever -->
+		<!-- Following intent recieved by BroadcastReciever -->
 		<service android:name=".GCMIntentService" />
     </application>
 

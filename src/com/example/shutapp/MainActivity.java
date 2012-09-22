@@ -1,35 +1,17 @@
 package com.example.shutapp;
 
+import static com.example.shutapp.MiscResources.SENDER_ID;
+
 import android.app.Activity;
 import com.google.android.gcm.GCMRegistrar;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AccountManagerCallback;
-import android.accounts.AccountManagerFuture;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
-
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-
-import android.*;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
@@ -41,6 +23,15 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         manageAccount();
+        /* register id if not already done, this is a must*/
+        /*GCMRegistrar.checkDevice(this);*/
+        /*GCMRegistrar.checkManifest(this);*/
+        final String regId = GCMRegistrar.getRegistrationId(this);
+        if (regId.equals("")) {
+          GCMRegistrar.register(this, SENDER_ID);
+        } else {
+          Log.v("ShutAppLOGG", "Already registered");
+        }
     }
     
     public void manageAccount(){

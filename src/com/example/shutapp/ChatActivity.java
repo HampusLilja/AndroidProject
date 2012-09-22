@@ -3,17 +3,17 @@ package com.example.shutapp;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
 
 public class ChatActivity extends Activity {
+	private String chatmessage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
     }
-
     
     public void toMapActivity(View view){
     	Intent intent = new Intent(this, MapActivity.class);
@@ -32,4 +32,13 @@ public class ChatActivity extends Activity {
     	startActivity(intent);
     	overridePendingTransition(0, 0);
     } 
+
+    /* save the message written in dialog*/
+    public String saveMessage(View view){
+    	EditText thetext = (EditText)findViewById(R.id.written_msg);
+    	String chatmessage = thetext.getText().toString();
+    	return chatmessage;
+    	   	
+    }
 }
+
