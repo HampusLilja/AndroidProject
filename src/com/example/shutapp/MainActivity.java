@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
@@ -33,6 +35,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
+	private String token;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,7 @@ public class MainActivity extends Activity {
     	//this is just for testing, the user should be able to choose what gmail acc he wants to use
     	Account theAcc = accounts[0];
     	
-   /* 	am.getAuthToken(
+    	am.getAuthToken(
     		    theAcc,                         // Account retrieved using getAccountsByType()
     		    "Manage your tasks",            // Auth scope
     		    options,                        // Authenticator-specific options
@@ -60,18 +63,75 @@ public class MainActivity extends Activity {
     		    new Handler(new OnError()));    // Callback called if an error occurs
     	
     
-    	*/
+    	
     	
     	
     	TextView textview = (TextView) findViewById(R.id.textView1);
     	textview.setText(theAcc.name);
     }
+    
 
     public void redirectFromMain(View view){
     	Intent intentToRedirect = new Intent(this, NearbyConversationsActivity.class);
     	startActivity(intentToRedirect);
     	overridePendingTransition(0, 0);
     }
+    private class OnTokenAcquired implements AccountManagerCallback<Bundle> {
+        public void run(AccountManagerFuture<Bundle> result) {
+        	Intent launch = null;
+			try {
+				launch = (Intent) result.getResult().get(AccountManager.KEY_INTENT);
+			} catch (OperationCanceledException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (AuthenticatorException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            if (launch != null) {
+                startActivityForResult(launch, 0);
+                return;
+            }
+            
+            // Get the result of the operation from the AccountManagerFuture.
+            Bundle bundle = null;
+			try {
+				bundle = result.getResult();
+			} catch (OperationCanceledException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (AuthenticatorException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        
+            // The token is a named value in the bundle. The name of the value
+            // is stored in the constant AccountManager.KEY_AUTHTOKEN.
+            token = bundle.getString(AccountManager.KEY_AUTHTOKEN);
+            
+            
+            
+        }
+    }
+    
+    public class OnError implements Handler.Callback {
+
+		public boolean handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+    	//to do
+    }
     
     
 }
+
+
+
+
