@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 
+
 public class ChatActivity extends Activity {
 	private String chatmessage;
 

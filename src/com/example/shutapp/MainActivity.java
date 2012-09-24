@@ -2,29 +2,26 @@ package com.example.shutapp;
 
 import static com.example.shutapp.MiscResources.SENDER_ID;
 
-import android.app.Activity;
-import com.google.android.gcm.GCMRegistrar;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
-=======
->>>>>>> GCM_Compability
 import android.util.Log;
-import java.util.LinkedList;
-import java.util.List;
 import android.view.View;
 import android.widget.TextView;
+
+import com.google.android.gcm.GCMRegistrar;
 
 public class MainActivity extends Activity {
 
