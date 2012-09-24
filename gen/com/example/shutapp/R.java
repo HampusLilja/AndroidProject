@@ -54,28 +54,16 @@ public final class R {
         public static final int banner=0x7f090006;
         public static final int button1=0x7f09000a;
         public static final int chat_button=0x7f090005;
-<<<<<<< HEAD
-        public static final int iconFrame_1=0x7f09000a;
+        public static final int iconFrame_1=0x7f09000d;
         public static final int iconFrame_2=0x7f090001;
-        public static final int iconFrame_3=0x7f090009;
-        public static final int iconFrame_4=0x7f09000c;
-        public static final int listOfNearbyConversations=0x7f09000b;
-        public static final int mapView=0x7f090008;
+        public static final int iconFrame_3=0x7f09000c;
+        public static final int iconFrame_4=0x7f09000f;
+        public static final int listOfNearbyConversations=0x7f09000e;
+        public static final int mapView=0x7f09000b;
         public static final int map_button=0x7f090004;
-        public static final int menu_settings=0x7f09000e;
+        public static final int menu_settings=0x7f090011;
         public static final int nearby_conversations_button=0x7f090002;
-        public static final int settingsList=0x7f09000d;
-=======
-        public static final int iconFrame_1=0x7f09000c;
-        public static final int iconFrame_2=0x7f090001;
-        public static final int iconFrame_3=0x7f09000b;
-        public static final int iconFrame_4=0x7f09000e;
-        public static final int listOfNearbyConversations=0x7f09000d;
-        public static final int map_button=0x7f090004;
-        public static final int menu_settings=0x7f090010;
-        public static final int nearby_conversations_button=0x7f090002;
-        public static final int settingsList=0x7f09000f;
->>>>>>> GCM_Compability
+        public static final int settingsList=0x7f090010;
         public static final int settings_button=0x7f090003;
         public static final int submit=0x7f090008;
         public static final int textView1=0x7f090009;
