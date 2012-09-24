@@ -1,7 +1,7 @@
 package com.example.shutapp.test;
 
 import com.example.shutapp.ChatActivity;
-import com.example.shutapp.MapActivity;
+import com.example.shutapp.ToRemoveMapActivity;
 import com.example.shutapp.NearbyConversationsActivity;
 
 import android.app.Instrumentation.ActivityMonitor;
@@ -30,7 +30,7 @@ public class NearbyConversationTest extends
 
 		// register next activity that need to be monitored.
 		activityChatMonitor = getInstrumentation().addMonitor(ChatActivity.class.getName(), null, false);
-		activityMapMonitor = getInstrumentation().addMonitor(MapActivity.class.getName(), null, false);
+		activityMapMonitor = getInstrumentation().addMonitor(ToRemoveMapActivity.class.getName(), null, false);
 
 	    nActivity = getActivity();
 
@@ -99,7 +99,7 @@ public class NearbyConversationTest extends
 
 		wait(4);
 		
-		MapActivity mActivity = (MapActivity) getInstrumentation().waitForMonitorWithTimeout(activityMapMonitor, 5);
+		ToRemoveMapActivity mActivity = (ToRemoveMapActivity) getInstrumentation().waitForMonitorWithTimeout(activityMapMonitor, 5);
 		
 		// next activity is opened and captured.
 		assertNotNull("Could´t open Activity", mActivity);
