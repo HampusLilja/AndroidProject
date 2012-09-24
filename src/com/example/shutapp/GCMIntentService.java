@@ -18,7 +18,6 @@ import com.google.android.gcm.*;
 	        Log.d(TAG, "GCMIntentService initiated");
 	    }
 	     
-	 
 	    @Override
 	    protected void onError(Context ctx, String error) {
 	        // Do something here if error!
