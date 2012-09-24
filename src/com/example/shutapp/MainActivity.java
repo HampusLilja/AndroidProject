@@ -3,8 +3,6 @@ package com.example.shutapp;
 import static com.example.shutapp.MiscResources.SENDER_ID;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -24,17 +22,19 @@ import android.widget.TextView;
 import com.google.android.gcm.GCMRegistrar;
 
 public class MainActivity extends Activity {
-
+	
 	private String token;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        manageAccount();
+        //manageAccount(); // You have to comment this for the application to work in the AVD!
+        
         /* register id if not already done, this is a must*/
         /*GCMRegistrar.checkDevice(this);*/
         /*GCMRegistrar.checkManifest(this);*/
+        
         final String regId = GCMRegistrar.getRegistrationId(this);
         if (regId.equals("")) {
           GCMRegistrar.register(this, SENDER_ID);
@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
     	Bundle options = new Bundle();
     	
     	Account[] accounts = am.getAccountsByType("com.google");
-    	List<String> possibleEmails = new LinkedList<String>();
+    	//List<String> possibleEmails = new LinkedList<String>();
     	
     	//this is just for testing, the user should be able to choose what gmail acc he wants to use
     	Account theAcc = accounts[0];
@@ -113,7 +113,7 @@ public class MainActivity extends Activity {
             // The token is a named value in the bundle. The name of the value
             // is stored in the constant AccountManager.KEY_AUTHTOKEN.
             token = bundle.getString(AccountManager.KEY_AUTHTOKEN);
-            
+            System.out.println(token);
             
             
         }

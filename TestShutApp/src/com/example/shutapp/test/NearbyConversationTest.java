@@ -1,7 +1,7 @@
 package com.example.shutapp.test;
 
 import com.example.shutapp.ChatActivity;
-import com.example.shutapp.MapActivity;
+import com.example.shutapp.SettingsActivity;
 import com.example.shutapp.NearbyConversationsActivity;
 
 import android.app.Instrumentation.ActivityMonitor;
@@ -14,11 +14,13 @@ public class NearbyConversationTest extends
 	
 	private NearbyConversationsActivity nActivity;
 	private Button cButton;
+	private Button nButton;
 	private Button sButton;
 	private Button mButton;
 	private TextView resultView;
 	private ActivityMonitor activityChatMonitor;
-	private ActivityMonitor activityMapMonitor;
+	private ActivityMonitor activitySettingsMonitor;
+	private ActivityMonitor activityNearbyConversationMonitor;
 	
 	public NearbyConversationTest() {
 		super("com.example.shutapp.MainActivity", NearbyConversationsActivity.class);
@@ -30,10 +32,16 @@ public class NearbyConversationTest extends
 
 		// register next activity that need to be monitored.
 		activityChatMonitor = getInstrumentation().addMonitor(ChatActivity.class.getName(), null, false);
-		activityMapMonitor = getInstrumentation().addMonitor(MapActivity.class.getName(), null, false);
+		activitySettingsMonitor = getInstrumentation().addMonitor(SettingsActivity.class.getName(), null, false);
+		activityNearbyConversationMonitor = getInstrumentation().addMonitor(NearbyConversationsActivity.class.getName(), null, false);
 
 	    nActivity = getActivity();
 
+	    nButton =
+	    		(Button) nActivity.findViewById(
+	    				com.example.shutapp.R.id.nearby_conversations_button
+	    				);
+	    
 	    mButton =
 	    		(Button) nActivity.findViewById(
 	    				com.example.shutapp.R.id.map_button
@@ -56,8 +64,32 @@ public class NearbyConversationTest extends
 	
 	public void testPreConditions() {
 		assertNotNull("Can´t find the Map Button", mButton);
+		assertNotNull("Can´t find the Nearby Conversation Button", nButton);
 		assertNotNull("Can´t find the Chat Button", cButton);
 		assertNotNull("Can´t find the Settings Button", sButton);
+	}
+	
+	public void testNearbyConversationButton() {
+		
+		nActivity.runOnUiThread(
+				new Runnable() {
+					public void run() {
+						nButton.requestFocus();
+						nButton.performClick();
+					}
+				});
+
+		wait(4);
+		
+		NearbyConversationsActivity nActivity = (NearbyConversationsActivity) getInstrumentation().
+				waitForMonitorWithTimeout(activityNearbyConversationMonitor, 5);
+		
+		// next activity is opened and captured.
+		assertNotNull("Could´t open Activity", nActivity);
+		nActivity.finish();
+
+		assertTrue(true);
+	
 	}
 	
 	public void testChatButton() {
@@ -79,7 +111,7 @@ public class NearbyConversationTest extends
 		cActivity.finish();
 
 		resultView = (TextView) cActivity.findViewById(
-	    		com.example.shutapp.R.id.textView1); 
+	    		com.example.shutapp.R.id.write_msg); 
 		
 		assertNotNull("Can´t find the Text View", resultView);
 	    assertEquals("Wrong text",
@@ -87,30 +119,30 @@ public class NearbyConversationTest extends
 	
 	}
 	
-	public void testMapButton() {
+	public void testSettingsButton() {
 		
 		nActivity.runOnUiThread(
 				new Runnable() {
 					public void run() {
-						mButton.requestFocus();
-						mButton.performClick();
+						sButton.requestFocus();
+						sButton.performClick();
 					}
 				});
 
 		wait(4);
 		
-		MapActivity mActivity = (MapActivity) getInstrumentation().waitForMonitorWithTimeout(activityMapMonitor, 5);
+		SettingsActivity sActivity = (SettingsActivity) getInstrumentation().waitForMonitorWithTimeout(activitySettingsMonitor, 5);
 		
 		// next activity is opened and captured.
-		assertNotNull("Could´t open Activity", mActivity);
-		mActivity.finish();
+		assertNotNull("Could´t open Activity", sActivity);
+		sActivity.finish();
 
-		resultView = (TextView) mActivity.findViewById(
+		resultView = (TextView) sActivity.findViewById(
 	    		com.example.shutapp.R.id.textView1); 
 		
 		assertNotNull("Can´t find the Text View", resultView);
 	    assertEquals("Wrong text",
-	    		"Hi this is map activity!", resultView.getText());
+	    		"SettingsActivity", resultView.getText());
 	
 	}
 	

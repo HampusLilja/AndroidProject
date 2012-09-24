@@ -3,7 +3,6 @@ package com.example.shutapp;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -23,12 +22,18 @@ public class NearbyConversationsActivity extends Activity {
 	}
 
 	private void createArrayAdapter(String[] myStringArray) {
-    	ArrayAdapter adapter = new ArrayAdapter<String>(this, 
+    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
     	        android.R.layout.simple_list_item_1, myStringArray);
     	ListView listView = (ListView) findViewById(R.id.listOfNearbyConversations);
     	listView.setAdapter(adapter);
 		
 	}
+	
+    public void toNearbyConversationsActivity(View view){
+    	Intent intent = new Intent(this, NearbyConversationsActivity.class);
+    	startActivity(intent);
+    	overridePendingTransition(0, 0);
+    }
 
 	public void toChatActivity(View view){
     	Intent intentToRedirect = new Intent(this, ChatActivity.class);

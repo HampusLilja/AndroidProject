@@ -100,7 +100,13 @@ public class GpsActivity extends MapActivity {
     	Intent intentToRedirect = new Intent(this, NearbyConversationsActivity.class);
     	startActivity(intentToRedirect);
     	overridePendingTransition(0, 0);
-    } 
+    }
+    
+    public void toGpsActivity(View view){
+    	Intent intentToRedirect = new Intent(this, GpsActivity.class);
+    	startActivity(intentToRedirect);
+    	overridePendingTransition(0, 0);
+    }
     
     public void toSettingsActivity(View view){
     	Intent intent = new Intent(this, SettingsActivity.class);

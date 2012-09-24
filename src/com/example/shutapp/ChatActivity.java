@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 
 public class ChatActivity extends Activity {
-	private String chatmessage;
+	//private String chatmessage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,13 @@ public class ChatActivity extends Activity {
     	Intent intent = new Intent(this, NearbyConversationsActivity.class);
     	startActivity(intent);
     	overridePendingTransition(0, 0);
-    } 
+    }
+    
+	public void toChatActivity(View view){
+    	Intent intentToRedirect = new Intent(this, ChatActivity.class);
+    	startActivity(intentToRedirect);
+    	overridePendingTransition(0, 0);
+    }
     
     public void toSettingsActivity(View view){
     	Intent intent = new Intent(this, SettingsActivity.class);
