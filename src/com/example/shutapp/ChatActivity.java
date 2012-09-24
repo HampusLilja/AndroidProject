@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 
+
 public class ChatActivity extends Activity {
 	private String chatmessage;
 
@@ -15,8 +16,8 @@ public class ChatActivity extends Activity {
         setContentView(R.layout.activity_chat);
     }
     
-    public void toMapActivity(View view){
-    	Intent intent = new Intent(this, MapActivity.class);
+    public void toGpsActivity(View view){
+    	Intent intent = new Intent(this, GpsActivity.class);
     	startActivity(intent);
     	overridePendingTransition(0, 0);
     } 
