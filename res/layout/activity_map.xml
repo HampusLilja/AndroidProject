@@ -2,24 +2,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/text_at_map_activity"
-        tools:context=".NearbyConversationsActivity" />
-
-
+	
+    <com.google.android.maps.MapView
+                 xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:id="@+id/mapView"
+                 android:enabled="true"
+                 android:clickable="true"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_above="@id/map_button"
+                 android:layout_below="@id/banner"
+                 android:apiKey="0XRekQN89MSaaGQZnuXn0c7tjUrXUemgRyF-nYA"  />
+    <!-- APIKEY Might need to be changed later? -->    
+    
     <FrameLayout
+        android:id="@+id/iconFrame_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/nearby_conversations_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:background="@drawable/ic_right_middle_bar" >
+
+    </FrameLayout>
+    
+     <FrameLayout
+        android:id="@+id/banner"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/ic_banner" >
 
     </FrameLayout>
 
@@ -29,7 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/ic_action_settings" />
+        android:background="@drawable/ic_action_settings"
+        android:onClick="toSettingsActivity" />
 
     <Button
         android:id="@+id/nearby_conversations_button"
@@ -46,7 +61,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="20dp"
         android:layout_toLeftOf="@+id/settings_button"
-        android:onClick="toMapActivity" 
+        android:onClick="toGpsActivity" 
         android:background="@drawable/ic_location_map" />
 
     <Button
