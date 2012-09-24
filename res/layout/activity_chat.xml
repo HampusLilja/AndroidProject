@@ -1,10 +1,11 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
+    android:layout_height="match_parent"
+    tools:context="com.example.shutapp.ChatActivity" >
+
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/write_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -12,7 +13,7 @@
         android:text="@string/title_activity_chat"
         android:textColor="@color/test"
         tools:context=".NearbyConversationsActivity" />
-
+
     <FrameLayout
         android:id="@+id/iconFrame_2"
         android:layout_width="wrap_content"
@@ -21,7 +22,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:background="@drawable/ic_left_middle_bar" >
-
     </FrameLayout>
 
     <Button
@@ -61,7 +61,7 @@
         android:layout_toRightOf="@+id/nearby_conversations_button"
         android:background="@drawable/ic_social_chat"
         android:onClick="toChatActivity" />
-
+
     <FrameLayout
         android:id="@+id/banner"
         android:layout_width="wrap_content"
@@ -70,7 +70,28 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/ic_banner" >
-
     </FrameLayout>
+
+    <requestFocus />
+
+    <EditText
+        android:id="@+id/written_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/banner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:ems="10"
+        android:hint="@string/enter_message" />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/written_msg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="@string/send"
+        android:onClick="sendMessage" />
 
 </RelativeLayout>
