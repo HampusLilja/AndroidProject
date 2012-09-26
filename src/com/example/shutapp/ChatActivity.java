@@ -207,7 +207,7 @@ public class ChatActivity extends Activity {
     
     //method called when send button is clicked
     public void sendMessage(View view){
-    	
+    	//http communication part needs to be asynchronous
     	Runnable runnable = new Runnable() {
     	      public void run() {
     	    	  EditText editText = (EditText) findViewById(R.id.written_msg);
@@ -217,7 +217,7 @@ public class ChatActivity extends Activity {
     	          HttpPost httppost = new HttpPost("http://109.225.112.99:8084/GCM_Server/GCM");
 
     	          try {
-    	              // Add your data
+    	              // creates the http message
     	              List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
     	              nameValuePairs.add(new BasicNameValuePair("action", "chatRoomMsg"));
     	              nameValuePairs.add(new BasicNameValuePair("chatRoom", "chatroom1"));
@@ -241,13 +241,6 @@ public class ChatActivity extends Activity {
     	
     	
     }
-    
-    private String completeMessage(String string) {
-		StringBuffer sb;
-		//sb.append(b)
-		
-		return null;
-	}
 
 	public void toGpsActivity(View view){
     	Intent intent = new Intent(this, GpsActivity.class);
