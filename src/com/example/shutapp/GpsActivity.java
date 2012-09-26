@@ -28,6 +28,10 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	private double Latitude = 57.7012596130371;
 	private double Longitude = 11.9670495986938;
 	
+	private MapOverlay itemizedoverlay;
+	private List<Overlay> mapOverlays;
+	private Drawable drawable;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         
@@ -49,9 +53,9 @@ public class GpsActivity extends MapActivity implements LocationListener {
         double startLatitude = startLocation.getLatitude();
         updatePosition(startLatitude, startLongitude);
         
-        List<Overlay> mapOverlays = mapView.getOverlays();
-        Drawable drawable = this.getResources().getDrawable(R.drawable.maparrow);
-        MapOverlay itemizedoverlay = new MapOverlay(drawable, this);
+        mapOverlays = mapView.getOverlays();
+        drawable = this.getResources().getDrawable(R.drawable.maparrow);
+        itemizedoverlay = new MapOverlay(drawable, this);
         
         OverlayItem overlayitem = new OverlayItem(gP, null, null);
         itemizedoverlay.addOverlay(overlayitem);
@@ -71,6 +75,26 @@ public class GpsActivity extends MapActivity implements LocationListener {
         String lon = String.valueOf(longitude);
         Log.e("GPS", "location changed: lat="+lat+", lon="+lon);
         updatePosition(latitude, longitude);
+        
+        if(itemizedoverlay!=null)
+        {
+            mapOverlays.remove(itemizedoverlay);
+
+            itemizedoverlay = new MapOverlay(drawable, this);
+            OverlayItem currentOverlay = new OverlayItem(gP,"Current Location","Here is my current location!!!");
+            itemizedoverlay.addOverlay(currentOverlay);
+
+            mapOverlays.add(itemizedoverlay);
+        }
+        else
+        {
+               itemizedoverlay = new MapOverlay(drawable, this);
+
+               OverlayItem currentOverlay = new OverlayItem(gP,"Current Location","Here is my current location!!!");
+               itemizedoverlay.addOverlay(currentOverlay);
+               mapOverlays.add(itemizedoverlay);
+
+        }
     }
     
     public void onProviderDisabled(String arg0) {
