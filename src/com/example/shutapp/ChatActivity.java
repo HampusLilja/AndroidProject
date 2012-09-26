@@ -1,22 +1,255 @@
 package com.example.shutapp;
 
-import android.os.Bundle;
+import static com.example.shutapp.MiscResources.PROJECT_ID;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import com.google.android.gcm.GCMRegistrar;
 
 
 public class ChatActivity extends Activity {
 	//private String chatmessage;
-
+	
+	// This tag is used in Log.x() calls
+    private static final String TAG = "MainActivity";
+ 
+    // This string will hold the lengthy registration id that comes
+    // from GCMRegistrar.register()
+    private String regId = "";
+	
+	// These strings are hopefully self-explanatory
+    private String registrationStatus = "Not yet registered";
+    private String broadcastMessage = "No broadcast message";
+ 
+    // This intent filter will be set to filter on the string "GCM_RECEIVED_ACTION"
+    IntentFilter gcmFilter;
+ 
+    // textviews used to show the status of our app's registration, and the latest
+    // broadcast message.
+    TextView tvRegStatusResult;
+    TextView tvBroadcastMessage;
+ 
+    // This broadcastreceiver instance will receive messages broadcast
+    // with the action "GCM_RECEIVED_ACTION" via the gcmFilter
+     
+    // A BroadcastReceiver must override the onReceive() event.
+    private BroadcastReceiver gcmReceiver = new BroadcastReceiver() {
+ 
+        @Override
+        public void onReceive(Context context, Intent intent) {
+ 
+            broadcastMessage = intent.getExtras().getString("gcm");
+ 
+            if (broadcastMessage != null) {
+                // display our received message
+                tvBroadcastMessage.setText(broadcastMessage);
+            }
+        }
+    };
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        
+        tvBroadcastMessage = (TextView) findViewById(R.id.tv_message);
+        tvRegStatusResult = (TextView) findViewById(R.id.tv_reg_status_result);
+        
+        // Create our IntentFilter, which will be used in conjunction with a
+        // broadcast receiver.
+        gcmFilter = new IntentFilter();
+        gcmFilter.addAction("GCM_RECEIVED_ACTION");
+ 
+        registerClient();
     }
     
-    public void toGpsActivity(View view){
+    // This registerClient() method checks the current device, checks the
+    // manifest for the appropriate rights, and then retrieves a registration id
+    // from the GCM cloud.  If there is no registration id, GCMRegistrar will
+    // register this device for the specified project, which will return a
+    // registration id.
+    public void registerClient() {
+ 
+        try {
+            // Check that the device supports GCM (should be in a try / catch)
+            GCMRegistrar.checkDevice(this);
+ 
+            // Check the manifest to be sure this app has all the required
+            // permissions.
+            GCMRegistrar.checkManifest(this);
+ 
+            // Get the existing registration id, if it exists.
+            regId = GCMRegistrar.getRegistrationId(this);
+ 
+            if (regId.equals("")) {
+ 
+                registrationStatus = "Registering...";
+ 
+                tvRegStatusResult.setText(registrationStatus);
+ 
+                // register this device for this project
+                GCMRegistrar.register(this, PROJECT_ID);
+                regId = GCMRegistrar.getRegistrationId(this);
+ 
+                registrationStatus = "Registration Acquired";
+ 
+                // This is actually a dummy function.  At this point, one
+                // would send the registration id, and other identifying
+                // information to your server, which should save the id
+                // for use when broadcasting messages.
+                sendRegistrationToServer();
+ 
+            } else {
+ 
+                registrationStatus = "Already registered";
+ 
+            }
+             
+             
+        } catch (Exception e) {
+             
+            e.printStackTrace();
+            registrationStatus = e.getMessage();
+             
+        }
+ 
+        Log.d(TAG, registrationStatus);
+        tvRegStatusResult.setText(registrationStatus);
+         
+        // This is part of our CHEAT.  For this demo, you'll need to
+        // capture this registration id so it can be used in our demo web
+        // service.
+        Log.d(TAG, regId);
+ 
+    }
+    
+    private void sendRegistrationToServer() {
+        // This is an empty placeholder for an asynchronous task to post the
+        // registration
+        // id and any other identifying information to your server.
+    }
+ 
+    // If the user changes the orientation of his phone, the current activity
+    // is destroyed, and then re-created.  This means that our broadcast message
+    // will get wiped out during re-orientation.
+    // So, we save the broadcastmessage during an onSaveInstanceState()
+    // event, which is called prior to the destruction of the activity.
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+ 
+        super.onSaveInstanceState(savedInstanceState);
+ 
+        savedInstanceState.putString("BroadcastMessage", broadcastMessage);
+ 
+    }
+ 
+    // When an activity is re-created, the os generates an onRestoreInstanceState()
+    // event, passing it a bundle that contains any values that you may have put
+    // in during onSaveInstanceState()
+    // We can use this mechanism to re-display our last broadcast message.
+     
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+         
+        super.onRestoreInstanceState(savedInstanceState);
+ 
+        broadcastMessage = savedInstanceState.getString("BroadcastMessage");
+        tvBroadcastMessage.setText(broadcastMessage);
+ 
+    }
+ 
+    // If our activity is paused, it is important to UN-register any
+    // broadcast receivers.
+    @Override
+    protected void onPause() {
+         
+        unregisterReceiver(gcmReceiver);
+        super.onPause();
+    }
+     
+    // When an activity is resumed, be sure to register any
+    // broadcast receivers with the appropriate intent
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(gcmReceiver, gcmFilter);
+ 
+    }
+ // NOTE the call to GCMRegistrar.onDestroy()
+    @Override
+    public void onDestroy() {
+ 
+        GCMRegistrar.onDestroy(this);
+ 
+        super.onDestroy();
+    }
+    
+    //method called when send button is clicked
+    public void sendMessage(View view){
+    	
+    	Runnable runnable = new Runnable() {
+    	      public void run() {
+    	    	  EditText editText = (EditText) findViewById(R.id.written_msg);
+    	    	  Log.d("sendMessage", "kmr hit");
+    	      	// Create a new HttpClient and Post Header
+    	          HttpClient httpclient = new DefaultHttpClient();
+    	          HttpPost httppost = new HttpPost("http://109.225.112.99:8084/GCM_Server/GCM");
+
+    	          try {
+    	              // Add your data
+    	              List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+    	              nameValuePairs.add(new BasicNameValuePair("action", "chatRoomMsg"));
+    	              nameValuePairs.add(new BasicNameValuePair("chatRoom", "chatroom1"));
+    	              nameValuePairs.add(new BasicNameValuePair("submit", "Submit"));
+    	              nameValuePairs.add(new BasicNameValuePair("Message", editText.getText().toString()));
+    	              httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+    	              // Execute HTTP Post Request
+    	              HttpResponse response = httpclient.execute(httppost);
+    	              
+    	          } catch (ClientProtocolException e) {
+    	              // TODO Auto-generated catch block
+    	          } catch (IOException e) {
+    	              // TODO Auto-generated catch block
+    	          }
+    	      }
+    	        
+    	      
+    	    };
+    	new Thread(runnable).start();
+    	
+    	
+    }
+    
+    private String completeMessage(String string) {
+		StringBuffer sb;
+		//sb.append(b)
+		
+		return null;
+	}
+
+	public void toGpsActivity(View view){
     	Intent intent = new Intent(this, GpsActivity.class);
     	startActivity(intent);
     	overridePendingTransition(0, 0);

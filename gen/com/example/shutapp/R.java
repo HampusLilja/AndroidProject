@@ -38,39 +38,40 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_action_search=0x7f020000;
-        public static final int ic_action_settings=0x7f020001;
-        public static final int ic_banner=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
-        public static final int ic_left_middle_bar=0x7f020004;
-        public static final int ic_location_map=0x7f020005;
-        public static final int ic_most_left_bar=0x7f020006;
-        public static final int ic_most_right_bar=0x7f020007;
-        public static final int ic_right_middle_bar=0x7f020008;
-        public static final int ic_social_chat=0x7f020009;
-        public static final int ic_social_group=0x7f02000a;
-        public static final int maparrow=0x7f02000b;
+        public static final int ic_action_send=0x7f020001;
+        public static final int ic_action_settings=0x7f020002;
+        public static final int ic_banner=0x7f020003;
+        public static final int ic_launcher=0x7f020004;
+        public static final int ic_left_middle_bar=0x7f020005;
+        public static final int ic_location_map=0x7f020006;
+        public static final int ic_most_left_bar=0x7f020007;
+        public static final int ic_most_right_bar=0x7f020008;
+        public static final int ic_right_middle_bar=0x7f020009;
+        public static final int ic_social_chat=0x7f02000a;
+        public static final int ic_social_group=0x7f02000b;
+        public static final int maparrow=0x7f02000c;
     }
     public static final class id {
-        public static final int banner=0x7f090006;
-        public static final int button1=0x7f09000a;
-        public static final int chat_button=0x7f090005;
+        public static final int banner=0x7f090005;
+        public static final int button1=0x7f09000c;
+        public static final int chat_button=0x7f090004;
         public static final int iconFrame_1=0x7f09000f;
-        public static final int iconFrame_2=0x7f090001;
+        public static final int iconFrame_2=0x7f090000;
         public static final int iconFrame_3=0x7f09000e;
         public static final int iconFrame_4=0x7f090011;
         public static final int listOfNearbyConversations=0x7f090010;
         public static final int mapView=0x7f09000d;
-        public static final int map_button=0x7f090004;
+        public static final int map_button=0x7f090003;
         public static final int menu_settings=0x7f090013;
-        public static final int nearby_conversations_button=0x7f090002;
+        public static final int nearby_conversations_button=0x7f090001;
+        public static final int scrollView1=0x7f09000a;
+        public static final int send_button=0x7f090007;
         public static final int settingsList=0x7f090012;
-        public static final int settings_button=0x7f090003;
-        public static final int submit=0x7f090008;
-        public static final int textView1=0x7f090009;
-        public static final int tv_message=0x7f09000b;
-        public static final int tv_reg_status_result=0x7f09000c;
-        public static final int write_msg=0x7f090000;
-        public static final int written_msg=0x7f090007;
+        public static final int settings_button=0x7f090002;
+        public static final int textView1=0x7f09000b;
+        public static final int tv_message=0x7f090008;
+        public static final int tv_reg_status_result=0x7f090009;
+        public static final int written_msg=0x7f090006;
     }
     public static final class layout {
         public static final int activity_chat=0x7f030000;
@@ -88,6 +89,7 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f060000;
+        public static final int broadcast_message=0x7f06001a;
         /**   Strings regarding message to be sent 
          */
         public static final int enter_message=0x7f06000c;
@@ -103,6 +105,7 @@ public final class R {
         public static final int main_information_temp=0x7f060008;
         public static final int menu_settings=0x7f060002;
         public static final int redirect_from_main_button=0x7f060009;
+        public static final int registration_status=0x7f060019;
         public static final int send=0x7f06000d;
         public static final int server_register_error=0x7f060017;
         public static final int server_registered=0x7f060015;
