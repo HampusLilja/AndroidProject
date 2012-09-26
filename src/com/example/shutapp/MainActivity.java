@@ -1,6 +1,7 @@
 package com.example.shutapp;
 
 import static com.example.shutapp.MiscResources.*;
+import com.example.shutapp.Chatroom;
 
 
 import java.io.IOException;
@@ -39,14 +40,26 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //manageAccount(); // You have to comment this for the application to work in the AVD!
-        
+        testChatroom();
+
         
     }
     
    
     
    
-    //this method handles the authentication of the users gmail accounts
+    private void testChatroom() {
+		Chatroom cr = new Chatroom("chatrum1");
+		cr.saveMessage("Chatroom works", this);
+		cr.saveMessage("asdasdasdasds", this);
+		TextView textview = (TextView) findViewById(R.id.textView1);
+    	textview.setText(cr.getLastMessage(this));
+	}
+
+
+
+
+	//this method handles the authentication of the users gmail accounts
     public void manageAccount(){
     	AccountManager am = AccountManager.get(this);
     	Bundle options = new Bundle();

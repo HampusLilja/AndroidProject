@@ -1,33 +1,58 @@
 package com.example.shutapp;
 
-import android.os.Bundle;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class NearbyConversationsActivity extends Activity {
 
+	private List<Chatroom> nearbyCR;
+	private ArrayAdapter<String> adapter;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby_conversations);
+        initiateTestRooms();
         createArrayAdapter(initTestArray());
+       
+        
     }
     
-    private String[] initTestArray() {
-		String[] testArray = {"Chatrum1", "Chatrum2", "Chatrum3", "Chatrum4"};
+    private void initiateTestRooms() {
+		Chatroom cr1 = new Chatroom("Chatroom1");Chatroom cr2 = new Chatroom("Chatroom2");Chatroom cr3 = new Chatroom("Chatroom3");
+		Chatroom cr4 = new Chatroom("Chatroom4");Chatroom cr5 = new Chatroom("Chatroom5");
+		nearbyCR = new ArrayList<Chatroom>();
+		nearbyCR.add(cr1); nearbyCR.add(cr2); nearbyCR.add(cr3); nearbyCR.add(cr4); nearbyCR.add(cr5);
+		
+	}
+
+	private String[] initTestArray() {
+		String[] testArray = new String[nearbyCR.size()];
+		int i = 0;
+		for(Chatroom cr : nearbyCR){
+			testArray[i] = cr.getName();
+			i++;
+		}
 		return testArray;
 	}
 
 	private void createArrayAdapter(String[] myStringArray) {
-    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
-    	        android.R.layout.simple_list_item_1, myStringArray);
+    	adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myStringArray);
     	ListView listView = (ListView) findViewById(R.id.listOfNearbyConversations);
     	listView.setAdapter(adapter);
-		
+    	
 	}
+    
+    
 	
     public void toNearbyConversationsActivity(View view){
     	Intent intent = new Intent(this, NearbyConversationsActivity.class);
