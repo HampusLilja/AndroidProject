@@ -12,7 +12,7 @@
                  android:layout_height="wrap_content"
                  android:layout_above="@id/map_button"
                  android:layout_below="@id/banner"
-                 android:apiKey="AIzaSyAGbXeI9lkNaqDp_oFove5dmUNqEsD5FOA"  />
+                 android:apiKey="0P5FFhYuxZg_V2MzsdXEuW7GZ1OUIHUfOdqxK-Q" />
     <!-- APIKEY Might need to be changed later? -->    
     
     <FrameLayout
