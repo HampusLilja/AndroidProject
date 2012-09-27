@@ -53,22 +53,23 @@ public final class R {
     }
     public static final class id {
         public static final int banner=0x7f090005;
-        public static final int button1=0x7f09000c;
+        public static final int button1=0x7f09000d;
         public static final int chat_button=0x7f090004;
-        public static final int iconFrame_1=0x7f09000f;
+        public static final int iconFrame_1=0x7f090010;
         public static final int iconFrame_2=0x7f090000;
-        public static final int iconFrame_3=0x7f09000e;
-        public static final int iconFrame_4=0x7f090011;
-        public static final int listOfNearbyConversations=0x7f090010;
-        public static final int mapView=0x7f09000d;
+        public static final int iconFrame_3=0x7f09000f;
+        public static final int iconFrame_4=0x7f090012;
+        public static final int listOfNearbyConversations=0x7f090011;
+        public static final int mapView=0x7f09000e;
         public static final int map_button=0x7f090003;
-        public static final int menu_settings=0x7f090013;
+        public static final int menu_settings=0x7f090014;
         public static final int nearby_conversations_button=0x7f090001;
         public static final int scrollView1=0x7f09000a;
         public static final int send_button=0x7f090007;
-        public static final int settingsList=0x7f090012;
+        public static final int settingsList=0x7f090013;
         public static final int settings_button=0x7f090002;
-        public static final int textView1=0x7f09000b;
+        public static final int textView1=0x7f09000c;
+        public static final int tv_chatroom_label=0x7f09000b;
         public static final int tv_message=0x7f090008;
         public static final int tv_reg_status_result=0x7f090009;
         public static final int written_msg=0x7f090006;
@@ -82,22 +83,23 @@ public final class R {
     }
     public static final class menu {
         public static final int activity_chat=0x7f080000;
-        public static final int activity_main=0x7f080001;
-        public static final int activity_map=0x7f080002;
-        public static final int activity_nearby_conversations=0x7f080003;
-        public static final int activity_settings=0x7f080004;
+        public static final int activity_list_of_nearby_conversations=0x7f080001;
+        public static final int activity_main=0x7f080002;
+        public static final int activity_map=0x7f080003;
+        public static final int activity_nearby_conversations=0x7f080004;
+        public static final int activity_settings=0x7f080005;
     }
     public static final class string {
         public static final int app_name=0x7f060000;
         public static final int broadcast_message=0x7f06001a;
-        /**   Strings regarding message to be sent 
+        /**  Strings regarding message to be sent 
          */
         public static final int enter_message=0x7f06000c;
         public static final int gcm_deleted=0x7f060013;
         public static final int gcm_error=0x7f060011;
         public static final int gcm_message=0x7f060010;
         public static final int gcm_recoverable_error=0x7f060012;
-        /**   Temp strings for future GCM tests 
+        /**  Temp strings for future GCM tests 
          */
         public static final int gcm_registered=0x7f06000e;
         public static final int gcm_unregistered=0x7f06000f;
@@ -115,6 +117,7 @@ public final class R {
         public static final int text_at_map_activity=0x7f06000a;
         public static final int title_activity_chat=0x7f060004;
         public static final int title_activity_contacts=0x7f060005;
+        public static final int title_activity_list_of_nearby_conversations=0x7f06001b;
         public static final int title_activity_main=0x7f060003;
         public static final int title_activity_map=0x7f060006;
         public static final int title_activity_nearby_conversations=0x7f060007;

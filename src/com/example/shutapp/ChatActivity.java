@@ -50,7 +50,9 @@ public class ChatActivity extends Activity {
     // broadcast message.
     TextView tvRegStatusResult;
     TextView tvBroadcastMessage;
- 
+    TextView tvChatroomLabel;
+    
+    Chatroom chatroom;
     // This broadcastreceiver instance will receive messages broadcast
     // with the action "GCM_RECEIVED_ACTION" via the gcmFilter
      
@@ -72,6 +74,13 @@ public class ChatActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        
+        Intent intent = getIntent();
+        String chatroomName = intent.getStringExtra(NearbyConversationsActivity.EXTRA_MESSAGE);
+        
+        chatroom = Chatrooms.getByName(chatroomName);
+        tvChatroomLabel = (TextView) findViewById(R.id.tv_chatroom_label);
+        tvChatroomLabel.setText(chatroom.getName());
         
         tvBroadcastMessage = (TextView) findViewById(R.id.tv_message);
         tvRegStatusResult = (TextView) findViewById(R.id.tv_reg_status_result);

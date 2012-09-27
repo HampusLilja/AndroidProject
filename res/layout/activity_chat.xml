@@ -121,5 +121,15 @@
             android:layout_height="wrap_content" >
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_chatroom_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/map_button"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_message"
+        android:layout_marginTop="14dp"
+        android:text="TextView" />
 
 </RelativeLayout>
