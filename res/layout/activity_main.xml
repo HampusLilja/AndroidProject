@@ -24,4 +24,24 @@
         android:text="@string/redirect_from_main_button" 
 		android:onClick="redirectFromMain"    	
 		/>
+
+    <TextView
+        android:id="@+id/tv_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tv_reg_status_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_message"
+        android:layout_marginTop="88dp"
+        android:text="TextView" />
+
 </RelativeLayout>
