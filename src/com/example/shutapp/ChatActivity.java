@@ -23,14 +23,17 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gcm.GCMRegistrar;
 
+//Got a lot of help and inspiration from http://avilyne.com/?p=267
 
 public class ChatActivity extends Activity {
-	//private String chatmessage;
 	
 	// This tag is used in Log.x() calls
     private static final String TAG = "MainActivity";
@@ -44,13 +47,19 @@ public class ChatActivity extends Activity {
     private String broadcastMessage = "No broadcast message";
  
     // This intent filter will be set to filter on the string "GCM_RECEIVED_ACTION"
-    IntentFilter gcmFilter;
+    private IntentFilter gcmFilter;
  
     // textviews used to show the status of our app's registration, and the latest
     // broadcast message.
-    TextView tvRegStatusResult;
-    TextView tvBroadcastMessage;
-    TextView tvChatroomLabel;
+    private TextView tvRegStatusResult;
+    private TextView tvBroadcastMessage;
+    private TextView tvChatroomLabel;
+    
+    private EditText chatLogHistory;
+    ScrollView svChatLog;
+    LinearLayout llChatLog;
+    
+    
     
     Chatroom chatroom;
     // This broadcastreceiver instance will receive messages broadcast
@@ -66,9 +75,11 @@ public class ChatActivity extends Activity {
  
             if (broadcastMessage != null) {
                 // display our received message
-                tvBroadcastMessage.setText(broadcastMessage);
+                translateMessage(broadcastMessage);
             }
         }
+
+		
     };
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +95,14 @@ public class ChatActivity extends Activity {
         
         tvBroadcastMessage = (TextView) findViewById(R.id.tv_message);
         tvRegStatusResult = (TextView) findViewById(R.id.tv_reg_status_result);
+        
+        
+        svChatLog = (ScrollView) findViewById(R.id.sv_chat_log);
+        llChatLog = (LinearLayout) findViewById(R.id.ll_chat_log);
+        chatLogHistory = new EditText(this);
+        llChatLog.addView(chatLogHistory);
+        
+        
         
         // Create our IntentFilter, which will be used in conjunction with a
         // broadcast receiver.
@@ -216,6 +235,8 @@ public class ChatActivity extends Activity {
     
     //method called when send button is clicked
     public void sendMessage(View view){
+    	EditText editText = (EditText) findViewById(R.id.written_msg);
+    	translateMessage(editText.getText().toString());
     	//http communication part needs to be asynchronous
     	Runnable runnable = new Runnable() {
     	      public void run() {
@@ -229,8 +250,8 @@ public class ChatActivity extends Activity {
     	              // creates the http message
     	              List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
     	              nameValuePairs.add(new BasicNameValuePair("action", "chatRoomMsg"));
-    	              nameValuePairs.add(new BasicNameValuePair("chatRoom", "chatroom1"));
-    	              nameValuePairs.add(new BasicNameValuePair("submit", "Submit"));
+    	              nameValuePairs.add(new BasicNameValuePair("chatRoom", chatroom.getName()));
+    	              nameValuePairs.add(new BasicNameValuePair("user", Settings.getNickname()));
     	              nameValuePairs.add(new BasicNameValuePair("Message", editText.getText().toString()));
     	              httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
@@ -246,10 +267,39 @@ public class ChatActivity extends Activity {
     	        
     	      
     	    };
-    	new Thread(runnable).start();
+    	new Thread(runnable).start(); 
     	
     	
     }
+    
+    private void appendToChatLogHistory(String username, String message) {
+		if (username != null && message != null) {
+			chatLogHistory.append(username + ": ");								
+			chatLogHistory.append(message + "\n");	
+		}
+	}
+    
+    private void translateMessage(String msg) {
+    	String[] temp;
+    	temp = msg.split(":");
+    	String username = temp[0];
+    	String message;
+    	if(temp.length > 2){
+    		StringBuffer sb = new StringBuffer();
+    		for(int i = 1; i < temp.length; i++){
+    			sb.append(temp[i]);
+    			sb.append(":");
+    		}
+    		sb.deleteCharAt(sb.length()-1);
+    		message = sb.toString();
+    	}
+    	else{
+    		message = temp[1];
+    	}
+    	
+    	appendToChatLogHistory(username, message);
+		
+	}
 
 	public void toGpsActivity(View view){
     	Intent intent = new Intent(this, GpsActivity.class);

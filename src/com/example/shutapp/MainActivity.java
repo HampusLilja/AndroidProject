@@ -26,7 +26,7 @@ import android.widget.TextView;
 
 import com.google.android.gcm.GCMRegistrar;
 
-//Got a lot of help and inspiration from http://avilyne.com/?p=267
+
 
 public class MainActivity extends Activity {
 	

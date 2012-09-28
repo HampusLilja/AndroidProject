@@ -21,15 +21,21 @@ import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 
+//An object of this class represents a chatroom
 public class Chatroom {
 	
-	private List<User> members;
-	private Location gps_location;
 	private final String CHATROOM_NAME;
+	private List<User> members;
+	
+	//The representation of this objects gps location
+	private Location gps_location;
+	
 	
 	public Chatroom(String name){
 		members = new ArrayList<User>();
 		CHATROOM_NAME = name;
+		
+		//When a chatroom is initialized, it's added to Chatrooms
 		Chatrooms.add(CHATROOM_NAME, this);
 	}
 	
@@ -53,6 +59,8 @@ public class Chatroom {
 		return gps_location;
 	}
 	
+	//saves a message (written in this chatroom) to this
+	//chatroom's private txt file
 	public void saveMessage(String msg, Context ctx){
 		FileOutputStream fos;
 		try {
@@ -66,6 +74,7 @@ public class Chatroom {
 	    }
 	}
 	
+	//returns the last message written in this chatroom
 	public String getLastMessage(Context ctx){
 		String theConv = "Error Occurred";
 		try {
@@ -73,13 +82,12 @@ public class Chatroom {
 			BufferedReader bfr = new BufferedReader(new InputStreamReader(is));
 			theConv = bfr.readLine();
 		} catch (FileNotFoundException e) {
-			Log.d("Chatroom" , "notfound");
+			Log.d("Chatroom" , "FileNotFoundException");
 			e.printStackTrace();
 		} catch (IOException e){
-			Log.d("Chatroom" , "io");
+			Log.d("Chatroom" , "IOException");
 			e.printStackTrace();
 		}
-		Log.d("Chatroom" , theConv);
 		return theConv;
 
 	}

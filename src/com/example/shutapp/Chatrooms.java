@@ -1,8 +1,11 @@
 package com.example.shutapp;
 
 import java.util.HashMap;
+
 import java.util.Map;
 
+//We use this class to store the chatrooms, and make them
+//reachable throughout our project
 public abstract class Chatrooms {
 
 	private static Map<String, Chatroom> crMap;

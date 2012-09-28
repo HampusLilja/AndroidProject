@@ -31,5 +31,6 @@
     <string name="registration_status">Registration status</string>
     <string name="broadcast_message">Broadcast Message</string>
     <string name="title_activity_list_of_nearby_conversations">ListOfNearbyConversationsActivity</string>
+    <string name="no_chatroom">Currently not in a Chatroom</string>
 
 </resources>
