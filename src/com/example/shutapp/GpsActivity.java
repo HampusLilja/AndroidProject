@@ -23,10 +23,8 @@ import android.location.LocationManager;
 public class GpsActivity extends MapActivity implements LocationListener {
 	private final int zoomLevel = 17; // 1 to 21
 	private GeoPoint gP;
-
 	private MapController mControl;
 	private MyLocationOverlay compass;
-
 	private MapOverlay itemizedoverlay;
 	private List<Overlay> mapOverlays;
 	private Drawable drawable;
