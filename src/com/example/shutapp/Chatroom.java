@@ -6,19 +6,14 @@ import android.location.Location;
 
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
-import android.location.Location;
 import android.util.Log;
 
 //An object of this class represents a chatroom

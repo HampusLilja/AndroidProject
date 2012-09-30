@@ -1,6 +1,5 @@
 package com.example.shutapp;
 
-import static com.example.shutapp.MiscResources.*;
 import com.example.shutapp.Chatroom;
 
 
@@ -13,19 +12,13 @@ import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.google.android.gcm.GCMRegistrar;
 
 
 

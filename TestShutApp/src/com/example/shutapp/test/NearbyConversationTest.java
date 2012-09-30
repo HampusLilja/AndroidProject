@@ -111,7 +111,7 @@ public class NearbyConversationTest extends
 		cActivity.finish();
 
 		resultView = (TextView) cActivity.findViewById(
-	    		com.example.shutapp.R.id.write_msg); 
+	    		com.example.shutapp.R.id.written_msg); 
 		
 		assertNotNull("Can´t find the Text View", resultView);
 	    assertEquals("Wrong text",
