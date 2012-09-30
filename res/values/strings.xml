@@ -15,8 +15,10 @@
     <!-- Strings regarding message to be sent -->
     <string name="enter_message">Enter message</string>
     <string name="send">Send</string>
+    <string name="nickname_input">Enter nickname</string>
 
-    <!-- Temp strings for future GCM tests -->
+    <!-- Temp strings for future GCM/server tests -->
+    <string name="nickname_registered">Nickname registered to server!</string>
     <string name="gcm_registered">From GCM: device successfully registered!</string>
     <string name="gcm_unregistered">From GCM: device successfully unregistered!</string>
     <string name="gcm_message">From GCM: you got message!</string>

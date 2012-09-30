@@ -37,6 +37,7 @@ public class ChatActivity extends Activity {
 	
 	// This tag is used in Log.x() calls
     private static final String TAG = "MainActivity";
+
  
     // This string will hold the lengthy registration id that comes
     // from GCMRegistrar.register()
@@ -147,10 +148,12 @@ public class ChatActivity extends Activity {
                 // information to your server, which should save the id
                 // for use when broadcasting messages.
                 sendRegistrationToServer();
+
+                Log.d(TAG, "sendregtoserver has been initialized");
+                registrationStatus = "Registration of regid done";
  
             } else {
- 
-                registrationStatus = "Already registered";
+            	  registrationStatus = "Already registered";
  
             }
              
@@ -173,10 +176,37 @@ public class ChatActivity extends Activity {
     }
     
     private void sendRegistrationToServer() {
-        // This is an empty placeholder for an asynchronous task to post the
-        // registration
-        // id and any other identifying information to your server.
-    }
+    	Runnable runnable = new Runnable() {
+  	      public void run() {
+  	    	  // Create a new HttpClient and Post Header
+  	          HttpClient httpclient = new DefaultHttpClient();
+  	          HttpPost httppost = new HttpPost("http://109.225.112.99:8084/GCM_Server/GCM");
+
+  	          try {
+  	              // creates the http message
+  	              List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+  	              nameValuePairs.add(new BasicNameValuePair("action", "addtodb"));
+  	              nameValuePairs.add(new BasicNameValuePair("DBNICK", Settings.getNickname()));
+  	              nameValuePairs.add(new BasicNameValuePair("DBREGID", regId));
+  	              nameValuePairs.add(new BasicNameValuePair("submit", "Submit"));
+  	              httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+  	              // Execute HTTP Post Request
+  	              HttpResponse response = httpclient.execute(httppost);
+  	              
+  	          } catch (ClientProtocolException e) {
+  	              // TODO Auto-generated catch block
+  	          } catch (IOException e) {
+  	              // TODO Auto-generated catch block
+  	          }
+  	      }
+  	        
+  	      
+  	    };
+  	new Thread(runnable).start(); 
+  	
+  	
+  }
  
     // If the user changes the orientation of his phone, the current activity
     // is destroyed, and then re-created.  This means that our broadcast message

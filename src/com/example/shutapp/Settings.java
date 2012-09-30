@@ -1,7 +1,7 @@
 package com.example.shutapp;
 
 public abstract class Settings {
-	private static String nickname;
+	private static String nickname="";
 	
 	
 	public static void setNickname(String name){

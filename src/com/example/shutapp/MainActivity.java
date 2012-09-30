@@ -22,6 +22,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gcm.GCMRegistrar;
@@ -39,15 +40,18 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if( Settings.getNickname().equals("") ){
+        	setContentView(R.layout.activity_main);  	
+        } else {
         //manageAccount(); // You have to comment this for the application to work in the AVD!
         testChatroom();
-
+    	Intent i = new Intent(MainActivity.this, NearbyConversationsActivity.class);
+    	startActivity(i);
+    	overridePendingTransition(0, 0);      
+        }
         
     }
-    
-   
-    
-   
+
     private void testChatroom() {
 		Chatroom cr = new Chatroom("chatrum1");
 		cr.saveMessage("Chatroom works", this);
@@ -88,6 +92,8 @@ public class MainActivity extends Activity {
     
     //called when the redirectbutton is pressed, redirected to another activity
     public void redirectFromMain(View view){
+    	EditText nickname_input = (EditText)findViewById(R.id.nickname_input);
+    	Settings.setNickname(nickname_input.getText().toString());
     	Intent intentToRedirect = new Intent(this, NearbyConversationsActivity.class);
     	startActivity(intentToRedirect);
     	overridePendingTransition(0, 0);
