@@ -7,6 +7,7 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
 
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.ACCESS_COARS_LOCATION"/>
@@ -17,20 +18,34 @@
 	
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"></uses-permission>
+=======
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" >
+    </uses-permission>
+>>>>>>> gcmsetup
     <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
     <!-- Requesting permissions needed for GCM/Accounts/Multitasking -->
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" >
+    </uses-permission>
     <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
-    <permission android:name="com.example.shutapp.permission.C2D_MESSAGE" android:protectionLevel="signature" />
-	<uses-permission android:name="com.example.shutapp.permission.C2D_MESSAGE" /> 
-	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-	<uses-permission android:name="android.permission.INTERNET" /> 
-	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
-	<!-- Keeps the processor from sleeping when a message is received. -->
-	<uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <permission
+        android:name="com.example.shutapp.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.example.shutapp.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -38,17 +53,17 @@
         android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" 
+            android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />            
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ChatActivity"
-            android:label="@string/title_activity_chat"  
+            android:label="@string/title_activity_chat"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -57,28 +72,38 @@
         </activity>
         <activity
             android:name=".NearbyConversationsActivity"
-            android:label="@string/title_activity_nearby_conversations" 
+            android:label="@string/title_activity_nearby_conversations"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" 
+            android:label="@string/title_activity_settings"
             android:screenOrientation="portrait" >
         </activity>
 
         <uses-library android:name="com.google.android.maps" />
 
         <!-- This enables the app to recieve msges -->
-        <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND" >
-  		<intent-filter>
-    	<action android:name="com.google.android.c2dm.intent.RECEIVE" />
-    	<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-    <category android:name="com.example.shutapp" />
-  </intent-filter>
-</receiver>
-		<!-- Following intent recieved by BroadcastReciever -->
-		<service android:name=".GCMIntentService" />
+        <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
+                <category android:name="com.example.shutapp" />
+            </intent-filter>
+        </receiver>
+        <!-- Following intent recieved by BroadcastReciever -->
+        <service android:name=".GCMIntentService" />
+
+        <activity
+            android:name=".ListOfNearbyConversationsActivity"
+            android:label="@string/title_activity_list_of_nearby_conversations" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.app.ListActivity" />
+        </activity>
     </application>
 
 </manifest>

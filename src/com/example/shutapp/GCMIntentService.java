@@ -15,7 +15,7 @@ import com.google.android.gcm.*;
 	     
 	    private static final String TAG = "GCMIntentService";
 	    
-	    
+	
 	    public GCMIntentService()
 	    {
 	        super(SENDER_ID);
