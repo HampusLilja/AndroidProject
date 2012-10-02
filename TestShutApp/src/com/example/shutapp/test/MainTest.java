@@ -42,8 +42,6 @@ public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	public void testPreConditions() {
 		assertNotNull("Can´t find the Button", mButton);
 		assertNotNull("Can´t find the Text View", resultView);
-	    assertEquals("Wrong text",
-	    		"This is the main activity, please press the button to redirect", resultView.getText());
 	}
 	
 	public void testRedirectButton() {

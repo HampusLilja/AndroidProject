@@ -11,7 +11,11 @@ import com.google.android.gcm.*;
 
 	public class GCMIntentService extends GCMBaseIntentService {
 
-    
+		
+	     
+	    private static final String TAG = "GCMIntentService";
+	    
+	
 	    public GCMIntentService()
 	    {
 	        super(SENDER_ID);

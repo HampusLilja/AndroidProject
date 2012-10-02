@@ -7,21 +7,34 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="44dp"
         android:padding="@dimen/padding_medium"
         android:text="@string/main_information_temp"
         tools:context=".MainActivity" />
-
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="@string/redirect_from_main_button" 
-		android:onClick="redirectFromMain"    	
-		/>
+        android:layout_centerVertical="true"
+        android:onClick="redirectFromMain"
+        android:text="@string/send" />
+
+    <EditText
+        android:id="@+id/nickname_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="38dp"
+        android:ems="10"
+        android:hint="@string/nickname_input"
+    	android:inputType="text" >
+
+        <requestFocus />
+    </EditText>
+
 </RelativeLayout>
