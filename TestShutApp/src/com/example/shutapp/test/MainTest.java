@@ -16,6 +16,7 @@ public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	private TextView resultView;
 	private ActivityMonitor activityMonitor;
 	  
+	@SuppressWarnings("deprecation")
 	public MainTest() {
 		super("com.example.shutapp.MainActivity", MainActivity.class);
 	}

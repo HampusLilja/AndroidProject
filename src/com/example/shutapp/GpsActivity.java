@@ -16,6 +16,7 @@ import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -29,7 +30,8 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	private List<Overlay> mapOverlays;
 	private Drawable drawable;
 	private LocationManager lm;
-
+	private double lat, lon;
+	private Criteria crit;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -39,61 +41,55 @@ public class GpsActivity extends MapActivity implements LocationListener {
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		MapView mapView = (MapView) findViewById(R.id.mapView);
-
 		mapView.setBuiltInZoomControls(true);   //true = being able to zoom with buttons
 		mapView.getController().setZoom(zoomLevel); //sets zoomlevel from the startup
 
 		mControl = mapView.getController();
-		
-		Location startLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);		
-		
-		double lat = 57.7012596130371;
-		double lon = 11.9670495986938;
-		if( startLocation != null ) {
-			lat = startLocation.getLatitude();
-			lon = startLocation.getLongitude();
-		}
-
-		updatePosition(lat, lon);
-
 		mapOverlays = mapView.getOverlays();
 		compass = new MyLocationOverlay(GpsActivity.this, mapView);
-		drawable = this.getResources().getDrawable(R.drawable.maparrow);
-		itemizedoverlay = new MapOverlay(drawable, this);
-
-		OverlayItem overlayitem = new OverlayItem(gP, null, null);
-		itemizedoverlay.addOverlay(overlayitem);
-		mapOverlays.add(itemizedoverlay);
 		mapOverlays.add(compass);
-
+		drawable = this.getResources().getDrawable(R.drawable.maparrow);
+		
+		crit = new Criteria();
+        String bestProvider = lm.getBestProvider(crit, false);       
+        Location startLocation = lm.getLastKnownLocation(bestProvider);
+        
+		if (startLocation != null){
+			lat = startLocation.getLatitude();
+			lon = startLocation.getLongitude();
+			updatePosition(lat, lon);
+			newOverlay();
+		}	else{
+			Log.e("GPS","Unable to get startlocation");
+		}
 	}
 
 	private void updatePosition(double latitude, double longitude) {
 		gP = new GeoPoint((int)(latitude*1E6), (int)(longitude*1E6)); //converting to micro-degrees with 1E6
 		mControl.animateTo(gP);
 	}
-
-	public void onLocationChanged(Location arg0) {
-		double latitude = arg0.getLatitude();
-		double longitude = arg0.getLongitude();
-		Log.e("GPS", "location changed: lat="+String.valueOf(latitude)+", lon="+String.valueOf(longitude));
-		updatePosition(latitude, longitude);
+	
+	public GeoPoint getLocation(){
+		return gP;
+	}
+	
+	public void newOverlay(){
+		itemizedoverlay = new MapOverlay(drawable, this);
+		OverlayItem currentOverlay = new OverlayItem(gP,"Current Location","Here is my current location!!!");
+		itemizedoverlay.addOverlay(currentOverlay);
+		mapOverlays.add(itemizedoverlay);
+	} 
+	
+	public void onLocationChanged(Location location) {
+		lat = location.getLatitude();
+		lon = location.getLongitude();
+		Log.e("GPS", "location changed: lat="+String.valueOf(lat)+", lon="+String.valueOf(lon));
+		updatePosition(lat, lon);
 
 		if(itemizedoverlay!=null) {
 			mapOverlays.remove(itemizedoverlay);
-
-			itemizedoverlay = new MapOverlay(drawable, this);
-			OverlayItem currentOverlay = new OverlayItem(gP,"Current Location","Here is my current location!!!");
-			itemizedoverlay.addOverlay(currentOverlay);
-
-			mapOverlays.add(itemizedoverlay);
-		} else {
-			itemizedoverlay = new MapOverlay(drawable, this);
-
-			OverlayItem currentOverlay = new OverlayItem(gP,"Current Location","Here is my current location!!!");
-			itemizedoverlay.addOverlay(currentOverlay);
-			mapOverlays.add(itemizedoverlay);
-		}
+		} 
+		newOverlay();		
 	}
 
 	@Override
@@ -107,7 +103,7 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	protected void onResume() {
 		super.onResume();
 		compass.enableCompass();
-		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, this);        
+		lm.requestLocationUpdates(lm.getBestProvider(crit, false), 20*1000, 20, this);        
 	}
 
 	public void onProviderDisabled(String arg0) {

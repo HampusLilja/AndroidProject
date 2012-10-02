@@ -6,35 +6,18 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
-
-<<<<<<< HEAD
+    
+    
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.ACCESS_COARS_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
     <uses-permission android:name="android.permission.CONTROL_LOCATION_UPDATES"/>
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
-    
-	
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"></uses-permission>
-=======
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.INTERNET" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" >
-    </uses-permission>
->>>>>>> gcmsetup
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+ 
     <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-
-    <!-- Requesting permissions needed for GCM/Accounts/Multitasking -->
-    <uses-permission android:name="android.permission.INTERNET" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
 
     <permission
         android:name="com.example.shutapp.permission.C2D_MESSAGE"
@@ -42,8 +25,6 @@
 
     <uses-permission android:name="com.example.shutapp.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <!-- Keeps the processor from sleeping when a message is received. -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
