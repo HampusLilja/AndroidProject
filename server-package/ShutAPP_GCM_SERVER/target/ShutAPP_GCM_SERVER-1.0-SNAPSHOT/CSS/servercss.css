@@ -1,0 +1,64 @@
+/* 
+    Document   : css1
+    Created on : 2012-sep-04, 09:41:45
+    Author     : Tomas
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+nav {
+    position:static;
+    float: left;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-style: normal;
+    padding: 2px;
+    border-style: solid;
+    border-color:#333333; 
+    border-width: 1px;
+    width: 15%;
+    height: 40%;
+    background-color: #cccccc;
+}
+
+section {
+    width: auto;
+    float:right;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-style: normal;
+    color: #000000;
+    text-align: left;
+    border-style: solid;
+    border-color:#333333; 
+    border-width: 1px;
+    padding: 2px;
+    background-color: #cccccc;
+}
+
+hgroup.h1 {
+    position: static;
+    float: center;
+    left:50%;
+    width:100%;
+    font-family: 'Courier New',Courier,monospace;
+    font-size: 14px;
+    color: #0000ff;
+}
+
+aside {
+    position:absolute;
+    left:25%;
+    top:50%;
+    float:bottom;
+}
+
+
+footer {
+    position:absolute;
+    top: 75%;
+    float:bottom;
+}
+
