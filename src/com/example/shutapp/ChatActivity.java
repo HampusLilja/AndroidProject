@@ -179,7 +179,7 @@ public class ChatActivity extends Activity {
   	      public void run() {
   	    	  // Create a new HttpClient and Post Header
   	          HttpClient httpclient = new DefaultHttpClient();
-  	          HttpPost httppost = new HttpPost("http://109.225.112.99:8084/GCM_Server/GCM");
+  	          HttpPost httppost = new HttpPost(MiscResources.SERVER_URL);
 
   	          try {
   	              // creates the http message

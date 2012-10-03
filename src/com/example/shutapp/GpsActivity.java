@@ -29,6 +29,7 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	private List<Overlay> mapOverlays;
 	private Drawable drawable;
 	private LocationManager lm;
+	private RadiusOverlay radiusOverlay;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,24 +54,28 @@ public class GpsActivity extends MapActivity implements LocationListener {
 			lat = startLocation.getLatitude();
 			lon = startLocation.getLongitude();
 		}
+		float radius = 1000;
 
 		updatePosition(lat, lon);
 
 		mapOverlays = mapView.getOverlays();
 		compass = new MyLocationOverlay(GpsActivity.this, mapView);
 		drawable = this.getResources().getDrawable(R.drawable.maparrow);
+		radiusOverlay = new RadiusOverlay(this, 57.7012596130371, 11.9670495986938, radius);
 		itemizedoverlay = new MapOverlay(drawable, this);
 
 		OverlayItem overlayitem = new OverlayItem(gP, null, null);
 		itemizedoverlay.addOverlay(overlayitem);
 		mapOverlays.add(itemizedoverlay);
 		mapOverlays.add(compass);
+		mapOverlays.add(radiusOverlay);
 
 	}
 
 	private void updatePosition(double latitude, double longitude) {
 		gP = new GeoPoint((int)(latitude*1E6), (int)(longitude*1E6)); //converting to micro-degrees with 1E6
 		mControl.animateTo(gP);
+		
 	}
 
 	public void onLocationChanged(Location arg0) {
