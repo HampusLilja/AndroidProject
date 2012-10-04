@@ -1,5 +1,8 @@
 package com.example.shutapp;
 
+
+import static com.example.shutapp.MiscResources.*;
+
 import com.example.shutapp.Chatroom;
 
 
@@ -22,6 +25,8 @@ import android.widget.TextView;
 
 
 
+
+
 public class MainActivity extends Activity {
 	
 	private String token;
@@ -33,16 +38,19 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Settings.setNickname("Prassel");
+/*
         if( Settings.getNickname().equals("") ){
         	setContentView(R.layout.activity_main);  	
         } else {
         //manageAccount(); // You have to comment this for the application to work in the AVD!
-        testChatroom();
+       testChatroom();
     	Intent i = new Intent(MainActivity.this, NearbyConversationsActivity.class);
     	startActivity(i);
     	overridePendingTransition(0, 0);      
         }
-        
+        */
     }
 
     private void testChatroom() {

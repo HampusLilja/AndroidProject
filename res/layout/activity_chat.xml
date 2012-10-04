@@ -13,8 +13,7 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/ic_left_middle_bar" >
     </FrameLayout>
-    
-    
+
     <EditText
         android:id="@+id/written_msg"
         android:layout_width="wrap_content"
@@ -24,9 +23,7 @@
         android:layout_toLeftOf="@+id/send_button"
         android:ems="10"
         android:hint="@string/enter_message"
-        android:inputType="textNoSuggestions"
-         />
-    
+        android:inputType="textNoSuggestions" />
 
     <Button
         android:id="@+id/settings_button"
@@ -77,27 +74,7 @@
     </FrameLayout>
 
     <requestFocus />
-
-    <TextView
-        android:id="@+id/tv_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/banner"
-        android:text="@string/broadcast_message" />
-
-    <TextView
-        android:id="@+id/tv_reg_status_result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/tv_message"
-        android:layout_marginTop="50dp"
-        android:text="@string/registration_status"
-        android:textColor="@color/highlighted_text_holo_light" />
-
+
     <Button
         android:id="@+id/send_button"
         style="?android:attr/buttonStyleSmall"
@@ -106,36 +83,23 @@
         android:layout_alignBottom="@+id/iconFrame_2"
         android:layout_alignLeft="@+id/settings_button"
         android:layout_alignParentRight="true"
-        android:background="@drawable/ic_action_send" 
+        android:background="@drawable/ic_action_send"
         android:onClick="sendMessage" />
-
+
     <ScrollView
         android:id="@+id/sv_chat_log"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/send_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/tv_reg_status_result" >
-
-        <LinearLayout
-            android:id="@+id/ll_chat_log"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-        </LinearLayout>
-
-    </ScrollView>
-
-    <TextView
-        android:id="@+id/tv_chatroom_label"
-        android:layout_width="wrap_content"
+        android:layout_below="@+id/banner" 
+        android:fillViewport="true" >
+        <TextView
+        android:id="@+id/tvChatLog"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/map_button"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/tv_message"
-        android:layout_marginTop="14dp"
-        android:text="@string/no_chatroom" />
+        android:layout_gravity="bottom" />
+    </ScrollView>
 
 </RelativeLayout>
