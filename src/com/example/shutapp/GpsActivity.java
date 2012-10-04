@@ -30,13 +30,13 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	private List<Overlay> mapOverlays;
 	private Drawable drawable;
 	private LocationManager lm;
-<<<<<<< HEAD
+
 	private RadiusOverlay radiusOverlay;
 
-=======
+
 	private double lat, lon;
 	private Criteria crit;
->>>>>>> 3519cf095495d93820a94b3c00b7a8d91fa36651
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -67,7 +67,7 @@ public class GpsActivity extends MapActivity implements LocationListener {
 		}	else{
 			Log.e("GPS","Unable to get startlocation");
 		}
-<<<<<<< HEAD
+
 		float radius = 1000;
 
 		updatePosition(lat, lon);
@@ -84,8 +84,7 @@ public class GpsActivity extends MapActivity implements LocationListener {
 		mapOverlays.add(compass);
 		mapOverlays.add(radiusOverlay);
 
-=======
->>>>>>> 3519cf095495d93820a94b3c00b7a8d91fa36651
+
 	}
 
 	private void updatePosition(double latitude, double longitude) {

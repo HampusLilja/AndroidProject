@@ -1,9 +1,8 @@
 package com.example.shutapp;
 
-<<<<<<< HEAD
+
 import static com.example.shutapp.MiscResources.*;
-=======
->>>>>>> master
+
 import com.example.shutapp.Chatroom;
 
 
@@ -39,20 +38,19 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-<<<<<<< HEAD
-=======
-        Settings.setNickname("Prassel");
->>>>>>> master
+
+        //Settings.setNickname("Prassel");
+/*
         if( Settings.getNickname().equals("") ){
         	setContentView(R.layout.activity_main);  	
         } else {
         //manageAccount(); // You have to comment this for the application to work in the AVD!
-        testChatroom();
+       testChatroom();
     	Intent i = new Intent(MainActivity.this, NearbyConversationsActivity.class);
     	startActivity(i);
     	overridePendingTransition(0, 0);      
         }
-        
+        */
     }
 
     private void testChatroom() {
