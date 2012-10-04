@@ -70,7 +70,7 @@ public class ChatActivity extends Activity {
 		private TextView tvChatroomLabel;
 
 		private EditText etMessageInput;
-		private EditText etChatLogHistory;
+		private TextView tvChatLogHistory;
 		ScrollView svChatLog;
 		LinearLayout llChatLog;
 
@@ -117,11 +117,13 @@ public class ChatActivity extends Activity {
 
 			svChatLog = (ScrollView) findViewById(R.id.sv_chat_log);
 			llChatLog = (LinearLayout) findViewById(R.id.ll_chat_log);
-			etChatLogHistory = new EditText(this);
+			tvChatLogHistory = new TextView(this);
 			
-			etChatLogHistory.setClickable(false);
-			etChatLogHistory.setKeyListener(null);
-			llChatLog.addView(etChatLogHistory);
+			
+			
+			//tvChatLogHistory.setClickable(false);
+			//tvChatLogHistory.setKeyListener(null);
+			llChatLog.addView(tvChatLogHistory);
 
 
 
@@ -131,6 +133,8 @@ public class ChatActivity extends Activity {
 			gcmFilter.addAction("GCM_RECEIVED_ACTION");
 
 			registerClient();
+			
+			appendToChatLogHistory(chatroom.getName(), "Welcome to this chatroom!");
 		}
 
 		// This registerClient() method checks the current device, checks the
@@ -269,8 +273,8 @@ public class ChatActivity extends Activity {
 
 		private void appendToChatLogHistory(String username, String message) {
 			if (username != null && message != null) {
-				etChatLogHistory.append(username + ": ");								
-				etChatLogHistory.append(message + "\n");	
+				tvChatLogHistory.append(username + ": ");								
+				tvChatLogHistory.append(message + "\n");	
 			}
 		}
 
