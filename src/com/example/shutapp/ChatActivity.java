@@ -72,10 +72,11 @@ public class ChatActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
  
             broadcastMessage = intent.getExtras().getString("gcm");
- 
+            appendToChatLogHistory("test", "got msg");
             if (broadcastMessage != null) {
                 // display our received message
                 translateMessage(broadcastMessage);
+            	//appendToChatLogHistory("test", broadcastMessage);
             }
         }
 
@@ -175,36 +176,7 @@ public class ChatActivity extends Activity {
     }
     
     private void sendRegistrationToServer() {
-    	Runnable runnable = new Runnable() {
-  	      public void run() {
-  	    	  // Create a new HttpClient and Post Header
-  	          HttpClient httpclient = new DefaultHttpClient();
-  	          HttpPost httppost = new HttpPost("http://109.225.112.99:8084/GCM_Server/GCM");
-
-  	          try {
-  	              // creates the http message
-  	              List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-  	              nameValuePairs.add(new BasicNameValuePair("action", "addtodb"));
-  	              nameValuePairs.add(new BasicNameValuePair("DBNICK", Settings.getNickname()));
-  	              nameValuePairs.add(new BasicNameValuePair("DBREGID", regId));
-  	              nameValuePairs.add(new BasicNameValuePair("submit", "Submit"));
-  	              httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-  	              // Execute HTTP Post Request
-  	              HttpResponse response = httpclient.execute(httppost);
-  	              
-  	          } catch (ClientProtocolException e) {
-  	              // TODO Auto-generated catch block
-  	          } catch (IOException e) {
-  	              // TODO Auto-generated catch block
-  	          }
-  	      }
-  	        
-  	      
-  	    };
-  	new Thread(runnable).start(); 
-  	
-  	
+    	new HttpMessage(StringLiterals.DBREGISTER_MESSAGE_TYPE, Settings.getNickname(), regId, null);
   }
  
     // If the user changes the orientation of his phone, the current activity
@@ -265,40 +237,7 @@ public class ChatActivity extends Activity {
     //method called when send button is clicked
     public void sendMessage(View view){
     	EditText editText = (EditText) findViewById(R.id.written_msg);
-    	translateMessage(editText.getText().toString());
-    	//http communication part needs to be asynchronous
-    	Runnable runnable = new Runnable() {
-    	      public void run() {
-    	    	  EditText editText = (EditText) findViewById(R.id.written_msg);
-    	    	  Log.d("sendMessage", "kmr hit");
-    	      	// Create a new HttpClient and Post Header
-    	          HttpClient httpclient = new DefaultHttpClient();
-    	          HttpPost httppost = new HttpPost("http://109.225.112.99:8084/GCM_Server/GCM");
-
-    	          try {
-    	              // creates the http message
-    	              List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-    	              nameValuePairs.add(new BasicNameValuePair("action", "chatRoomMsg"));
-    	              nameValuePairs.add(new BasicNameValuePair("chatRoom", chatroom.getName()));
-    	              nameValuePairs.add(new BasicNameValuePair("user", Settings.getNickname()));
-    	              nameValuePairs.add(new BasicNameValuePair("Message", editText.getText().toString()));
-    	              httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-    	              // Execute HTTP Post Request
-    	              HttpResponse response = httpclient.execute(httppost);
-    	              
-    	          } catch (ClientProtocolException e) {
-    	              // TODO Auto-generated catch block
-    	          } catch (IOException e) {
-    	              // TODO Auto-generated catch block
-    	          }
-    	      }
-    	        
-    	      
-    	    };
-    	new Thread(runnable).start(); 
-    	
-    	
+    	new HttpMessage(StringLiterals.CHATROOM_MESSAGE_TYPE, chatroom.getName(), Settings.getNickname(), editText.getText().toString());
     }
     
     private void appendToChatLogHistory(String username, String message) {
