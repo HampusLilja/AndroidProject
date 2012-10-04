@@ -27,8 +27,8 @@ public class GpsTest extends ActivityInstrumentationTestCase2<GpsActivity>{
 		
 	}
 	public void testLocation(){
-		Assert.assertNotNull("Latitude is null", gpsActivity.getLocation().getLatitudeE6());
-		Assert.assertNotNull("Longitude is null", gpsActivity.getLocation().getLongitudeE6());
+		Assert.assertNotNull("Latitude is null", gpsActivity.getCurrentGeoPoint().getLatitudeE6());
+		Assert.assertNotNull("Longitude is null", gpsActivity.getCurrentGeoPoint().getLongitudeE6());
 	}
 	
 	public void testOverlay(){

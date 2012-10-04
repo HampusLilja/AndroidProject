@@ -26,10 +26,10 @@ public class Chatroom {
 	private Location gps_location;
 	
 	
-	public Chatroom(String name){
+	public Chatroom(String name, Location loc){
 		members = new ArrayList<User>();
 		CHATROOM_NAME = name;
-		
+		gps_location = loc;
 		//When a chatroom is initialized, it's added to Chatrooms
 		Chatrooms.add(CHATROOM_NAME, this);
 	}
