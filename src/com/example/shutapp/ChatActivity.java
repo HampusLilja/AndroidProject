@@ -176,7 +176,40 @@ public class ChatActivity extends Activity {
     }
     
     private void sendRegistrationToServer() {
+<<<<<<< HEAD
     	new HttpMessage(StringLiterals.DBREGISTER_MESSAGE_TYPE, Settings.getNickname(), regId, null);
+=======
+    	Runnable runnable = new Runnable() {
+  	      public void run() {
+  	    	  // Create a new HttpClient and Post Header
+  	          HttpClient httpclient = new DefaultHttpClient();
+  	          HttpPost httppost = new HttpPost(MiscResources.SERVER_URL);
+
+  	          try {
+  	              // creates the http message
+  	              List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+  	              nameValuePairs.add(new BasicNameValuePair("action", "addtodb"));
+  	              nameValuePairs.add(new BasicNameValuePair("DBNICK", Settings.getNickname()));
+  	              nameValuePairs.add(new BasicNameValuePair("DBREGID", regId));
+  	              nameValuePairs.add(new BasicNameValuePair("submit", "Submit"));
+  	              httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+  	              // Execute HTTP Post Request
+  	              HttpResponse response = httpclient.execute(httppost);
+  	              
+  	          } catch (ClientProtocolException e) {
+  	              // TODO Auto-generated catch block
+  	          } catch (IOException e) {
+  	              // TODO Auto-generated catch block
+  	          }
+  	      }
+  	        
+  	      
+  	    };
+  	new Thread(runnable).start(); 
+  	
+  	
+>>>>>>> ce6ae8ac57fddf4ba0aee956f662292c9c04b098
   }
  
     // If the user changes the orientation of his phone, the current activity
