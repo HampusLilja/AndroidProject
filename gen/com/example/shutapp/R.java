@@ -63,7 +63,6 @@ public final class R {
         public static final int iconFrame_3=0x7f09000e;
         public static final int iconFrame_4=0x7f090012;
         public static final int listOfNearbyConversations=0x7f090011;
-        public static final int ll_chat_log=0x7f090009;
         public static final int mapView=0x7f09000d;
         public static final int map_button=0x7f090005;
         public static final int menu_settings=0x7f090016;
@@ -74,6 +73,7 @@ public final class R {
         public static final int settings_button=0x7f090004;
         public static final int sv_chat_log=0x7f090008;
         public static final int textView1=0x7f09000a;
+        public static final int tvChatLog=0x7f090009;
         public static final int written_msg=0x7f090002;
     }
     public static final class layout {

@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -71,6 +72,7 @@ public class ChatActivity extends Activity {
 
 		private EditText etMessageInput;
 		private TextView tvChatLogHistory;
+		
 		ScrollView svChatLog;
 		LinearLayout llChatLog;
 
@@ -116,16 +118,24 @@ public class ChatActivity extends Activity {
 			*/
 
 			svChatLog = (ScrollView) findViewById(R.id.sv_chat_log);
-			llChatLog = (LinearLayout) findViewById(R.id.ll_chat_log);
-			tvChatLogHistory = new TextView(this);
-			
-			
-			
-			//tvChatLogHistory.setClickable(false);
-			//tvChatLogHistory.setKeyListener(null);
-			llChatLog.addView(tvChatLogHistory);
+			//llChatLog = (LinearLayout) findViewById(R.id.ll_chat_log);
+			tvChatLogHistory = (TextView) findViewById(R.id.tvChatLog);
+			//tvChatLogHistory.setBottom(ViewGroup.LayoutParams.MATCH_PARENT);
+			//tvChatLogHistory.setGravity(Gravity.BOTTOM);
 
+			//svChatLog.addView(tvChatLogHistory);
 
+			svChatLog.post(new Runnable(){
+				public void run(){
+					svChatLog.scrollTo(0, tvChatLogHistory.getHeight());
+				}
+			});
+			
+			svChatLog.post(new Runnable(){
+				public void run(){
+					svChatLog.fullScroll(ScrollView.FOCUS_DOWN);
+				}
+			});
 
 			// Create our IntentFilter, which will be used in conjunction with a
 			// broadcast receiver.
@@ -133,8 +143,24 @@ public class ChatActivity extends Activity {
 			gcmFilter.addAction("GCM_RECEIVED_ACTION");
 
 			registerClient();
-			
+			appendSome(25);
 			appendToChatLogHistory(chatroom.getName(), "Welcome to this chatroom!");
+
+		}
+		
+		//this is a fuckugly dummysolution to the "start writing in the bottom" - problem
+		private void appendSome(int n){
+			for(int i = 1; i<=n; i++){
+				tvChatLogHistory.append("\n");
+			}
+		}
+		
+		//dummytestmethod
+		private void makeSomeNoise() {
+			for(int i= 0; i<=50; i++){
+				appendToChatLogHistory(chatroom.getName(), "I do this spam because im a stupid dummymethod" +i);
+			}
+			
 		}
 
 		// This registerClient() method checks the current device, checks the
