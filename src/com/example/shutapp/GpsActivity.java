@@ -30,20 +30,10 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	private List<Overlay> mapOverlays;
 	private Drawable drawable;
 	private LocationManager lm;
-<<<<<<< HEAD
-	private RadiusOverlay radiusOverlay;
-
-	private double lat, lon;
-	private Criteria crit;
-=======
-
-	private RadiusOverlay radiusOverlay;
-
 
 	private double lat, lon;
 	private Criteria crit;
 
->>>>>>> gcmsetup
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -82,7 +72,7 @@ public class GpsActivity extends MapActivity implements LocationListener {
 		mapOverlays = mapView.getOverlays();
 		compass = new MyLocationOverlay(GpsActivity.this, mapView);
 		drawable = this.getResources().getDrawable(R.drawable.maparrow);
-		radiusOverlay = new RadiusOverlay(this, 57.7012596130371, 11.9670495986938, radius);
+		RadiusOverlay radiusOverlay = new RadiusOverlay(this, 57.7012596130371, 11.9670495986938, radius);
 		itemizedoverlay = new MapOverlay(drawable, this);
 
 		OverlayItem overlayitem = new OverlayItem(gP, null, null);
@@ -91,10 +81,6 @@ public class GpsActivity extends MapActivity implements LocationListener {
 		mapOverlays.add(compass);
 		mapOverlays.add(radiusOverlay);
 
-<<<<<<< HEAD
-=======
-
->>>>>>> gcmsetup
 	}
 
 	private void updatePosition(double latitude, double longitude) {
