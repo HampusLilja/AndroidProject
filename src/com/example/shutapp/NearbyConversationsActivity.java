@@ -96,7 +96,10 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		btnDialogCreateChatroom.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View view){
-				addChatroom(etChatroomInput.getText().toString());
+				String chatRoomToBeAdded = etChatroomInput.getText().toString();
+				if(chatRoomToBeAdded.equals("") || chatRoomToBeAdded == null)
+					return;
+				addChatroom(chatRoomToBeAdded);
 				newChatroomDialog.cancel();
 				
 			}

@@ -23,6 +23,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -117,6 +118,7 @@ public class ChatActivity extends Activity {
 			svChatLog = (ScrollView) findViewById(R.id.sv_chat_log);
 			llChatLog = (LinearLayout) findViewById(R.id.ll_chat_log);
 			etChatLogHistory = new EditText(this);
+			
 			etChatLogHistory.setClickable(false);
 			etChatLogHistory.setKeyListener(null);
 			llChatLog.addView(etChatLogHistory);
@@ -258,7 +260,10 @@ public class ChatActivity extends Activity {
 		//method called when send button is clicked
 		public void sendMessage(View view){
 			etMessageInput = (EditText) findViewById(R.id.written_msg);
-			new HttpMessage(StringLiterals.CHATROOM_MESSAGE_TYPE, chatroom.getName(), Settings.getNickname(), etMessageInput.getText().toString());
+			String messageToSend = etMessageInput.getText().toString();
+			if(messageToSend.equals("") || messageToSend == null)
+				return;
+			new HttpMessage(StringLiterals.CHATROOM_MESSAGE_TYPE, chatroom.getName(), Settings.getNickname(), messageToSend);
 			etMessageInput.setText("");
 		}
 
