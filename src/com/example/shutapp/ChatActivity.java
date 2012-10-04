@@ -28,15 +28,22 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+<<<<<<< HEAD
 
 import com.google.android.gcm.GCMRegistrar;
 
+=======
+
+import com.google.android.gcm.GCMRegistrar;
+
+>>>>>>> master
 //Got a lot of help and inspiration from http://avilyne.com/?p=267
 
 public class ChatActivity extends Activity {
 	
 	// This tag is used in Log.x() calls
     private static final String TAG = "MainActivity";
+<<<<<<< HEAD
 
  
     // This string will hold the lengthy registration id that comes
@@ -80,6 +87,52 @@ public class ChatActivity extends Activity {
             }
         }
 
+=======
+
+ 
+    // This string will hold the lengthy registration id that comes
+    // from GCMRegistrar.register()
+    private String regId = "";
+	
+	// These strings are hopefully self-explanatory
+    private String registrationStatus = "Not yet registered";
+    private String broadcastMessage = "No broadcast message";
+ 
+    // This intent filter will be set to filter on the string "GCM_RECEIVED_ACTION"
+    private IntentFilter gcmFilter;
+ 
+    // textviews used to show the status of our app's registration, and the latest
+    // broadcast message.
+    private TextView tvRegStatusResult;
+    private TextView tvBroadcastMessage;
+    private TextView tvChatroomLabel;
+    
+    private EditText chatLogHistory;
+    ScrollView svChatLog;
+    LinearLayout llChatLog;
+    
+    
+    
+    Chatroom chatroom;
+    // This broadcastreceiver instance will receive messages broadcast
+    // with the action "GCM_RECEIVED_ACTION" via the gcmFilter
+     
+    // A BroadcastReceiver must override the onReceive() event.
+    private BroadcastReceiver gcmReceiver = new BroadcastReceiver() {
+ 
+        @Override
+        public void onReceive(Context context, Intent intent) {
+ 
+            broadcastMessage = intent.getExtras().getString("gcm");
+            appendToChatLogHistory("test", "got msg");
+            if (broadcastMessage != null) {
+                // display our received message
+                translateMessage(broadcastMessage);
+            	//appendToChatLogHistory("test", broadcastMessage);
+            }
+        }
+
+>>>>>>> master
 		
     };
     @Override
@@ -176,11 +229,21 @@ public class ChatActivity extends Activity {
     }
     
     private void sendRegistrationToServer() {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    	new HttpMessage(StringLiterals.DBREGISTER_MESSAGE_TYPE, Settings.getNickname(), regId, null);
+=======
+>>>>>>> master
     	Runnable runnable = new Runnable() {
   	      public void run() {
   	    	  // Create a new HttpClient and Post Header
   	          HttpClient httpclient = new DefaultHttpClient();
+<<<<<<< HEAD
   	          HttpPost httppost = new HttpPost("http://109.225.112.99:8084/GCM_Server/GCM");
+=======
+  	          HttpPost httppost = new HttpPost(MiscResources.SERVER_URL);
+>>>>>>> master
 
   	          try {
   	              // creates the http message
@@ -206,6 +269,10 @@ public class ChatActivity extends Activity {
   	new Thread(runnable).start(); 
   	
   	
+<<<<<<< HEAD
+=======
+>>>>>>> ce6ae8ac57fddf4ba0aee956f662292c9c04b098
+>>>>>>> master
   }
  
     // If the user changes the orientation of his phone, the current activity
@@ -266,6 +333,7 @@ public class ChatActivity extends Activity {
     //method called when send button is clicked
     public void sendMessage(View view){
     	EditText editText = (EditText) findViewById(R.id.written_msg);
+<<<<<<< HEAD
     	translateMessage(editText.getText().toString());
     	//http communication part needs to be asynchronous
     	Runnable runnable = new Runnable() {
@@ -300,6 +368,9 @@ public class ChatActivity extends Activity {
     	new Thread(runnable).start(); 
     	
     	
+=======
+    	new HttpMessage(StringLiterals.CHATROOM_MESSAGE_TYPE, chatroom.getName(), Settings.getNickname(), editText.getText().toString());
+>>>>>>> master
     }
     
     private void appendToChatLogHistory(String username, String message) {

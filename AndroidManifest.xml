@@ -6,13 +6,38 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
+<<<<<<< HEAD
+    
+    
+=======
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 092ec8276d61c94cb80260e566fc741d9dbd2521
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.ACCESS_COARS_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.CONTROL_LOCATION_UPDATES"/>
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
+<<<<<<< HEAD
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+ 
+=======
+    
+	
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"></uses-permission>
+
+>>>>>>> master
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
     <uses-permission android:name="android.permission.GET_ACCOUNTS" >
     </uses-permission>
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
@@ -23,14 +48,24 @@
     </uses-permission>
     <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
 
+=======
+
+>>>>>>> 092ec8276d61c94cb80260e566fc741d9dbd2521
+    <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+
+>>>>>>> master
     <permission
         android:name="com.example.shutapp.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.example.shutapp.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+=======
+>>>>>>> master
     <!-- Keeps the processor from sleeping when a message is received. -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
@@ -77,6 +112,7 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+<<<<<<< HEAD
 
                 <category android:name="com.example.shutapp" />
             </intent-filter>
@@ -84,6 +120,15 @@
         <!-- Following intent recieved by BroadcastReciever -->
         <service android:name=".GCMIntentService" />
 
+=======
+
+                <category android:name="com.example.shutapp" />
+            </intent-filter>
+        </receiver>
+        <!-- Following intent recieved by BroadcastReciever -->
+        <service android:name=".GCMIntentService" />
+
+>>>>>>> master
         <activity
             android:name=".ListOfNearbyConversationsActivity"
             android:label="@string/title_activity_list_of_nearby_conversations" >

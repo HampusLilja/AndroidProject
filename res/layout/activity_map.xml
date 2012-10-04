@@ -12,8 +12,9 @@
                  android:layout_height="wrap_content"
                  android:layout_above="@id/map_button"
                  android:layout_below="@id/banner"
-                 android:apiKey="AIzaSyAGbXeI9lkNaqDp_oFove5dmUNqEsD5FOA"  />
-    <!-- APIKEY Might need to be changed later? -->    
+                 android:apiKey="0XRekQN89MSaaGQZnuXn0c7tjUrXUemgRyF-nYA" />
+    <!-- APIKEY Might need to be changed later? Hampus 0P5FFhYuxZg_V2MzsdXEuW7GZ1OUIHUfOdqxK-Q
+    //Mattias 0XRekQN89MSaaGQZnuXn0c7tjUrXUemgRyF-nYA -->  
     
     <FrameLayout
         android:id="@+id/iconFrame_3"

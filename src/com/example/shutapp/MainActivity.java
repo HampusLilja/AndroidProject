@@ -1,6 +1,9 @@
 package com.example.shutapp;
 
+<<<<<<< HEAD
 import static com.example.shutapp.MiscResources.*;
+=======
+>>>>>>> master
 import com.example.shutapp.Chatroom;
 
 
@@ -13,19 +16,15 @@ import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gcm.GCMRegistrar;
+
 
 
 
@@ -40,6 +39,10 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+<<<<<<< HEAD
+=======
+        Settings.setNickname("Prassel");
+>>>>>>> master
         if( Settings.getNickname().equals("") ){
         	setContentView(R.layout.activity_main);  	
         } else {
