@@ -34,5 +34,9 @@
     <string name="broadcast_message">Broadcast Message</string>
     <string name="title_activity_list_of_nearby_conversations">ListOfNearbyConversationsActivity</string>
     <string name="no_chatroom">Currently not in a Chatroom</string>
+    <string name="create_chatroom_button">Create new chatroom</string>
+    <string name="enter_chatroom_name">Enter name</string>
+    <string name="textview_new_chatroom_dialog">Create a new chatroom</string>
+    <string name="create_chatroom_button_dialog">OK</string>
 
 </resources>

@@ -23,6 +23,8 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -66,7 +68,8 @@ public class ChatActivity extends Activity {
 		private TextView tvBroadcastMessage;
 		private TextView tvChatroomLabel;
 
-		private EditText chatLogHistory;
+		private EditText etMessageInput;
+		private EditText etChatLogHistory;
 		ScrollView svChatLog;
 		LinearLayout llChatLog;
 
@@ -101,17 +104,22 @@ public class ChatActivity extends Activity {
 			String chatroomName = intent.getStringExtra(NearbyConversationsActivity.EXTRA_MESSAGE);
 
 			chatroom = Chatrooms.getByName(chatroomName);
+			getWindow().setSoftInputMode(
+				      WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+			/* NO NEED FOR THESE ATM
 			tvChatroomLabel = (TextView) findViewById(R.id.tv_chatroom_label);
 			tvChatroomLabel.setText(chatroom.getName());
-
+		
 			tvBroadcastMessage = (TextView) findViewById(R.id.tv_message);
 			tvRegStatusResult = (TextView) findViewById(R.id.tv_reg_status_result);
-
+			*/
 
 			svChatLog = (ScrollView) findViewById(R.id.sv_chat_log);
 			llChatLog = (LinearLayout) findViewById(R.id.ll_chat_log);
-			chatLogHistory = new EditText(this);
-			llChatLog.addView(chatLogHistory);
+			etChatLogHistory = new EditText(this);
+			etChatLogHistory.setClickable(false);
+			etChatLogHistory.setKeyListener(null);
+			llChatLog.addView(etChatLogHistory);
 
 
 
@@ -143,15 +151,15 @@ public class ChatActivity extends Activity {
 
 				if (regId.equals("")) {
 
-					registrationStatus = "Registering...";
+					//registrationStatus = "Registering...";
 
-					tvRegStatusResult.setText(registrationStatus);
+					//tvRegStatusResult.setText(registrationStatus);
 
 					// register this device for this project
 					GCMRegistrar.register(this, PROJECT_ID);
 					regId = GCMRegistrar.getRegistrationId(this);
 
-					registrationStatus = "Registration Acquired";
+					//registrationStatus = "Registration Acquired";
 
 					// This is actually a dummy function.  At this point, one
 					// would send the registration id, and other identifying
@@ -160,10 +168,10 @@ public class ChatActivity extends Activity {
 					sendRegistrationToServer();
 
 					Log.d(TAG, "sendregtoserver has been initialized");
-					registrationStatus = "Registration of regid done";
+					//registrationStatus = "Registration of regid done";
 
 				} else {
-					registrationStatus = "Already registered";
+					//registrationStatus = "Already registered";
 
 				}
 
@@ -176,7 +184,7 @@ public class ChatActivity extends Activity {
 			}
 
 			Log.d(TAG, registrationStatus);
-			tvRegStatusResult.setText(registrationStatus);
+			//tvRegStatusResult.setText(registrationStatus);
 
 			// This is part of our CHEAT.  For this demo, you'll need to
 			// capture this registration id so it can be used in our demo web
@@ -249,17 +257,15 @@ public class ChatActivity extends Activity {
 
 		//method called when send button is clicked
 		public void sendMessage(View view){
-			EditText editText = (EditText) findViewById(R.id.written_msg);
-
-
-			new HttpMessage(StringLiterals.CHATROOM_MESSAGE_TYPE, chatroom.getName(), Settings.getNickname(), editText.getText().toString());
-
+			etMessageInput = (EditText) findViewById(R.id.written_msg);
+			new HttpMessage(StringLiterals.CHATROOM_MESSAGE_TYPE, chatroom.getName(), Settings.getNickname(), etMessageInput.getText().toString());
+			etMessageInput.setText("");
 		}
 
 		private void appendToChatLogHistory(String username, String message) {
 			if (username != null && message != null) {
-				chatLogHistory.append(username + ": ");								
-				chatLogHistory.append(message + "\n");	
+				etChatLogHistory.append(username + ": ");								
+				etChatLogHistory.append(message + "\n");	
 			}
 		}
 

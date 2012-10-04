@@ -22,6 +22,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/ic_banner" >
+
     </FrameLayout>
 
     <Button
@@ -61,15 +62,24 @@
         android:layout_toRightOf="@+id/nearby_conversations_button"
         android:background="@drawable/ic_social_chat"
         android:onClick="toChatActivity" />
-
+
+    <Button
+        android:id="@+id/create_new_chatroom_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/banner"
+        android:text="@string/create_chatroom_button" 
+        android:onClick="showCreateChatroomDialog" />
+
     <ListView
         android:id="@+id/listOfNearbyConversations"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/iconFrame_1"
+        android:layout_above="@+id/settings_button"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/banner"
+        android:layout_below="@+id/create_new_chatroom_button"
         android:divider="@color/dim_foreground_inverse_holo_light"
         android:dividerHeight="2dp" >
 
