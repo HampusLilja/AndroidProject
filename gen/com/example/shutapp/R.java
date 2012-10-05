@@ -134,6 +134,8 @@ public final class R {
         public static final int title_activity_settings=0x7f06000b;
     }
     public static final class style {
-        public static final int AppTheme=0x7f070000;
+        public static final int AppTheme=0x7f070002;
+        public static final int Dark=0x7f070000;
+        public static final int Light=0x7f070001;
     }
 }

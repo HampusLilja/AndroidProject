@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 
 
 	}
+<<<<<<< HEAD
 	
 	
 	
@@ -42,6 +44,28 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		Chatroom cr = new Chatroom(name);
 		Chatrooms.add(cr.getName(), cr);
 		nearbyCRnames.add(name);
+=======
+
+	private void initiateTestRooms() {
+		Location loc1 = new Location("loc1"), loc2 = new Location("loc2"), 
+				loc3 = new Location("loc3"), loc4 = new Location("loc4"), loc5 = new Location("loc5");
+		
+		loc1.setLatitude(57.7012596130371);
+		loc1.setLongitude(11.9670495986938);
+		loc2.setLatitude(57.699242);
+		loc2.setLongitude(11.986369);
+		loc3.setLatitude(57.687583);
+		loc3.setLongitude(11.980708);
+		loc4.setLatitude(57.689431);
+		loc4.setLongitude(11.974092);
+		loc5.setLatitude(57.695697);
+		loc5.setLongitude(11.974067);
+		Chatroom cr1 = new Chatroom("Chatroom1", loc1);Chatroom cr2 = new Chatroom("Chatroom2", loc2);Chatroom cr3 = new Chatroom("Chatroom3", loc3);
+		Chatroom cr4 = new Chatroom("Chatroom4", loc4);Chatroom cr5 = new Chatroom("Chatroom5", loc5);
+		nearbyCR = new ArrayList<Chatroom>();
+		nearbyCR.add(cr1); nearbyCR.add(cr2); nearbyCR.add(cr3); nearbyCR.add(cr4); nearbyCR.add(cr5);
+
+>>>>>>> circleMaking
 	}
 
 

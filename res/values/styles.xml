@@ -1,12 +1,18 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="AppTheme" parent="android:Theme.Light"> 
+    <style name="Dark" parent="android:Theme.Holo"> 
         <item name="android:windowAnimationStyle">@null</item>
-        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowFullscreen">false</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
       </style>
     
-
+    <style name="Light" parent="android:Theme.Holo.Light"> 
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+      </style>
 
 </resources>
 

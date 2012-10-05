@@ -22,48 +22,60 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 
 public class GpsActivity extends MapActivity implements LocationListener {
-	private final int zoomLevel = 17; // 1 to 21
-	private GeoPoint gP;
-	private MapController mControl;
+	private final static int ZOOMLEVEL = 17; // 1 to 21
+	private final static float RADIUS = 1000; // size of the chat room radius
+	
+	private GeoPoint currentGeoPoint = null;
+	private Location currentLocation = new Location("current");
+	
+	private MapController mapControl;
 	private MyLocationOverlay compass;
 	private MapOverlay itemizedoverlay;
 	private List<Overlay> mapOverlays;
+<<<<<<< HEAD
 	private Drawable drawable;
 	private LocationManager lm;
 
 	private double lat, lon;
 	private Criteria crit;
 
+=======
+	private Drawable drawableArrow;
+	private LocationManager locationManager;
+	private RadiusOverlay radiusOverlay;
+	private Criteria criteria;
+	
+	
+>>>>>>> circleMaking
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
 
-		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		MapView mapView = (MapView) findViewById(R.id.mapView);
 		mapView.setBuiltInZoomControls(true);   //true = being able to zoom with buttons
-		mapView.getController().setZoom(zoomLevel); //sets zoomlevel from the startup
+		mapView.getController().setZoom(ZOOMLEVEL); //sets zoomlevel from the startup
 
-		mControl = mapView.getController();
+		mapControl = mapView.getController();
 		mapOverlays = mapView.getOverlays();
 		compass = new MyLocationOverlay(GpsActivity.this, mapView);
 		mapOverlays.add(compass);
-		drawable = this.getResources().getDrawable(R.drawable.maparrow);
+		drawableArrow = this.getResources().getDrawable(R.drawable.maparrow);
 		
-		crit = new Criteria();
-        String bestProvider = lm.getBestProvider(crit, false);       
-        Location startLocation = lm.getLastKnownLocation(bestProvider);
+		criteria = new Criteria();
+        String bestProvider = locationManager.getBestProvider(criteria, false);       
+        Location startLocation = locationManager.getLastKnownLocation(bestProvider);
         
 		if (startLocation != null){
-			lat = startLocation.getLatitude();
-			lon = startLocation.getLongitude();
-			updatePosition(lat, lon);
-			newOverlay();
-		}	else{
-			Log.e("GPS","Unable to get startlocation");
+			updatePosition(startLocation.getLatitude(), startLocation.getLongitude());
+		} else {
+			Log.e("geoPointS","Unable to get startlocation");
+			updatePosition(57.691469,11.977469);
 		}
+<<<<<<< HEAD
 
 		float radius = 1000;
 
@@ -81,30 +93,57 @@ public class GpsActivity extends MapActivity implements LocationListener {
 		mapOverlays.add(compass);
 		mapOverlays.add(radiusOverlay);
 
+=======
+		
+		drawAllCircles();
+>>>>>>> circleMaking
 	}
 
 	private void updatePosition(double latitude, double longitude) {
-		gP = new GeoPoint((int)(latitude*1E6), (int)(longitude*1E6)); //converting to micro-degrees with 1E6
-		mControl.animateTo(gP);
-		
+		currentLocation.setLatitude(latitude);
+		currentLocation.setLongitude(longitude);
+		currentGeoPoint = new GeoPoint((int)(latitude*1E6), (int)(longitude*1E6)); //converting to micro-degrees with 1E6
+		mapControl.animateTo(currentGeoPoint);
 	}
 	
-	public GeoPoint getLocation(){
-		return gP;
+	public GeoPoint getCurrentGeoPoint() {
+		return currentGeoPoint;
 	}
 	
+	public Location getCurrentLocation() {
+		return currentLocation;
+	}
+	
+	private void setShadedCircleOnLocation(double latitude, double longitude, boolean nearby) {
+		radiusOverlay = new RadiusOverlay(this, latitude, longitude, RADIUS, nearby);
+		mapOverlays.add(radiusOverlay);
+	}
+	
+	private void drawAllCircles() {
+		for(Chatroom room : Chatrooms.getAll()){
+			Location chatRoomLocation = room.getLocation();
+			
+			boolean nearby = inRangeOfChatRoom(currentLocation, chatRoomLocation);
+			setShadedCircleOnLocation(room.getLocation().getLatitude(), 
+					room.getLocation().getLongitude(), nearby);
+		}
+	}
+	
+	private boolean inRangeOfChatRoom(Location myLocation, Location chatRoomLocation) {
+		int dist = (int) (RADIUS - myLocation.distanceTo(chatRoomLocation));
+		return (dist >= 0);
+	}
+
 	public void newOverlay(){
-		itemizedoverlay = new MapOverlay(drawable, this);
-		OverlayItem currentOverlay = new OverlayItem(gP,"Current Location","Here is my current location!!!");
+		itemizedoverlay = new MapOverlay(drawableArrow, this);
+		OverlayItem currentOverlay = new OverlayItem(currentGeoPoint,"Current Location","Here is my current location!!!");
 		itemizedoverlay.addOverlay(currentOverlay);
 		mapOverlays.add(itemizedoverlay);
 	} 
 	
 	public void onLocationChanged(Location location) {
-		lat = location.getLatitude();
-		lon = location.getLongitude();
-		Log.e("GPS", "location changed: lat="+String.valueOf(lat)+", lon="+String.valueOf(lon));
-		updatePosition(lat, lon);
+		Log.e("geoPointS", "location changed: lat="+String.valueOf(location.getLatitude())+", lon="+String.valueOf(location.getLongitude()));
+		updatePosition(location.getLatitude(), location.getLongitude());
 
 		if(itemizedoverlay!=null) {
 			mapOverlays.remove(itemizedoverlay);
@@ -116,24 +155,26 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	protected void onPause() {
 		compass.disableCompass();
 		super.onPause();
-		lm.removeUpdates(this);
+		locationManager.removeUpdates(this);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		compass.enableCompass();
-		lm.requestLocationUpdates(lm.getBestProvider(crit, false), 20*1000, 20, this);        
+		newOverlay();
+		locationManager.requestLocationUpdates(locationManager.getBestProvider(criteria, false), 1*1000, 1, this);        
+		//locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, this);
 	}
 
 	public void onProviderDisabled(String arg0) {
-		Log.e("GPS", "provider disabled " + arg0);
+		Log.e("geoPointS", "provider disabled " + arg0);
 	}
 	public void onProviderEnabled(String arg0) {
-		Log.e("GPS", "provider enabled " + arg0);
+		Log.e("geoPointS", "provider enabled " + arg0);
 	}
 	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
-		Log.e("GPS", "status changed to " + arg0 + " [" + arg1 + "]");
+		Log.e("geoPointS", "status changed to " + arg0 + " [" + arg1 + "]");
 	}
 
 	@Override
@@ -148,13 +189,11 @@ public class GpsActivity extends MapActivity implements LocationListener {
 		return false;
 	}        
 
-
 	public void toChatActivity(View view){
 		Intent intentToRedirect = new Intent(this, ChatActivity.class);
 		startActivity(intentToRedirect);
 		overridePendingTransition(0, 0);
 	}
-
 
 	public void toNearbyConversationsActivity(View view){
 		Intent intentToRedirect = new Intent(this, NearbyConversationsActivity.class);

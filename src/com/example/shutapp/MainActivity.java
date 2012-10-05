@@ -16,6 +16,7 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -54,7 +55,10 @@ public class MainActivity extends Activity {
     }
 
     private void testChatroom() {
-		Chatroom cr = new Chatroom("chatrum1");
+    	Location loc = new Location("loc");
+    	loc.setLatitude(57.697261);
+    	loc.setLongitude(11.97975);
+		Chatroom cr = new Chatroom("chatrum1", loc);
 		cr.saveMessage("Chatroom works", this);
 		cr.saveMessage("asdasdasdasds", this);
 		TextView textview = (TextView) findViewById(R.id.textView1);

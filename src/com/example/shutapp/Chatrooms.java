@@ -1,5 +1,6 @@
 package com.example.shutapp;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 import java.util.Map;
@@ -19,5 +20,9 @@ public abstract class Chatrooms {
 	
 	public static Chatroom getByName(String name){
 		return crMap.get(name);
+	}
+	
+	public static Collection<Chatroom> getAll(){
+		return crMap.values();
 	}
 }

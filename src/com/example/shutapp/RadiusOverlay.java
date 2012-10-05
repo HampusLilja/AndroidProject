@@ -16,13 +16,15 @@ public class RadiusOverlay extends Overlay {
 	private double latitude;
 	private double longitude;
 	private float radius;
+	private boolean green;
 	
-	public RadiusOverlay(Context context, double latitude, double longitude, float radius ) {
+	public RadiusOverlay(Context context, double latitude, double longitude, float radius, boolean nearby ) {
 		super();
 		this.context = context;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.radius = radius;
+		green = nearby;
 		
 	}
 	
@@ -38,7 +40,12 @@ public class RadiusOverlay extends Overlay {
 		
 		Paint paint = new Paint();
 		paint.setStyle(Paint.Style.FILL);
-		paint.setARGB(100, 100, 100, 100);
+		if(green){
+			paint.setARGB(50, 50, 100, 50);
+		}else{
+			paint.setARGB(50, 100, 50, 50);
+		}
+		
 		
 		canvas.drawCircle((float)point.x, (float)point.y, projectedRadius, paint);
 	}
