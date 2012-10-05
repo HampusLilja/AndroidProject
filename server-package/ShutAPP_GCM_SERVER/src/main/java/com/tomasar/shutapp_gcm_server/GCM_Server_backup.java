@@ -6,22 +6,30 @@ import com.google.android.gcm.server.Sender;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
-import com.mysql.jdbc.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.SingleThreadModel;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/*
+ * This is added server package to ShutAPP Android application.
+ * Copyright (C) 2012  Hampus Lilja, Tomas Arnesson, Mathias Dosé, Mathias Herzog
+ * This program uses GNU General Public License, please read supplied LICENCE.TXT for more info.
+ */
 
 @WebServlet(name = "GCM2", urlPatterns = {"/GCM2"})
 //@WebServlet("GCM_Server")
 public class GCM_Server_backup extends HttpServlet {
 
-    private static final String SENDER_ID = "AIzaSyAGbXeI9lkNaqDp_oFove5dmUNqEsD5FOA";
+    private static final String SENDER_ID = "AIzaSyAbgoOa_EvIBk81TxI8oTm8d_0he1aqzWU";
+    private static final String SENDER_ID2_browser = "AIzaSyAGbXeI9lkNaqDp_oFove5dmUNqEsD5FOA";
     private static final String TOMAS = "APA91bEqKVrHg19T-I5MKgp707wMhcgAdmzOfr0IPAsTyk5O0citkgjl4rHdYcz7axKbA9ODwDFPb4I2ISwwdZntheJcLdoeHJCkESs7F145PKBmU92bALDPg_ClwS82pO3UnLVGCvmAyWl15B9Qpk9jjQd-Fwa_5Q";
     private static final String DOSE = "APA91bHCMst1WyecOE-T6IyrLlwa2E-9mwRYVE3T1KHrdcFNMBlehvxmHHPWNGPL0alH02cfOxuj1Qvk4rc03k3Zd0Khp33d4dREYUSXUGQ_nO1Vdkhg03Qg4j4jsojmSk89Ym4AlsCMuglHHU47TuX4SbJNYSONFg";     
     private static final String ROOM1 = "chatroom001";
@@ -61,43 +69,6 @@ public class GCM_Server_backup extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String typeOfAction = request.getParameter("action");
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println(typeOfAction);
-        try {
-            if( typeOfAction.equals("userMsg")) {
-        // We'll collect the "UserName" and "Message" values from our JSP page
-        String UserName = request.getParameter("UserName");
-        String userMessage = request.getParameter("Message");
-        sendMsgToUser(UserName, userMessage);
-        Logger.getAnonymousLogger().log(Level.INFO, "msg_sent to single user from DOSE");
-        response.sendRedirect("index.jspx");
-            
-            } else if( typeOfAction.equals("chatRoomMsg")) {
-        // We'll collect the "chatRoom" and "Message" values from our JSP page
-        String chatRoom = request.getParameter("chatRoom");
-        String userMessage = request.getParameter("Message");
-        String userName = request.getParameter("user");
-        
-        sendMsgToChatRoom(chatRoom, userMessage, userName);
-        Logger.getAnonymousLogger().log(Level.INFO, "msg_sent to all in chatroom");
-        response.sendRedirect("index.jspx");
-        
-           } else if( typeOfAction.equals("addtodb")) {
-        // We'll collect the "chatRoom" and "Message" values from our JSP page
-        String DBNICK = request.getParameter("DBNICK");
-        String DBREGID = request.getParameter("DBREGID");
-        
-        connectToDB(DBNICK, DBREGID);
-        Logger.getAnonymousLogger().log(Level.INFO, "got POST for new user to DB");
-        response.sendRedirect("index.jspx");
-                        }
-        } finally {            
-            out.close();
-        }
-        
-         
  
     }
 
@@ -126,10 +97,42 @@ public class GCM_Server_backup extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        String typeOfAction = request.getParameter("action");
+        //response.setContentType("text/html;charset=UTF-8");
+        //response.setContentType("application/json");
+            if( typeOfAction.equals("chatRoomMsg")) {
+        String chatRoom = request.getParameter("chatRoom");
+        String userMessage = request.getParameter("Message");
+        String userName = request.getParameter("user");
+        
+        sendMsgToChatRoom(chatRoom, userMessage, userName);
+        Logger.getAnonymousLogger().log(Level.INFO, "msg_sent to all in chatroom");
+        //response.sendRedirect("index.jspx");
+        
+           } else if( typeOfAction.equals("addUserToDB")) {
+        // We'll collect the "chatRoom" and "Message" values from our JSP page
+        String DBNICK = request.getParameter("DBNICK");
+        String DBREGID = request.getParameter("DBREGID");
+        
+        registerUserToDB(DBNICK, DBREGID);
+        Logger.getAnonymousLogger().log(Level.INFO, "got POST for new user to DB");
+        response.sendRedirect("index.jspx");
+        
+                        }
+             else if( typeOfAction.equals("remUserFromDB")) {
+        // We'll collect the "chatRoom" and "Message" values from our JSP page
+        String DBREGID = request.getParameter("DBREGID");
+        
+        removeUserFromDB(DBREGID);
+        Logger.getAnonymousLogger().log(Level.INFO, "got POST for new user to DB");
+        response.sendRedirect("index.jspx");
+             }
+
     }
 
     /**
@@ -142,54 +145,34 @@ public class GCM_Server_backup extends HttpServlet {
         return "Short description";
     }
     
-    
-    public void sendMsgToUser(String UserName, String userMessage){
-        // Instance of com.android.gcm.server.Sender, that does the
+    public Message constructMsg(String chatRoom, String userMessage, String userName){
+                // Instance of com.android.gcm.server.Sender, that does the
         // transmission of a Message to the Google Cloud Messaging service.
         Sender sender = new Sender(SENDER_ID);
+        
+        StringBuffer temp = new StringBuffer();
+        temp.append(userName);
+        temp.append(":");
+        temp.append(userMessage);        
         // This is used for building message!
         // Could be String or JSON Object!
         Message message = new Message.Builder()
-         
+
         // If multiple messages are sent using the same .collapseKey()
         // the android target device, if it was offline during earlier message
         // transmissions, will only receive the latest message for that key when
         // it goes back on-line.
+        .collapseKey(chatRoom)
+        .timeToLive(30)
         .delayWhileIdle(true)
-        .addData("message", userMessage)
+        .addData("message", temp.toString())
         .build();
-
-        // Oki message built, try to send it
-            try {
-            /* -------------------------------------
-             * This is a setup for single device message
-             * 2nd parameter in sender.send() is string instead of array(multicast)
-             * --------------------------------------
-             */
-                if( UserName.equals("DOSE")){
-                    UserName = DOSE;
-                }
-                if( UserName.equals("TOMAS")){
-                    UserName = TOMAS;
-                }
-            Result result = sender.send(message, UserName, 1);
-            Logger.getAnonymousLogger().log(Level.INFO, "msg_sent to {0}", UserName);
-             
-            if (result.getMessageId() != null) {
-            String canonicalRegId = result.getCanonicalRegistrationId();
-                if (canonicalRegId != null) {
-                    // if this, DB should beupdated with new RegID
-                }
-            } else {
-                String error = result.getErrorCodeName();
-                System.out.println("Broadcast failure: " + error);
-                //loads of different error msges available in GCM API
-            } 
-       } catch (Exception e) {
-            e.printStackTrace();
-        }
+        
+        return message;
+        
     }
-
+    
+    
     public void sendMsgToChatRoom(String chatRoom, String userMessage, String userName){
         // Instance of com.android.gcm.server.Sender, that does the
         // transmission of a Message to the Google Cloud Messaging service.
@@ -232,7 +215,7 @@ public class GCM_Server_backup extends HttpServlet {
         }
     }
     
-    public void connectToDB(String DBNICK, String DBREGID){
+    public void registerUserToDB(String DBNICK, String DBREGID){
              System.out.println("connecting to db");
              Connection con = null;
     try{
@@ -241,6 +224,27 @@ public class GCM_Server_backup extends HttpServlet {
     try{
         Statement st = con.createStatement();
         int val = st.executeUpdate("INSERT INTO USERS (REGID, NICK) VALUES ("+"'" +DBREGID +"', "+"'" +DBNICK +"')");
+
+    System.out.println("Deleted user from " +DBREGID);
+    }
+    catch (SQLException s){
+        System.out.println("SQL statement is not executed!");
+        }
+    }
+    catch (Exception e){
+        e.printStackTrace();
+    }
+}
+    
+    public void removeUserFromDB(String DBREGID){
+             System.out.println("connecting to db");
+             Connection con = null;
+    try{
+        Class.forName(DBDriver);
+        con = DriverManager.getConnection(DBURL,DBUSER,DBPASS);
+    try{
+        Statement st = con.createStatement();
+              int val = st.executeUpdate("DELETE FROM USERS WHERE REGID = "+"'" +DBREGID +"'");
     System.out.println("Inserted " +DBUSER);
     }
     catch (SQLException s){
@@ -250,5 +254,7 @@ public class GCM_Server_backup extends HttpServlet {
     catch (Exception e){
         e.printStackTrace();
     }
-  }
+}
+    
+
 } 

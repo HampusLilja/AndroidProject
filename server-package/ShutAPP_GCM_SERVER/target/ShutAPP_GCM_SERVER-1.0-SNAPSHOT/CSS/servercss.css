@@ -9,6 +9,10 @@
 root { 
     display: block;
 }
+body{
+    margin:auto;
+    width: 95%;
+}
 
 nav {
     position:static;
@@ -25,8 +29,7 @@ nav {
 }
 
 section {
-    width: auto;
-    float:right;
+    float: left;
     font-family: Verdana,Arial,Helvetica,sans-serif;
     font-style: normal;
     color: #000000;
@@ -40,7 +43,7 @@ section {
 
 hgroup.h1 {
     position: static;
-    float: center;
+
     left:50%;
     width:100%;
     font-family: 'Courier New',Courier,monospace;
@@ -48,17 +51,21 @@ hgroup.h1 {
     color: #0000ff;
 }
 
-aside {
-    position:absolute;
-    left:25%;
-    top:50%;
-    float:bottom;
-}
-
 
 footer {
-    position:absolute;
-    top: 75%;
-    float:bottom;
+    float: bottom;
+ width: 35%; 
+    padding: 2px;
+   
 }
+table, th, td {
+    width: 100%;
+    border-collapse: collapse;
+    border-style: solid;
+    border-color:#333333; 
+    border-width: 1px;
+    background-color: lightseagreen;    
+}
+
+
 
