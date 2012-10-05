@@ -6,5 +6,5 @@
  * INSTALL NOTES *
 For installation, please Import Project into Netbeans and build/deploy.
 The application also uses connection to external SQL Derby databases. Which can be created within Netbeans.
-For connection use Java jdbc:derby, create a DB called SHUTAPPDB, see attached docs for table layout.
+*For connection use Java jdbc:derby, create a DB called SHUTAPPDB, see attached docs for table layout.
 Make sure you have all included libraries added in Netbeans project, for example com.google.android.gcm.server.

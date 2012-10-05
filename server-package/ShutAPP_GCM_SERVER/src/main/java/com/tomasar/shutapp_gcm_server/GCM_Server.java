@@ -28,17 +28,31 @@ import javax.servlet.http.HttpSession;
 //@WebServlet("GCM_Server")
 public class GCM_Server extends HttpServlet {
 
+    //This is the registered key for access via Google API, GCM.
     private static final String SENDER_ID = "AIzaSyAbgoOa_EvIBk81TxI8oTm8d_0he1aqzWU";
     private static final String SENDER_ID2_browser = "AIzaSyAGbXeI9lkNaqDp_oFove5dmUNqEsD5FOA";
+    
+    //These are static configurations, for testing purposes.
     private static final String TOMAS = "APA91bEqKVrHg19T-I5MKgp707wMhcgAdmzOfr0IPAsTyk5O0citkgjl4rHdYcz7axKbA9ODwDFPb4I2ISwwdZntheJcLdoeHJCkESs7F145PKBmU92bALDPg_ClwS82pO3UnLVGCvmAyWl15B9Qpk9jjQd-Fwa_5Q";
     private static final String DOSE = "APA91bHCMst1WyecOE-T6IyrLlwa2E-9mwRYVE3T1KHrdcFNMBlehvxmHHPWNGPL0alH02cfOxuj1Qvk4rc03k3Zd0Khp33d4dREYUSXUGQ_nO1Vdkhg03Qg4j4jsojmSk89Ym4AlsCMuglHHU47TuX4SbJNYSONFg";     
     private static final String ROOM1 = "chatroom001";
     private static final String ROOM2 = "chatroom002";
-    //MYSQL part
+    /*
+     * Static SQL part/strings below this line.
+     */
+    //MYSQL part containing vital connect information.
     private static String DBURL = "jdbc:derby://localhost:1527/SHUTAPPDB";
     private static String DBUSER = "gcm";
     private static String DBPASS = "gcm";
     private static String DBDriver = "org.apache.derby.jdbc.ClientDriver";
+    //MYSQL prepared statements
+    //When a new users is registered, put hes/hers chose nickname in DB
+    private static String newUserToSQLDB = "INSERT INTO USERS" + "(REGID, NICK) VALUES" + "(?,?)";
+    //When a user uninstall application, remove the REGID from GCM.USERS
+    private static String delUserFromSQLDB = "DELETE FROM USERS WHERE REGID" + "=" + "(?)";
+    //"DELETE FROM USERS WHERE REGID = "+"'" +DBREGID +"'");
+    
+    
     //List of current users
     private List<String> users = new ArrayList<String>();
     //String singleuser = TOMAS;
@@ -61,6 +75,8 @@ public class GCM_Server extends HttpServlet {
      * Processes requests for both HTTP
      * <code>GET</code> and
      * <code>POST</code> methods.
+     * 
+     * Not implemented, currently only POST is being used.
      *
      * @param request servlet request
      * @param response servlet response
@@ -77,6 +93,8 @@ public class GCM_Server extends HttpServlet {
      * Handles the HTTP
      * <code>GET</code> method.
      *
+     * HTTP GET Not currently being used.
+     * 
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -92,6 +110,8 @@ public class GCM_Server extends HttpServlet {
      * Handles the HTTP
      * <code>POST</code> method.
      *
+     * All code here handles the incoming http POST requests.
+     * 
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -110,73 +130,83 @@ public class GCM_Server extends HttpServlet {
         String userMessage = request.getParameter("Message");
         String userName = request.getParameter("user");
         
-        sendMsgToChatRoom(chatRoom, userMessage, userName);
-        Logger.getAnonymousLogger().log(Level.INFO, "msg_sent to all in chatroom");
-        //response.sendRedirect("index.jspx");
-        
+        sendMsgToChatRoom(buildMsg(chatRoom, userMessage, userName));
+        Logger.getAnonymousLogger().log(Level.INFO, "Recevied HTTP POST to send msg to all in chatroom");
+        //line below is only for test environment.
+        response.sendRedirect("index.jspx");
            } else if( typeOfAction.equals("addUserToDB")) {
-        // We'll collect the "chatRoom" and "Message" values from our JSP page
+        /*
+         * This ACTION handles requests regarding registereing a new nick/regid to SQLDB.
+         */ 
         String DBNICK = request.getParameter("DBNICK");
         String DBREGID = request.getParameter("DBREGID");
-        
-        registerUserToDB(DBNICK, DBREGID);
-        Logger.getAnonymousLogger().log(Level.INFO, "got POST for new user to DB");
+        applyChangesToSQL(DBREGID, DBNICK, newUserToSQLDB);
+        Logger.getAnonymousLogger().log(Level.INFO, "Recieved HTTP POST for new user to DB");
+        //line below is only for test environment.
         response.sendRedirect("index.jspx");
-        
-                        }
-             else if( typeOfAction.equals("remUserFromDB")) {
-        // We'll collect the "chatRoom" and "Message" values from our JSP page
+       }else if( typeOfAction.equals("remUserFromDB")) {
+        /*
+         * This ACTION handles requests regarding the removal of a user from SQL DB.
+         */  
         String DBREGID = request.getParameter("DBREGID");
-        
-        removeUserFromDB(DBREGID);
-        Logger.getAnonymousLogger().log(Level.INFO, "got POST for new user to DB");
+        applyChangesToSQL(DBREGID, delUserFromSQLDB);
+        Logger.getAnonymousLogger().log(Level.INFO, "Recieved HTTP POST for new user to DB");
+        //line below is only for test environment.
         response.sendRedirect("index.jspx");
-             }
+        }
 
-    }
+}
 
     /**
      * Returns a short description of the servlet.
      *
-     * @return a String containing servlet description
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "ShutApp GCM Web Servlet";
     }
     
-    public void constructMsg(){
-        
-    }
+   
     
-    
-    public void sendMsgToChatRoom(String chatRoom, String userMessage, String userName){
-        // Instance of com.android.gcm.server.Sender, that does the
-        // transmission of a Message to the Google Cloud Messaging service.
-        Sender sender = new Sender(SENDER_ID);
-        
+    /*
+     * This class is used to build a complete message string in correct format, before being sent.
+     */
+    public Message buildMsg(String chatRoom, String userMessage, String userName){
         StringBuffer temp = new StringBuffer();
         temp.append(userName);
         temp.append(":");
         temp.append(userMessage);        
         // This is used for building message!
         // Could be String or JSON Object!
-        Message message = new Message.Builder()
+        Message message;
+        message = new Message.Builder()
 
-        // If multiple messages are sent using the same .collapseKey()
-        // the android target device, if it was offline during earlier message
-        // transmissions, will only receive the latest message for that key when
-        // it goes back on-line.
-        .collapseKey(chatRoom)
-        .timeToLive(30)
-        .delayWhileIdle(true)
-        .addData("message", temp.toString())
-        .build();
-
-        // Oki message built, try to send it
+// If multiple messages are sent using the same .collapseKey()
+// the android target device, if it was offline during earlier message
+// transmissions, will only receive the latest message for that key when
+// it goes back on-line.
+.collapseKey(chatRoom)
+.timeToLive(30)
+//.delayWhileIdle(true)
+//.addData("chatroom", chatRoom)
+.addData("message", temp.toString())
+.build();
+        
+        return message;
+        
+    }
+    
+    /*
+     * The following function is responsible for sending a built message to GCM server
+     * imparmeters is a formatted and built message, by com.google.android.gcm.server.message; class
+     */
+    public void sendMsgToChatRoom(Message message){
+                        // Instance of com.android.gcm.server.Sender, that does the
+                // transmission of a Message to the Google Cloud Messaging service.
+        Sender sender = new Sender(SENDER_ID);
         try {
             MulticastResult result = sender.send(message, users, 1);
-            Logger.getAnonymousLogger().log(Level.INFO, "msg_sent to " + users);
+            Logger.getAnonymousLogger().log(Level.INFO, "Built and sent MSG to " + users);
             if (result.getResults() != null) {
                 int canonicalRegId = result.getCanonicalIds();
                 if (canonicalRegId != 0) {
@@ -192,46 +222,110 @@ public class GCM_Server extends HttpServlet {
         }
     }
     
-    public void registerUserToDB(String DBNICK, String DBREGID){
-             System.out.println("connecting to db");
-             Connection con = null;
+
+    /* ---------------------------------------------------------------
+     * ALL BELOW THIS LINE BELONGS TO SQL PART OF SERVER COMMUNICATION
+     * This functions calls for the correct driver/path and connects to JDBC SQL Database.
+     * ---------------------------------------------------------------
+     */
+    private static Connection connectSQLDB(){
+             System.out.println("Connecting to SQLDB");
+             Connection SQLconnection = null;
     try{
         Class.forName(DBDriver);
-        con = DriverManager.getConnection(DBURL,DBUSER,DBPASS);
-    try{
-        Statement st = con.createStatement();
-        int val = st.executeUpdate("INSERT INTO USERS (REGID, NICK) VALUES ("+"'" +DBREGID +"', "+"'" +DBNICK +"')");
-
-    System.out.println("Deleted user from " +DBREGID);
-    }
-    catch (SQLException s){
-        System.out.println("SQL statement is not executed!");
+        } catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());
         }
+    try{
+        SQLconnection = DriverManager.getConnection(DBURL,DBUSER,DBPASS);
+        return SQLconnection;
     }
-    catch (Exception e){
+        catch (SQLException e){
         e.printStackTrace();
     }
-}
+    return SQLconnection;
+    }
     
-    public void removeUserFromDB(String DBREGID){
-             System.out.println("connecting to db");
-             Connection con = null;
-    try{
-        Class.forName(DBDriver);
-        con = DriverManager.getConnection(DBURL,DBUSER,DBPASS);
-    try{
-        Statement st = con.createStatement();
-              int val = st.executeUpdate("DELETE FROM USERS WHERE REGID = "+"'" +DBREGID +"'");
-    System.out.println("Inserted " +DBUSER);
-    }
-    catch (SQLException s){
-        System.out.println("SQL statement is not executed!");
-        }
-    }
-    catch (Exception e){
+    /*
+     * This class handles updates to SQL Database, which has two variables.
+     * And uses predefined static SQL strings, with variables.
+     */
+    private void applyChangesToSQL(String var1, String var2, String sqlstatement){
+        Connection SQLconnection = null;
+        PreparedStatement ps_sql = null;
+      try{
+        SQLconnection = connectSQLDB();
+        
+        ps_sql = SQLconnection.prepareStatement(sqlstatement);
+        ps_sql.setString(1, var1);
+        ps_sql.setString(2, var2);
+        ps_sql.executeUpdate();
+        System.out.println("JAVA: Performed sql string " + sqlstatement + "with variables " + var1 +", " + var2);
+      }
+      catch(SQLException e){
+          System.out.println(e.getMessage());
+      }		
+          catch (Exception e){
         e.printStackTrace();
     }
+      finally {
+            if (ps_sql != null) {
+                         try{
+                        	ps_sql.close();
+                            }
+                           catch(SQLException e){
+                           System.out.println(e.getMessage());
+            }	
+                         try{
+                            if (SQLconnection != null) {
+				SQLconnection.close();
+                            }
+            }
+                            catch(SQLException e){
+                           System.out.println(e.getMessage());
+                            }	
+            }
+        }
+        }
+        /*
+     * This class handles updates to SQL Database, which has one variable.
+     * And uses predefined static SQL strings, with variables.
+     */
+    private void applyChangesToSQL(String var1, String sqlstatement){
+        Connection SQLconnection = null;
+        PreparedStatement ps_sql = null;
+      try{
+        SQLconnection = connectSQLDB();
+        
+        ps_sql = SQLconnection.prepareStatement(sqlstatement);
+        ps_sql.setString(1, var1);
+        ps_sql.executeUpdate();
+        System.out.println("JAVA: Performed sql string " + sqlstatement + "with variables " + var1);
+      }
+      catch(SQLException e){
+          System.out.println(e.getMessage());
+      }		
+          catch (Exception e){
+        e.printStackTrace();
+    }
+      finally {
+            if (ps_sql != null) {
+                         try{
+                        	ps_sql.close();
+                            }
+                           catch(SQLException e){
+                           System.out.println(e.getMessage());
+            }	
+                         try{
+                            if (SQLconnection != null) {
+				SQLconnection.close();
+                            }
+            }
+                            catch(SQLException e){
+                           System.out.println(e.getMessage());
+                            }	
+            }
+        }
+        }
 }
-    
 
-} 
