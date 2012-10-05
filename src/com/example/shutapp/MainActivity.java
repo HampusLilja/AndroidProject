@@ -1,11 +1,5 @@
 package com.example.shutapp;
 
-
-import static com.example.shutapp.MiscResources.*;
-
-import com.example.shutapp.Chatroom;
-
-
 import java.io.IOException;
 
 import android.accounts.Account;
@@ -16,7 +10,6 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -54,7 +47,7 @@ public class MainActivity extends Activity {
         */
     }
 
-    private void testChatroom() {
+    /*private void testChatroom() {
     	Location loc = new Location("loc");
     	loc.setLatitude(57.697261);
     	loc.setLongitude(11.97975);
@@ -63,7 +56,7 @@ public class MainActivity extends Activity {
 		cr.saveMessage("asdasdasdasds", this);
 		TextView textview = (TextView) findViewById(R.id.textView1);
     	textview.setText(cr.getLastMessage(this));
-	}
+	}*/
 
 
 

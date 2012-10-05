@@ -12,7 +12,7 @@ import com.google.android.maps.Projection;
 
 public class RadiusOverlay extends Overlay {
 	
-	private Context context;
+	//private Context context;
 	private double latitude;
 	private double longitude;
 	private float radius;
@@ -20,7 +20,7 @@ public class RadiusOverlay extends Overlay {
 	
 	public RadiusOverlay(Context context, double latitude, double longitude, float radius, boolean nearby ) {
 		super();
-		this.context = context;
+		//this.context = context;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.radius = radius;

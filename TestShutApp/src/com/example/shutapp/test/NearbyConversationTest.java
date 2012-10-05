@@ -22,7 +22,7 @@ public class NearbyConversationTest extends
 	private ActivityMonitor activitySettingsMonitor;
 	private ActivityMonitor activityNearbyConversationMonitor;
 	
-	@SuppressWarnings("deprecation")
+	//@SuppressWarnings("deprecation")
 	public NearbyConversationTest() {
 		super("com.example.shutapp.MainActivity", NearbyConversationsActivity.class);
 	}

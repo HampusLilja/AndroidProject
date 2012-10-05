@@ -1,5 +1,5 @@
 package com.example.shutapp.test;
-
+/*
 import com.example.shutapp.GpsActivity;
 
 import android.test.ActivityInstrumentationTestCase2;
@@ -40,4 +40,4 @@ public class GpsTest extends ActivityInstrumentationTestCase2<GpsActivity>{
 	protected void tearDown(){
 	gpsActivity.finish();
 	}
-}
+}*/

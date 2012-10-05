@@ -5,9 +5,12 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,66 +21,106 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class NearbyConversationsActivity extends Activity implements OnItemClickListener{
 
 	public final static String EXTRA_MESSAGE = "com.example.shutapp.MESSAGE";
-	//private List<Chatroom> nearbyCR;
-	private ArrayAdapter<String> adapter;
-	private List<String> nearbyCRnames;
+	//private List<Chatroom> testNearbyCR;
+	private List<String> nearbyChatRoomNames;
 	private String clickedChatroom = "No chatroom";
+	private Location currentLocation = new Location("current");
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_nearby_conversations);
-		nearbyCRnames = new ArrayList<String>();
-		createArrayAdapter();
-
-
-	}
-<<<<<<< HEAD
-	
-	
-	
-	public void addChatroom(String name){
-		Chatroom cr = new Chatroom(name);
-		Chatrooms.add(cr.getName(), cr);
-		nearbyCRnames.add(name);
-=======
-
-	private void initiateTestRooms() {
-		Location loc1 = new Location("loc1"), loc2 = new Location("loc2"), 
-				loc3 = new Location("loc3"), loc4 = new Location("loc4"), loc5 = new Location("loc5");
 		
-		loc1.setLatitude(57.7012596130371);
-		loc1.setLongitude(11.9670495986938);
-		loc2.setLatitude(57.699242);
-		loc2.setLongitude(11.986369);
-		loc3.setLatitude(57.687583);
-		loc3.setLongitude(11.980708);
-		loc4.setLatitude(57.689431);
-		loc4.setLongitude(11.974092);
-		loc5.setLatitude(57.695697);
-		loc5.setLongitude(11.974067);
-		Chatroom cr1 = new Chatroom("Chatroom1", loc1);Chatroom cr2 = new Chatroom("Chatroom2", loc2);Chatroom cr3 = new Chatroom("Chatroom3", loc3);
-		Chatroom cr4 = new Chatroom("Chatroom4", loc4);Chatroom cr5 = new Chatroom("Chatroom5", loc5);
-		nearbyCR = new ArrayList<Chatroom>();
-		nearbyCR.add(cr1); nearbyCR.add(cr2); nearbyCR.add(cr3); nearbyCR.add(cr4); nearbyCR.add(cr5);
+		/* Use the LocationManager class to obtain GPS locations */
+		LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+		LocationListener locationListener = new MyLocationListener();
+		locationManager.requestLocationUpdates(locationManager.getBestProvider(new Criteria(), false), 1*1000, 0, locationListener);
+		
+		nearbyChatRoomNames = new ArrayList<String>();
+		initiateChatRooms();
+		createArrayAdapter();
+		
+		String bestProvider = locationManager.getBestProvider(new Criteria(), false);       
+        Location startLocation = locationManager.getLastKnownLocation(bestProvider);
+        
+		if (startLocation != null){
+			updatePosition(startLocation.getLatitude(), startLocation.getLongitude());
+		} else {
+			Log.e("geoPointS","Unable to get startlocation");
+			updatePosition(57.691469,11.977469);
+		}
+		
+		// 
+		// Test Rooms
+		//
+		//initiateTestRooms();
+		//createTestArrayAdapter(initTestArray());
+	}
+	
+	private void initiateChatRooms() {
+		
+		try {
+			List<Chatroom> nearbyChatRoom = new ArrayList<Chatroom>();
+			for(Chatroom room : Chatrooms.getAll()){
+				nearbyChatRoom.add(room);
+				nearbyChatRoomNames.add(room.getName());
+			}
+		} catch(Exception e) {
+			System.out.println("No known chat rooms");
+		}
 
->>>>>>> circleMaking
 	}
 
+	public void addChatroom(String name){
+		Chatroom cr = new Chatroom(name, currentLocation);
+		Chatrooms.add(cr.getName(), cr);
+		nearbyChatRoomNames.add(name);
+	}
 
 	private void createArrayAdapter() {
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nearbyCRnames);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nearbyChatRoomNames);
 		ListView listView = (ListView) findViewById(R.id.listOfNearbyConversations);
 		listView.setAdapter(adapter);
 
-
 		listView.setOnItemClickListener(this); 
 	}
+	
+	public void showCreateChatroomDialog(View view){
+		final Dialog newChatroomDialog = new Dialog(this);
+		newChatroomDialog.setContentView(R.layout.create_chatroom_dialog);
+		final EditText etChatroomInput = (EditText) newChatroomDialog.findViewById(R.id.chatroom_name);
+		
+		Button btnDialogCreateChatroom = (Button) newChatroomDialog.findViewById(R.id.create_chatroom);
+		btnDialogCreateChatroom.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View view){
+				String chatRoomToBeAdded = etChatroomInput.getText().toString();
+				if(chatRoomToBeAdded.equals("") || chatRoomToBeAdded == null)
+					return;
+				addChatroom(chatRoomToBeAdded);
+				newChatroomDialog.cancel();
+				
+			}
+		});
+		newChatroomDialog.show();
+	}
 
+	private void updatePosition(double latitude, double longitude) {
+		currentLocation.setLatitude(latitude);
+		currentLocation.setLongitude(longitude);
+
+		String Text = "My current location is: " + 
+		" Latitud = " + currentLocation.getLatitude() + " Longitud = " + 
+				currentLocation.getLongitude();
+
+		Toast.makeText( getApplicationContext(),
+				Text, Toast.LENGTH_SHORT).show();
+	}
 
 	public void toNearbyConversationsActivity(View view){
 		Intent intent = new Intent(this, NearbyConversationsActivity.class);
@@ -106,32 +149,80 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 
 	public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) {
 		Log.d("listan", "you clicked item " + position);
-		clickedChatroom = nearbyCRnames.get(position);
+		clickedChatroom = nearbyChatRoomNames.get(position);
 		toChatActivity(view);
 		
 	}
 	
-	public void showCreateChatroomDialog(View view){
-		final Dialog newChatroomDialog = new Dialog(this);
-		newChatroomDialog.setContentView(R.layout.create_chatroom_dialog);
-		final EditText etChatroomInput = (EditText) newChatroomDialog.findViewById(R.id.chatroom_name);
+	/* Class My Location Listener */
+	public class MyLocationListener implements LocationListener	{
 		
-		Button btnDialogCreateChatroom = (Button) newChatroomDialog.findViewById(R.id.create_chatroom);
-		btnDialogCreateChatroom.setOnClickListener(new OnClickListener() {
+		public MyLocationListener(){
 			
-			public void onClick(View view){
-				String chatRoomToBeAdded = etChatroomInput.getText().toString();
-				if(chatRoomToBeAdded.equals("") || chatRoomToBeAdded == null)
-					return;
-				addChatroom(chatRoomToBeAdded);
-				newChatroomDialog.cancel();
-				
-			}
-		});
-		newChatroomDialog.show();
+		}
+		
+		public void onLocationChanged(Location loc) {
+			updatePosition(loc.getLatitude(), loc.getLongitude());
+		}
+
+		public void onProviderDisabled(String provider)	{
+			Toast.makeText( getApplicationContext(),
+			"Gps Disabled",
+			Toast.LENGTH_SHORT ).show();
+		}
+
+		public void onProviderEnabled(String provider) {
+			Toast.makeText( getApplicationContext(),
+					"Gps Enabled", Toast.LENGTH_SHORT).show();
+		}
+
+		public void onStatusChanged(String provider, int status, Bundle extras)	{
+
+		}
+
+	}/* End of Class MyLocationListener */
+	
+	// 
+	// Methodes for test rooms
+	//
+	/*
+	private void initiateTestRooms() {
+		Location loc1 = new Location("loc1"), loc2 = new Location("loc2"), 
+				loc3 = new Location("loc3"), loc4 = new Location("loc4"), loc5 = new Location("loc5");
+		
+		loc1.setLatitude(57.7012596130371);
+		loc1.setLongitude(11.9670495986938);
+		loc2.setLatitude(57.699242);
+		loc2.setLongitude(11.986369);
+		loc3.setLatitude(57.687583);
+		loc3.setLongitude(11.980708);
+		loc4.setLatitude(57.689431);
+		loc4.setLongitude(11.974092);
+		loc5.setLatitude(57.695697);
+		loc5.setLongitude(11.974067);
+		Chatroom cr1 = new Chatroom("Chatroom1", loc1);Chatroom cr2 = new Chatroom("Chatroom2", loc2);Chatroom cr3 = new Chatroom("Chatroom3", loc3);
+		Chatroom cr4 = new Chatroom("Chatroom4", loc4);Chatroom cr5 = new Chatroom("Chatroom5", loc5);
+		testNearbyCR = new ArrayList<Chatroom>();
+		testNearbyCR.add(cr1); testNearbyCR.add(cr2); testNearbyCR.add(cr3); testNearbyCR.add(cr4); testNearbyCR.add(cr5);
+
 	}
 	
-
+	private String[] initTestArray() {
+		String[] testArray = new String[testNearbyCR.size()];
+		int i = 0;
+		for(Chatroom cr : testNearbyCR){
+			testArray[i] = cr.getName();
+			i++;
+		}
+		return testArray;
+	}
 	
+	private void createTestArrayAdapter(String[] myStringArray) {
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myStringArray);
+		ListView listView = (ListView) findViewById(R.id.listOfNearbyConversations);
+		listView.setAdapter(adapter);
 
+		listView.setOnItemClickListener(this); 
+	}
+	*/
 }

@@ -32,21 +32,12 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	private MyLocationOverlay compass;
 	private MapOverlay itemizedoverlay;
 	private List<Overlay> mapOverlays;
-<<<<<<< HEAD
-	private Drawable drawable;
-	private LocationManager lm;
 
-	private double lat, lon;
-	private Criteria crit;
-
-=======
 	private Drawable drawableArrow;
 	private LocationManager locationManager;
 	private RadiusOverlay radiusOverlay;
 	private Criteria criteria;
-	
-	
->>>>>>> circleMaking
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -75,28 +66,9 @@ public class GpsActivity extends MapActivity implements LocationListener {
 			Log.e("geoPointS","Unable to get startlocation");
 			updatePosition(57.691469,11.977469);
 		}
-<<<<<<< HEAD
 
-		float radius = 1000;
-
-		updatePosition(lat, lon);
-
-		mapOverlays = mapView.getOverlays();
-		compass = new MyLocationOverlay(GpsActivity.this, mapView);
-		drawable = this.getResources().getDrawable(R.drawable.maparrow);
-		RadiusOverlay radiusOverlay = new RadiusOverlay(this, 57.7012596130371, 11.9670495986938, radius);
-		itemizedoverlay = new MapOverlay(drawable, this);
-
-		OverlayItem overlayitem = new OverlayItem(gP, null, null);
-		itemizedoverlay.addOverlay(overlayitem);
-		mapOverlays.add(itemizedoverlay);
-		mapOverlays.add(compass);
-		mapOverlays.add(radiusOverlay);
-
-=======
-		
 		drawAllCircles();
->>>>>>> circleMaking
+
 	}
 
 	private void updatePosition(double latitude, double longitude) {
@@ -120,12 +92,16 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	}
 	
 	private void drawAllCircles() {
-		for(Chatroom room : Chatrooms.getAll()){
-			Location chatRoomLocation = room.getLocation();
+		try{
+			for(Chatroom room : Chatrooms.getAll()) {
+				Location chatRoomLocation = room.getLocation();
 			
-			boolean nearby = inRangeOfChatRoom(currentLocation, chatRoomLocation);
-			setShadedCircleOnLocation(room.getLocation().getLatitude(), 
-					room.getLocation().getLongitude(), nearby);
+				boolean nearby = inRangeOfChatRoom(currentLocation, chatRoomLocation);
+				setShadedCircleOnLocation(room.getLocation().getLatitude(), 
+						room.getLocation().getLongitude(), nearby);
+			}
+		} catch(Exception e) {
+			System.out.println("No Chat Rooms to print on map");
 		}
 	}
 	

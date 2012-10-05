@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -48,7 +47,8 @@ public class HttpMessage implements Runnable{
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 			// Execute HTTP Post Request
-			HttpResponse response = httpclient.execute(httppost);
+			httpclient.execute(httppost);
+			//HttpResponse response = httpclient.execute(httppost);
 
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block

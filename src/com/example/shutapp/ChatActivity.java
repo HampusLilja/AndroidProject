@@ -2,19 +2,6 @@ package com.example.shutapp;
 
 import static com.example.shutapp.MiscResources.PROJECT_ID;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -22,23 +9,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-
 import com.google.android.gcm.GCMRegistrar;
-
-
-import com.google.android.gcm.GCMRegistrar;
-
 
 //Got a lot of help and inspiration from http://avilyne.com/?p=267
 
@@ -66,9 +44,9 @@ public class ChatActivity extends Activity {
 
 		// textviews used to show the status of our app's registration, and the latest
 		// broadcast message.
-		private TextView tvRegStatusResult;
+		//private TextView tvRegStatusResult;
 		private TextView tvBroadcastMessage;
-		private TextView tvChatroomLabel;
+		//private TextView tvChatroomLabel;
 
 		private EditText etMessageInput;
 		private TextView tvChatLogHistory;
@@ -156,12 +134,12 @@ public class ChatActivity extends Activity {
 		}
 		
 		//dummytestmethod
-		private void makeSomeNoise() {
+		/*private void makeSomeNoise() {
 			for(int i= 0; i<=50; i++){
 				appendToChatLogHistory(chatroom.getName(), "I do this spam because im a stupid dummymethod" +i);
 			}
 			
-		}
+		}*/
 
 		// This registerClient() method checks the current device, checks the
 		// manifest for the appropriate rights, and then retrieves a registration id

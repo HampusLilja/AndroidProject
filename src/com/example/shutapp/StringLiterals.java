@@ -1,7 +1,5 @@
 package com.example.shutapp;
 
-import android.widget.EditText;
-
 public abstract class StringLiterals {
 	
 	public static final int CHATROOM_MESSAGE_TYPE = 1;
