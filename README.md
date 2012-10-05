@@ -9,6 +9,7 @@ The colour of the circle on the map depends on your location.
 If you are in range of one or more chat room circles they will be green, all other circles will be red.
 If the server (see README in folder: server-package) is up and running then  you can send messages from your
 device to all other devices connected through our server and GCM.
+We also did a huge amount of refactoring.
 
 Known bugs and limitations for HANDIN_04:
 Created chat rooms will not be saved if you shut down the application.
