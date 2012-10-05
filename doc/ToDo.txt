@@ -1,0 +1,4 @@
+Uppdatera Requirements
+Spec. för manuella tester
+Readme till server
+Uppdatera UMLetc
