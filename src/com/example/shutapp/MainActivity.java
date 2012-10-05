@@ -17,17 +17,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
-
-
-
 public class MainActivity extends Activity {
 	
 	private String token;
  
-    
- 
-    
+	/**
+	 * Sets the content view and 
+	 *
+	 * @param savedInstanceState the state of the saved instance
+	 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,10 +56,9 @@ public class MainActivity extends Activity {
     	textview.setText(cr.getLastMessage(this));
 	}*/
 
-
-
-
-	//this method handles the authentication of the users gmail accounts
+    /**
+     * Handles the authentication of the users gmail accounts
+     */
     public void manageAccount(){
     	AccountManager am = AccountManager.get(this);
     	Bundle options = new Bundle();
@@ -88,7 +85,11 @@ public class MainActivity extends Activity {
     	textview.setText(theAcc.name);
     }
     
-    //called when the redirectbutton is pressed, redirected to another activity
+    /**
+     * Called when the redirect button is pressed, redirected to another activity 
+     *
+     * @param view a view of the text model
+     */
     public void redirectFromMain(View view){
     	EditText nickname_input = (EditText)findViewById(R.id.nickname_input);
     	Settings.setNickname(nickname_input.getText().toString());
@@ -96,7 +97,11 @@ public class MainActivity extends Activity {
     	startActivity(intentToRedirect);
     	overridePendingTransition(0, 0);
     }
-    //asynchronous class that handles the account token verification
+    /**
+     * Asynchronous class that handles the account token verification 
+     *
+     * @param view a view of the text model
+     */
     private class OnTokenAcquired implements AccountManagerCallback<Bundle> {
         public void run(AccountManagerFuture<Bundle> result) {
         	Intent launch = null;
@@ -140,9 +145,12 @@ public class MainActivity extends Activity {
             
         }
     }
-    //if an error should occur
-    public class OnError implements Handler.Callback {
 
+    /**
+ 	* Handle errors 
+ 	*/
+    public class OnError implements Handler.Callback {
+    	
 		public boolean handleMessage(Message msg) {
 			// TODO Auto-generated method stub
 			return false;

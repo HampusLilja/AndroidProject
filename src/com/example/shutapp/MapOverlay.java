@@ -8,26 +8,47 @@ import android.graphics.drawable.Drawable;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
 
+//Code mostly borrowed from http://myandroidsolutions.blogspot.se/2012/03/android-how-to-put-markerspins-on-map.html
+
 @SuppressWarnings("rawtypes")
 public class MapOverlay extends ItemizedOverlay{
 	
-private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
-private Context mContext;
+	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
+	private Context mContext;
 	
+
+	/**
+	* Constructor
+	*
+ 	* @param defaultMarker  "something that can be drawn."
+ 	*/
 	public MapOverlay(Drawable defaultMarker) {
 		  super(boundCenterBottom(defaultMarker));
 		}
-
+	/**
+	 * Constructor
+	 *
+	 * @param defaultMarker  "something that can be drawn"
+	 * @param context	a list of properties
+	 */
 	public MapOverlay(Drawable defaultMarker, Context context) {
 		  super(boundCenterBottom(defaultMarker));
 		  mContext = context;
 		}
-	
+	/**
+	 * Adds overlay to list of overlays
+	 *
+	 * @param overlay the overlay that is about to be added
+	 */
 	public void addOverlay(OverlayItem overlay) {
 	    mOverlays.add(overlay);
 	    populate();
 	}
-	
+	/**
+	 * Show information when the overlay is tapped
+	 *
+	 * @return true 
+	 */
 	@Override
 	protected boolean onTap(int index) {
 	  OverlayItem item = mOverlays.get(index);
@@ -37,17 +58,23 @@ private Context mContext;
 	  dialog.show();
 	  return true;
 	}
-	
+	/**
+	 * Create item
+	 *
+	 * @return mOverlays.get(i)	an element with the requested index 	
+	 */
 	@Override
 	protected OverlayItem createItem(int i) {
 	  return mOverlays.get(i);
 	}
-
+	/**
+	 * The size of the array that stores overlay items
+	 *
+	 * @return mOverlays.size()		amount of overlay items stored
+	 */
 	@Override
 	public int size() {
 	  return mOverlays.size();
 	}
 	
-	
-
 }

@@ -31,6 +31,11 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	private String clickedChatroom = "No chatroom";
 	private Location currentLocation = new Location("current");
 
+	/**
+	 * Creates an environment for NearbyConversationActivity 
+	 *
+	 * @param savedInstanceState	the state of the saved instance
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,7 +66,9 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		//initiateTestRooms();
 		//createTestArrayAdapter(initTestArray());
 	}
-	
+	/**
+	 * Initiate chat rooms
+	 */
 	private void initiateChatRooms() {
 		
 		try {
@@ -75,13 +82,19 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		}
 
 	}
-
+	/**
+	 * Add a chat room
+	 *
+	 * @param name 	a string containing the name of the room 
+	 */
 	public void addChatroom(String name){
 		Chatroom cr = new Chatroom(name, currentLocation);
 		Chatrooms.add(cr.getName(), cr);
 		nearbyChatRoomNames.add(name);
 	}
-
+	/**
+	 * Create an array adapter
+	 */
 	private void createArrayAdapter() {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nearbyChatRoomNames);
 		ListView listView = (ListView) findViewById(R.id.listOfNearbyConversations);
@@ -89,7 +102,11 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 
 		listView.setOnItemClickListener(this); 
 	}
-	
+	/**
+	 * Show a dialog when creating a chat room
+	 *
+	 * @param view	a view of the text model
+	 */
 	public void showCreateChatroomDialog(View view){
 		final Dialog newChatroomDialog = new Dialog(this);
 		newChatroomDialog.setContentView(R.layout.create_chatroom_dialog);
@@ -109,7 +126,12 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		});
 		newChatroomDialog.show();
 	}
-
+	/**
+	 * Update the position
+	 *
+	 * @param latitude		value with new latitude
+	 * @param longitude 	value with new longitude
+	 */
 	private void updatePosition(double latitude, double longitude) {
 		currentLocation.setLatitude(latitude);
 		currentLocation.setLongitude(longitude);
@@ -121,40 +143,64 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		Toast.makeText( getApplicationContext(),
 				Text, Toast.LENGTH_SHORT).show();
 	}
-
+	/**
+	 * Redirects the user to toNearbyConversationsActivity.java
+	 *
+	 * @param view	a view of the text model
+	 */
 	public void toNearbyConversationsActivity(View view){
 		Intent intent = new Intent(this, NearbyConversationsActivity.class);
 		startActivity(intent);
 		overridePendingTransition(0, 0);
 	}
-
+	/**
+	 * Redirects the user to ChatActivity.java
+	 *
+	 * @param view	a view of the text model
+	 */
 	public void toChatActivity(View view){
 		Intent intentToRedirect = new Intent(this, ChatActivity.class);
 		intentToRedirect.putExtra(EXTRA_MESSAGE, clickedChatroom);
 		startActivity(intentToRedirect);
 		overridePendingTransition(0, 0);
 	}
-
+	/**
+	 * Redirects the user to GpsActivity.java
+	 *
+	 * @param view	a view of the text model
+	 */
 	public void toGpsActivity(View view){
 		Intent intentToRedirect = new Intent(this, GpsActivity.class);
 		startActivity(intentToRedirect);
 		overridePendingTransition(0, 0);
 	}
-
+	/**
+	 * Redirects the user to SettingsActivity.java
+	 *
+	 * @param view	a view of the text model
+	 */
 	public void toSettingsActivity(View view){
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
 		overridePendingTransition(0, 0);
 	}
-
+	/**
+	 * When an item is clicked
+	 *
+	 * @param arg0		
+	 * @param view		a view of the text model
+	 * @param position	the position of the room
+	 * @param arg3		
+	 */
 	public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) {
 		Log.d("listan", "you clicked item " + position);
 		clickedChatroom = nearbyChatRoomNames.get(position);
 		toChatActivity(view);
 		
 	}
-	
-	/* Class My Location Listener */
+	/**
+	 * Class My Location Listener
+	 */
 	public class MyLocationListener implements LocationListener	{
 		
 		public MyLocationListener(){

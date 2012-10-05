@@ -18,6 +18,15 @@ public class RadiusOverlay extends Overlay {
 	private float radius;
 	private boolean green;
 	
+	/**
+	 * Constructor for RadiusOverlay
+	 *
+	 * @param view		a view of the text model	
+	 * @param latitude	the latitude value
+	 * @param longitude	the longitude value
+	 * @param radius	how large radius the circle has	
+	 * @param nearby	if the user is within the radius or not
+	 */
 	public RadiusOverlay(Context context, double latitude, double longitude, float radius, boolean nearby ) {
 		super();
 		//this.context = context;
@@ -27,7 +36,13 @@ public class RadiusOverlay extends Overlay {
 		green = nearby;
 		
 	}
-	
+	/**
+	 * Draw a circle formed overlay
+	 *
+	 * @param canvas	a canvas
+	 * @param mapView	a map view of the text model
+	 * @param shadow	
+	 */
 	public void draw(Canvas canvas, MapView mapView, boolean shadow) {
 		super.draw(canvas, mapView, shadow);
 		

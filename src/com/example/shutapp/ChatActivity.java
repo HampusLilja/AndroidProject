@@ -25,14 +25,7 @@ public class ChatActivity extends Activity {
 	// This tag is used in Log.x() calls
 	private static final String TAG = "MainActivity";
 
-
-
-	
-
-
-
-		// This string will hold the lengthy registration id that comes
-		// from GCMRegistrar.register()
+		// This string will hold the lengthy registration id that comes from GCMRegistrar.register()
 		private String regId = "";
 
 		// These strings are hopefully self-explanatory
@@ -42,20 +35,13 @@ public class ChatActivity extends Activity {
 		// This intent filter will be set to filter on the string "GCM_RECEIVED_ACTION"
 		private IntentFilter gcmFilter;
 
-		// textviews used to show the status of our app's registration, and the latest
-		// broadcast message.
-		//private TextView tvRegStatusResult;
+		// textviews used to show the status of our app's registration, and the latest broadcast message.
 		private TextView tvBroadcastMessage;
-		//private TextView tvChatroomLabel;
-
 		private EditText etMessageInput;
 		private TextView tvChatLogHistory;
 		
 		ScrollView svChatLog;
 		LinearLayout llChatLog;
-
-
-
 		Chatroom chatroom;
 		// This broadcastreceiver instance will receive messages broadcast
 		// with the action "GCM_RECEIVED_ACTION" via the gcmFilter
@@ -76,6 +62,12 @@ public class ChatActivity extends Activity {
 
 
 		};
+		/**
+		 * Creates an environment for chatActivity 
+		 *
+		 * @param savedInstanceState	the state of the saved instance 	
+		 * 
+		 */
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -141,11 +133,12 @@ public class ChatActivity extends Activity {
 			
 		}*/
 
-		// This registerClient() method checks the current device, checks the
-		// manifest for the appropriate rights, and then retrieves a registration id
-		// from the GCM cloud.  If there is no registration id, GCMRegistrar will
-		// register this device for the specified project, which will return a
-		// registration id.
+		/**
+		 * checks the current device, checks the 
+		 * manifest for the appropriate rights, and then retrieves a registration id
+		 * from the GCM cloud. 
+		 *
+		 */
 		public void registerClient() {
 
 			try {
@@ -210,11 +203,13 @@ public class ChatActivity extends Activity {
 
 		}
 
-		// If the user changes the orientation of his phone, the current activity
-		// is destroyed, and then re-created.  This means that our broadcast message
-		// will get wiped out during re-orientation.
-		// So, we save the broadcastmessage during an onSaveInstanceState()
-		// event, which is called prior to the destruction of the activity.
+
+		/**
+		 * Saves the broadcast message to prevent that it gets wiped out during re-orientation 
+		 *
+		 * @param savedInstanceState	 the state of the saved instance
+		 * 
+		 */
 		@Override
 		public void onSaveInstanceState(Bundle savedInstanceState) {
 
@@ -228,7 +223,12 @@ public class ChatActivity extends Activity {
 		// event, passing it a bundle that contains any values that you may have put
 		// in during onSaveInstanceState()
 		// We can use this mechanism to re-display our last broadcast message.
-
+		/**
+		 * Restores the broadcast message
+		 *
+		 * @param savedInstanceState	 the state of the saved instance
+		 * 
+		 */
 		@Override
 		public void onRestoreInstanceState(Bundle savedInstanceState) {
 
@@ -239,8 +239,9 @@ public class ChatActivity extends Activity {
 
 		}
 
-		// If our activity is paused, it is important to UN-register any
-		// broadcast receivers.
+		/**
+		 * Un-registers broadcast receivers when the activity is paused 
+		 */
 		@Override
 		protected void onPause() {
 
@@ -248,15 +249,18 @@ public class ChatActivity extends Activity {
 			super.onPause();
 		}
 
-		// When an activity is resumed, be sure to register any
-		// broadcast receivers with the appropriate intent
+		/**
+		 * Registers broadcast receivers when the activity is resumed 
+		 */
 		@Override
 		protected void onResume() {
 			super.onResume();
 			registerReceiver(gcmReceiver, gcmFilter);
 
 		}
-		// NOTE the call to GCMRegistrar.onDestroy()
+		/**
+		 * Called when the activity is about to be destroyed
+		 */
 		@Override
 		public void onDestroy() {
 
@@ -265,7 +269,11 @@ public class ChatActivity extends Activity {
 			super.onDestroy();
 		}
 
-		//method called when send button is clicked
+		/**
+		 * Is called when the send button is pressed and sends the message
+		 *
+		 * @param view	a view of the text model
+		 */
 		public void sendMessage(View view){
 			etMessageInput = (EditText) findViewById(R.id.written_msg);
 			String messageToSend = etMessageInput.getText().toString();
@@ -303,32 +311,55 @@ public class ChatActivity extends Activity {
 			appendToChatLogHistory(username, message);
 
 		}
-
+		/**
+		 * Redirects the user to ChatActivity.java
+		 *
+		 * @param view	a view of the text model
+		 */
 		public void toGpsActivity(View view){
 			Intent intent = new Intent(this, GpsActivity.class);
 			startActivity(intent);
 			overridePendingTransition(0, 0);
 		} 
 
+		/**
+		* Redirects the user to NearbyConversationsActivity.java
+		*
+ 		* @param view	a view of the text model
+ 		*/
 		public void toNearbyConversationsActivity(View view){
 			Intent intent = new Intent(this, NearbyConversationsActivity.class);
 			startActivity(intent);
 			overridePendingTransition(0, 0);
 		}
 
+		/**
+		 * Redirects the user to GpsACtivity.java
+ 		*
+ 		* @param view	a view of the text model
+ 		*/
 		public void toChatActivity(View view){
 			Intent intentToRedirect = new Intent(this, ChatActivity.class);
 			startActivity(intentToRedirect);
 			overridePendingTransition(0, 0);
 		}
-
+		/**
+		 * Redirects the user to SettingsActivity.java
+		 *
+		 * @param view	a view of the text model
+		 */
 		public void toSettingsActivity(View view){
 			Intent intent = new Intent(this, SettingsActivity.class);
 			startActivity(intent);
 			overridePendingTransition(0, 0);
 		} 
 
-		/* save the message written in dialog*/
+		/**
+		 * Saves the message
+		 *
+		 * @param view	a view of the text model
+		 * @return chatmessage A string of the send message 
+		 */
 		public String saveMessage(View view){
 			EditText thetext = (EditText)findViewById(R.id.written_msg);
 			String chatmessage = thetext.getText().toString();

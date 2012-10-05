@@ -15,7 +15,14 @@ import org.apache.http.message.BasicNameValuePair;
 public class HttpMessage implements Runnable{
 
 	private List<NameValuePair> nameValuePairs;
-
+	/**
+	* Constructor
+	*
+ 	* @param messageType 	1 if CHATROOM_MESSAGE_TYPE, 2 if DBREGISTER_MESSAGE_TYPE
+ 	* @param var1			
+ 	* @param var2			
+ 	* @param var3			
+ 	*/
 	public HttpMessage(int messageType, String var1, String var2, String var3){
 		nameValuePairs = new ArrayList<NameValuePair>(2);
 		switch(messageType){
@@ -37,7 +44,9 @@ public class HttpMessage implements Runnable{
 		}
 		new Thread(this).start();
 	}
-
+	/**
+	 * Run application
+	 */
 	public void run() {
 		// Create a new HttpClient and Post Header
 		HttpClient httpclient = new DefaultHttpClient();

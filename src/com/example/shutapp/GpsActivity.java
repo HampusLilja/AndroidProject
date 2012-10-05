@@ -37,7 +37,13 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	private LocationManager locationManager;
 	private RadiusOverlay radiusOverlay;
 	private Criteria criteria;
-
+	
+	/**
+	 * Creates an environment for a GPS map
+	 *
+	 * @param savedInstanceState the state of the saved instance
+	 * 
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -77,11 +83,19 @@ public class GpsActivity extends MapActivity implements LocationListener {
 		currentGeoPoint = new GeoPoint((int)(latitude*1E6), (int)(longitude*1E6)); //converting to micro-degrees with 1E6
 		mapControl.animateTo(currentGeoPoint);
 	}
-	
+	/**
+	 * Get the current geopoint
+	 *
+	 * @return the location of this object as a geopoint.
+	 */
 	public GeoPoint getCurrentGeoPoint() {
 		return currentGeoPoint;
 	}
-	
+	/**
+	 * Gets the current location
+	 *
+	 * @return the location of this object as a location.
+	 */
 	public Location getCurrentLocation() {
 		return currentLocation;
 	}
@@ -109,14 +123,20 @@ public class GpsActivity extends MapActivity implements LocationListener {
 		int dist = (int) (RADIUS - myLocation.distanceTo(chatRoomLocation));
 		return (dist >= 0);
 	}
-
+	/**
+	 * Add a new overlay
+	 */
 	public void newOverlay(){
 		itemizedoverlay = new MapOverlay(drawableArrow, this);
 		OverlayItem currentOverlay = new OverlayItem(currentGeoPoint,"Current Location","Here is my current location!!!");
 		itemizedoverlay.addOverlay(currentOverlay);
 		mapOverlays.add(itemizedoverlay);
 	} 
-	
+	/**
+	 * Handles the events if the location is changed(updates position and add new overlay) 
+	 * 
+	 * @param location the new location
+	 */
 	public void onLocationChanged(Location location) {
 		Log.e("geoPointS", "location changed: lat="+String.valueOf(location.getLatitude())+", lon="+String.valueOf(location.getLongitude()));
 		updatePosition(location.getLatitude(), location.getLongitude());
@@ -126,14 +146,18 @@ public class GpsActivity extends MapActivity implements LocationListener {
 		} 
 		newOverlay();		
 	}
-
+	/**
+	 * Disables the compass and remove updates from the location manager
+	 */
 	@Override
 	protected void onPause() {
 		compass.disableCompass();
 		super.onPause();
 		locationManager.removeUpdates(this);
 	}
-
+	/**
+	 * Enables the compass, adds overlay and updates the users position
+	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -152,7 +176,12 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
 		Log.e("geoPointS", "status changed to " + arg0 + " [" + arg1 + "]");
 	}
-
+	/**
+	 * Initialize the contents of the Activity's standard options menu
+	 *
+	 * @param menu	a menu object
+	 * @return true
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
@@ -164,25 +193,41 @@ public class GpsActivity extends MapActivity implements LocationListener {
 		// TODO Auto-generated method stub
 		return false;
 	}        
-
+	/**
+	 * Redirects the user to ChatActivity.java
+	 *
+	 * @param view	a view of the text model
+	 */
 	public void toChatActivity(View view){
 		Intent intentToRedirect = new Intent(this, ChatActivity.class);
 		startActivity(intentToRedirect);
 		overridePendingTransition(0, 0);
 	}
-
+	/**
+	 * Redirects the user to NearbyConversationsActivity.java
+	 *
+	 * @param view	a view of the text model
+	 */
 	public void toNearbyConversationsActivity(View view){
 		Intent intentToRedirect = new Intent(this, NearbyConversationsActivity.class);
 		startActivity(intentToRedirect);
 		overridePendingTransition(0, 0);
 	}
-
+	/**
+	 * Redirects the user to GpsACtivity.java
+	 *
+	 * @param view	a view of the text model
+	 */
 	public void toGpsActivity(View view){
 		Intent intentToRedirect = new Intent(this, GpsActivity.class);
 		startActivity(intentToRedirect);
 		overridePendingTransition(0, 0);
 	}
-
+	/**
+	 * Redirects the user to SettingsActivity.java
+	 *
+	 * @param view	a view of the text model
+	 */
 	public void toSettingsActivity(View view){
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);

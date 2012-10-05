@@ -15,20 +15,32 @@ import com.google.android.gcm.*;
 	     
 	    private static final String TAG = "GCMIntentService";
 	    
-	
+	    /**
+	     * Constructor for GCMIntentService
+	     */
 	    public GCMIntentService()
 	    {
 	        super(SENDER_ID);
 	        Log.d(TAG, "GCMIntentService initiated");
 	    }
-	     
+	    /**
+	     * If an error occurs
+	     *
+	     * @param ctx		a list of properties
+	     * @param error 	A string that describes the error
+	     */ 
 	    @Override
 	    protected void onError(Context ctx, String error) {
 	        // Do something here if error!
 	        Log.d(TAG, "Error: " + error);
 	         
 	    }
-	 
+	    /**
+	     * Sends a message
+	     *
+	     * @param ctx 		a list of properties
+	     * @param intent	an abstract description of an operation to be performed
+	     */
 	    @Override
 	    protected void onMessage(Context ctx, Intent intent) {
 	    	Log.d(TAG, "Message has been received");
@@ -46,14 +58,24 @@ import com.google.android.gcm.*;
 	         
 	    }
 	     
-	     
+	    /**
+	     * Sends regId to the server 
+	     *
+	     * @param ctx		a list of properties
+	     * @param regId		a string containing the registration id
+	     */ 
 	    @Override
 	    protected void onRegistered(Context ctx, String regId) {
 	        // send regId to your server
 	        Log.d(TAG, regId);
 	         
 	    }
-	 
+	    /**
+	     * add regId to the server
+	     *
+	     * @param ctx 		a list of properties
+	     * @param regId		a string containing the registration id
+	     */
 	    @Override
 	    protected void onUnregistered(Context ctx, String regId) {
 	        // send to server to remove that regId
