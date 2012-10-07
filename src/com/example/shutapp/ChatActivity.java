@@ -56,9 +56,9 @@ public class ChatActivity extends Activity {
 		private EditText etMessageInput;
 		private TextView tvChatLogHistory;
 		
-		ScrollView svChatLog;
-		LinearLayout llChatLog;
-		Chatroom chatroom;
+		private ScrollView svChatLog;
+		//private LinearLayout llChatLog;
+		private Chatroom chatroom;
 		// This broadcastreceiver instance will receive messages broadcast
 		// with the action "GCM_RECEIVED_ACTION" via the gcmFilter
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+
+
+
+    <Button
+        android:id="@+id/btn_change_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="@string/create_chatroom_button_dialog" />
+
+    <EditText
+        android:id="@+id/et_change_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_change_nickname"
+        android:layout_alignBottom="@+id/btn_change_nickname"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/btn_change_nickname"
+        android:ems="10"
+        android:hint="@string/enter_chatroom_name"
+        android:inputType="textNoSuggestions" >
+
+        <requestFocus />
+    </EditText>
+
+</RelativeLayout>

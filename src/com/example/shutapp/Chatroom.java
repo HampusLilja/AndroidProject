@@ -99,16 +99,7 @@ public class Chatroom {
 	 * @param ctx	a list of properties
 	 */
 	public void saveMessage(String msg, Context ctx){
-		FileOutputStream fos;
-		try {
-			fos = ctx.openFileOutput(CHATROOM_NAME, Context.MODE_PRIVATE);
-			fos.write(msg.getBytes());
-			fos.close();
-		} catch (FileNotFoundException e) {
-	           e.printStackTrace();
-	    }catch(IOException e){
-	            e.printStackTrace();
-	    }
+		Parser.write(msg, CHATROOM_NAME, ctx);
 	}
 	
 	/**

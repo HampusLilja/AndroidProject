@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -46,7 +47,18 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        
+        Settings.initiateSettingsFile(this);
+        //Parser.clean("test", this);
+        //testing parser
+        Parser.write("test1", "test", this);
+        Parser.write("test2", "test", this);
+       // Parser.write("test3", "test", this);
+       // Parser.write("test4", "test", this);
+        
+        //Log.d("PARSER", Parser.readFirst("test", this));
+        Log.d("PARSER", Parser.readAll("test", this));
+        
         //Settings.setNickname("Prassel");
 /*
         if( Settings.getNickname().equals("") ){
@@ -108,7 +120,7 @@ public class MainActivity extends Activity {
      */
     public void redirectFromMain(View view){
     	EditText nickname_input = (EditText)findViewById(R.id.nickname_input);
-    	Settings.setNickname(nickname_input.getText().toString());
+    	Settings.setNickname(nickname_input.getText().toString(), this);
     	Intent intentToRedirect = new Intent(this, NearbyConversationsActivity.class);
     	startActivity(intentToRedirect);
     	overridePendingTransition(0, 0);

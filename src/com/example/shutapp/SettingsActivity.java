@@ -16,13 +16,27 @@
 */
 package com.example.shutapp;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends Activity implements OnItemClickListener{
 	
+	private List<String> settingsList;
+	private ArrayAdapter<String> adapter;
 	/**
 	 * Creates an environment for SettingsActivity
 	 *
@@ -33,7 +47,36 @@ public class SettingsActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        initiateSettingsList();
+        initiateArrayAdapter();
     }
+    
+    
+    private void initiateSettingsList() {
+    	
+    	//Adds the nickname list item
+    	if(settingsList == (null))
+    		settingsList = new ArrayList<String>();
+		settingsList.add("Nickname:" + "\t" + Settings.getNickname());
+		
+	}
+    
+    private void updateSettingsList(){
+    	settingsList.removeAll(settingsList);
+    	initiateSettingsList();
+    }
+
+
+	/**
+	 * Create an array adapter
+	 */
+	private void initiateArrayAdapter() {
+		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, settingsList);
+		ListView listView = (ListView) findViewById(R.id.settingsList);
+		listView.setAdapter(adapter);
+
+		listView.setOnItemClickListener(this); 
+	}
     /**
      * Redirects the user to ChatActivity.java
      *
@@ -73,7 +116,40 @@ public class SettingsActivity extends Activity {
     	Intent intent = new Intent(this, SettingsActivity.class);
     	startActivity(intent);
     	overridePendingTransition(0, 0);
-    } 
+    }
+
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+		switch(position){
+		//nickname case
+		case StringLiterals.NICKNAME_CASE:
+			clickOnNicknameItem();
+			break;
+		}
+		
+	}
+
+
+	private void clickOnNicknameItem() {
+			final Dialog changeNicknameDialog = new Dialog(this);
+			changeNicknameDialog.setContentView(R.layout.change_nickname_dialog);
+			final EditText etChatroomInput = (EditText) changeNicknameDialog.findViewById(R.id.et_change_nickname);
+			
+			Button btnDialogChangeNickname = (Button) changeNicknameDialog.findViewById(R.id.btn_change_nickname);
+			btnDialogChangeNickname.setOnClickListener(new OnClickListener() {
+				
+				public void onClick(View view){
+					String nameToBeChanged = etChatroomInput.getText().toString();
+					if(nameToBeChanged.equals("") || nameToBeChanged == null)
+						return;
+					Settings.setNickname(nameToBeChanged, SettingsActivity.this);
+					updateSettingsList();
+					changeNicknameDialog.cancel();
+					
+				}
+			});
+			changeNicknameDialog.show();
+		
+	} 
 
     
 }

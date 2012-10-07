@@ -16,16 +16,46 @@
 */
 package com.example.shutapp;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import android.content.Context;
+
 public abstract class Settings {
 	private static String nickname="";
 	
+	public static void initiateSettingsFile(Context ctx){
+		FileOutputStream fos;
+		String settingsTags = "";
+		try {
+			fos = ctx.openFileOutput("SETTINGS", Context.MODE_PRIVATE);
+			fos.write(settingsTags.getBytes());
+			fos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * Set the nick name
 	 *
 	 * @param name 	a string with the new nick name
 	 */
-	public static void setNickname(String name){
+	public static void setNickname(String name, Context ctx){
 		nickname = name;
+		FileOutputStream fos;
+		try {
+			fos = ctx.openFileOutput("SETTINGS", Context.MODE_PRIVATE);
+			fos.write(name.getBytes());
+			fos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+
 	}
 	/**
 	 * Get the nick name
