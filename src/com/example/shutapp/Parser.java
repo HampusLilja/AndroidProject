@@ -28,6 +28,20 @@ public abstract class Parser {
 	    }
 	}
 	
+	public  static void writeAtIndex(int index, String text, String filename, Context ctx){
+		String temp = readAll(filename, ctx);
+		String[] textLines = temp.split("\n");
+		textLines[index] = text;
+		StringBuffer sb = new StringBuffer();
+		for(int i = 0; i<textLines.length; i++){
+			textLines[i] = textLines[i] + "\n";
+			sb.append(textLines[i]);
+		}
+		clean(filename, ctx);
+		write(sb.toString(), filename, ctx);
+		
+	}
+	
 	public static void clean(String filename, Context ctx){
 		FileOutputStream fos;
 		String temp = "";
@@ -56,6 +70,27 @@ public abstract class Parser {
 			e.printStackTrace();
 		}
 		return firstLine;
+	}
+	
+	public static String readAtIndex(int index, String filename, Context ctx){
+		//index++;
+		String tempLine = "";
+		try {
+			InputStream is = ctx.openFileInput(filename);
+			BufferedReader bfr = new BufferedReader(new InputStreamReader(is));
+			
+			for(int i=0; i<=index; i++){
+				tempLine = bfr.readLine();
+				//Log.d("readAtIndex" , tempLine);
+			}
+		} catch (FileNotFoundException e) {
+			Log.d("Chatroom" , "FileNotFoundException");
+			e.printStackTrace();
+		} catch (IOException e){
+			Log.d("Chatroom" , "IOException");
+			e.printStackTrace();
+		}
+		return tempLine;
 	}
 	
 	public static String readAll(String filename, Context ctx){

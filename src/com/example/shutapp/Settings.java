@@ -45,16 +45,7 @@ public abstract class Settings {
 	 */
 	public static void setNickname(String name, Context ctx){
 		nickname = name;
-		FileOutputStream fos;
-		try {
-			fos = ctx.openFileOutput("SETTINGS", Context.MODE_PRIVATE);
-			fos.write(name.getBytes());
-			fos.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}catch(IOException e){
-			e.printStackTrace();
-		}
+		Parser.writeAtIndex(0, name, "SETTINGS", ctx);
 
 	}
 	/**

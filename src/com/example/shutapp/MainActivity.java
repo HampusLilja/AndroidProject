@@ -47,17 +47,21 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        Settings.initiateSettingsFile(this);
-        //Parser.clean("test", this);
+        //Parser.clean("SETTINGS", this);
+        String tempName = Parser.readAtIndex(0, "SETTINGS", this);
+        if(tempName != null && !tempName.equals(""))
+        	Settings.setNickname(tempName, this); 
+        Parser.clean("test", this);
         //testing parser
         Parser.write("test1", "test", this);
         Parser.write("test2", "test", this);
-       // Parser.write("test3", "test", this);
+        Parser.write("test3", "test", this);
+        Parser.writeAtIndex(1, "testindex", "test", this);
        // Parser.write("test4", "test", this);
         
-        //Log.d("PARSER", Parser.readFirst("test", this));
-        Log.d("PARSER", Parser.readAll("test", this));
+       // Log.d("PARSER", Parser.readFirst("test", this));
+       // Log.d("PARSER", Parser.readAll("test", this));
+       // Log.d("PARSER", Parser.readAtIndex(1, "test", this));
         
         //Settings.setNickname("Prassel");
 /*
@@ -119,8 +123,8 @@ public class MainActivity extends Activity {
      * @param view a view of the text model
      */
     public void redirectFromMain(View view){
-    	EditText nickname_input = (EditText)findViewById(R.id.nickname_input);
-    	Settings.setNickname(nickname_input.getText().toString(), this);
+    //	EditText nickname_input = (EditText)findViewById(R.id.nickname_input);
+    //	Settings.setNickname(nickname_input.getText().toString(), this);
     	Intent intentToRedirect = new Intent(this, NearbyConversationsActivity.class);
     	startActivity(intentToRedirect);
     	overridePendingTransition(0, 0);
