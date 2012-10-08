@@ -18,91 +18,49 @@ package com.example.shutapp.test;
 
 import android.test.ActivityInstrumentationTestCase2;
 import com.example.shutapp.*;
-
-import android.app.Instrumentation.ActivityMonitor;
-
-import android.widget.Button;
+import com.example.shutapp.R;
+import com.jayway.android.robotium.solo.Solo;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	
-	private MainActivity mActivity;
-	
-	private Button mButton;
-	private TextView resultView;
-	private ActivityMonitor activityMonitor;
+	private Solo solo;
 	  
-	//@SuppressWarnings("deprecation")
 	public MainTest() {
-		super("com.example.shutapp.MainActivity", MainActivity.class);
+		super(MainActivity.class);
 	}
 	
 	@Override
 	protected void setUp() throws Exception {
-		super.setUp();
-
-		// register next activity that need to be monitored.
-		activityMonitor = getInstrumentation().addMonitor(NearbyConversationsActivity.class.getName(), null, false);
-
-	    mActivity = getActivity();
-
-	    mButton =
-	      (Button) mActivity.findViewById(
-	        com.example.shutapp.R.id.button1
-	      );
-	    
-	    resultView = (TextView) mActivity.findViewById(
-	    		com.example.shutapp.R.id.textView1); 
-		
+		//setUp() is run before a test case is started. 
+		//This is where the solo object is created.
+		solo = new Solo(getInstrumentation(), getActivity());
 	}
 	
-	public void testPreConditions() {
-		assertNotNull("Can´t find the Button", mButton);
-		assertNotNull("Can´t find the Text View", resultView);
+	@Override
+	public void tearDown() throws Exception {
+		//tearDown() is run after a test case has finished. 
+		//finishOpenedActivities() will finish all the activities that have been opened during the test execution.
+		solo.finishOpenedActivities();
 	}
 	
-	public void testRedirectButton() {
-		
-		mActivity.runOnUiThread(
-				new Runnable() {
-					public void run() {
-						mButton.requestFocus();
-						mButton.performClick();
-					}
-				});
-
-		wait(6);
-		
-		NearbyConversationsActivity nActivity = (NearbyConversationsActivity) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5);
-		
-		// next activity is opened and captured.
-		assertNotNull("Could´t open Activity", nActivity);
-		nActivity.finish();
-
-		resultView = (TextView) nActivity.findViewById(
-	    		com.example.shutapp.R.id.textView1); 
-		
-	
+	public void testWelcomeText() {
+		TextView welcomeText = solo.getText(0);
+		String actual = welcomeText.getText().toString();
+		String expected = solo.getString(R.string.main_information_temp);
+		assertEquals("Wrong welcome text", expected, actual);
 	}
 	
-	public void wait(int sec){
+	public void testEnterNameAndRedirectToChatRooms() {
+		EditText chatRoomName = (EditText) solo.getView(R.id.nickname_input);
+		solo.typeText(chatRoomName, "User");
 		
-		try {
-			Thread.sleep(sec*1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		solo.clickOnButton("Send");
 		
+		//Assert that NearbyConversationActivity activity is opened
+		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
 	}
-	/*@Override
-	protected void tearDown() {
-		try {
-			super.tearDown();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}*/
+	
 
 }

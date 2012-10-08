@@ -15,7 +15,7 @@
 ** along with ShutApp.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.example.shutapp.test;
-
+/*
 import com.example.shutapp.ChatActivity;
 import com.example.shutapp.SettingsActivity;
 import com.example.shutapp.NearbyConversationsActivity;
@@ -33,12 +33,13 @@ public class NearbyConversationTest extends
 	private Button nButton;
 	private Button sButton;
 	private Button mButton;
+	private Button newChatRoomButton;
 	private TextView resultView;
 	private ActivityMonitor activityChatMonitor;
 	private ActivityMonitor activitySettingsMonitor;
 	private ActivityMonitor activityNearbyConversationMonitor;
 	
-	//@SuppressWarnings("deprecation")
+	@SuppressWarnings("deprecation")
 	public NearbyConversationTest() {
 		super("com.example.shutapp.MainActivity", NearbyConversationsActivity.class);
 	}
@@ -76,6 +77,11 @@ public class NearbyConversationTest extends
 	    
 	    resultView = (TextView) nActivity.findViewById(
 	    		com.example.shutapp.R.id.textView1); 
+	    
+	    newChatRoomButton = 
+	    		(Button) nActivity.findViewById(
+	    				com.example.shutapp.R.id.create_new_chatroom_button
+	    				);
 		
 	}
 	
@@ -109,7 +115,7 @@ public class NearbyConversationTest extends
 	
 	}
 	
-	public void testChatButton() {
+	/*public void testChatButton() {
 		
 		nActivity.runOnUiThread(
 				new Runnable() {
@@ -168,6 +174,29 @@ public class NearbyConversationTest extends
 	
 	}
 	
+	public void testCreateNewChatRoom() {
+		
+		nActivity.runOnUiThread(
+				new Runnable() {
+					public void run(){
+						newChatRoomButton.requestFocus();
+						newChatRoomButton.performClick();
+					}
+				});
+
+		wait(4);
+		
+		NearbyConversationsActivity nActivity = (NearbyConversationsActivity) getInstrumentation().
+				waitForMonitorWithTimeout(activityNearbyConversationMonitor, 5);
+		
+		// next activity is opened and captured.
+		assertNotNull("Could´t open Activity", nActivity);
+		nActivity.finish();
+
+		assertTrue(true);
+		
+	}
+	
 	public void wait(int sec){
 		
 		try {
@@ -178,4 +207,4 @@ public class NearbyConversationTest extends
 		
 	}
 
-}
+}*/
