@@ -2,14 +2,14 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
        xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:sql="http://java.sun.com/jsp/jstl/sql" >
-    <sql:setDataSource var="USERS" driver="org.apache.derby.jdbc.ClientDriver"
-url="jdbc:derby://localhost:1527/SHUTAPPDB" user="gcm" password="gcm"
+    <sql:setDataSource var="USERS" driver="org.sqlite.JDBC"
+url="jdbc:sqlite:C:\Tomas\Software Engineering\ShutAPP_GCM_SERVER\target\ShutAPP_GCM_SERVER-1.0-SNAPSHOT\shutappdb" user="gcm" password="gcm"
 scope="page"/>
 <sql:query dataSource="${USERS}" var="userresult">
 SELECT * from USERS
 </sql:query>
-<sql:setDataSource var="ROOMS" driver="org.apache.derby.jdbc.ClientDriver"
-url="jdbc:derby://localhost:1527/SHUTAPPDB" user="gcm" password="gcm"
+<sql:setDataSource var="ROOMS" driver="org.sqlite.JDBC"
+url="jdbc:sqlite:C:\Tomas\Software Engineering\ShutAPP_GCM_SERVER\target\ShutAPP_GCM_SERVER-1.0-SNAPSHOT\shutappdb" user="gcm" password="gcm"
 scope="page"/>
 <sql:query dataSource="${ROOMS}" var="chatroomresult">
 SELECT * from CHATROOMS
@@ -59,6 +59,18 @@ SELECT * from CHATROOMS
         <br/><input type="submit" name="submit" value="Submit" />
         </form>  
     </section>
+    <section>
+        <form action="GCM" method="POST">
+        <input type="hidden" name="action" value="createNewChatRoom" />
+        <b>Add new chatroom to DB:</b><br/>
+        <br/>Name: <br/><textarea name="NAME" rows="3" cols="60" > </textarea> 
+        <br/>Members: <br/><textarea name="MEMBERS" rows="3" cols="60" > </textarea> 
+        <br/>LAT: <br/><textarea name="LAT" rows="3" cols="60" > </textarea> 
+        <br/>LONG: <br/><textarea name="LONG" rows="3" cols="60" > </textarea> 
+        <br/>RADIUS: <br/><textarea name="RADIUS" rows="3" cols="60" > </textarea> 
+        <br/><input type="submit" name="submit" value="Submit" />
+        </form>  
+    </section>
     <br></br><br></br>
     <footer>Current users:
             <table border="1" width="90%">
@@ -80,7 +92,7 @@ SELECT * from CHATROOMS
             <table border="1" width="100%">
                 
                 <tr>
-   <th>CHATROOM</th>
+   <th>NAME</th>
    <th>MEMBERS</th>
       <th>LONG</th>
    <th>LAT</th>
@@ -88,7 +100,7 @@ SELECT * from CHATROOMS
 </tr>
 <c:forEach var="row1" items="${chatroomresult.rows}">
 <tr>
-   <td><c:out value="${row1.CHATROOM}"/></td>
+   <td><c:out value="${row1.NAME}"/></td>
    <td><c:out value="${row1.MEMBERS}"/></td>
       <td><c:out value="${row1.LONG}"/></td>
    <td><c:out value="${row1.LAT}"/></td>
