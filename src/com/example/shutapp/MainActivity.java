@@ -47,16 +47,19 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Parser.clean("SETTINGS", this);
-        String tempName = Parser.readAtIndex(0, "SETTINGS", this);
-        if(tempName != null && !tempName.equals(""))
+        //Parser.clean(StringLiterals.FILENAME_SETTINGS, this);
+        
+        String tempName = Parser.readAtIndex(StringLiterals.NICKNAME_INDEX, StringLiterals.FILENAME_SETTINGS, this);
+        if(tempName != null && !tempName.equals(StringLiterals.EMPTY_STRING))
         	Settings.setNickname(tempName, this); 
-        Parser.clean("test", this);
-        //testing parser
-        Parser.write("test1", "test", this);
-        Parser.write("test2", "test", this);
-        Parser.write("test3", "test", this);
-        Parser.writeAtIndex(1, "testindex", "test", this);
+        else
+        	Settings.initiateSettingsFile(this);
+       // Parser.clean("test", this);
+       //testing parser
+       // Parser.write("test1", "test", this);
+       // Parser.write("test2", "test", this);
+       // Parser.write("test3", "test", this);
+       // Parser.writeAtIndex(1, "testindex", "test", this);
        // Parser.write("test4", "test", this);
         
        // Log.d("PARSER", Parser.readFirst("test", this));

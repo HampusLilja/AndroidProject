@@ -22,21 +22,21 @@ import java.io.IOException;
 
 import android.content.Context;
 
+/**
+ * This class is a static representation of the
+ * settings avaible in the application.
+ */
 public abstract class Settings {
 	private static String nickname="";
 	
+	/**
+	 * Initiates the settingsfile for first time users.
+	 * @param ctx
+	 */
 	public static void initiateSettingsFile(Context ctx){
-		FileOutputStream fos;
-		String settingsTags = "";
-		try {
-			fos = ctx.openFileOutput("SETTINGS", Context.MODE_PRIVATE);
-			fos.write(settingsTags.getBytes());
-			fos.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}catch(IOException e){
-			e.printStackTrace();
-		}
+		Parser.writeAtIndex(StringLiterals.NICKNAME_INDEX, StringLiterals.STANDARD_NICKNAME,
+				StringLiterals.FILENAME_SETTINGS, ctx);
+		setNickname(StringLiterals.STANDARD_NICKNAME, ctx);
 	}
 	/**
 	 * Set the nick name
@@ -45,7 +45,7 @@ public abstract class Settings {
 	 */
 	public static void setNickname(String name, Context ctx){
 		nickname = name;
-		Parser.writeAtIndex(0, name, "SETTINGS", ctx);
+		Parser.writeAtIndex(StringLiterals.NICKNAME_INDEX, name, StringLiterals.FILENAME_SETTINGS, ctx);
 
 	}
 	/**
