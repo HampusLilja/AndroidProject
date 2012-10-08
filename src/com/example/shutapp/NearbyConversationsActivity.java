@@ -104,7 +104,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	 * @param name 	a string containing the name of the room 
 	 */
 	public void addChatroom(String name){
-		Chatroom cr = new Chatroom(name, currentLocation);
+		Chatroom cr = new Chatroom(name, currentLocation, this);
 		Chatrooms.add(cr.getName(), cr);
 		nearbyChatRoomNames.add(name);
 	}

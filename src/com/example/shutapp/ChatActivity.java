@@ -70,7 +70,7 @@ public class ChatActivity extends Activity {
 
 				broadcastMessage = intent.getExtras().getString("gcm");
 				if (broadcastMessage != null) {
-					// display our received message
+					//chatroom.saveMessage(broadcastMessage, ChatActivity.this);
 					translateMessage(broadcastMessage);
 					//appendToChatLogHistory("test", broadcastMessage);
 				}
@@ -89,10 +89,7 @@ public class ChatActivity extends Activity {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_chat);
 
-			Intent intent = getIntent();
-			String chatroomName = intent.getStringExtra(NearbyConversationsActivity.EXTRA_MESSAGE);
-
-			chatroom = Chatrooms.getByName(chatroomName);
+			
 			getWindow().setSoftInputMode(
 				      WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 			/* NO NEED FOR THESE ATM
@@ -129,8 +126,14 @@ public class ChatActivity extends Activity {
 			gcmFilter.addAction("GCM_RECEIVED_ACTION");
 
 			registerClient();
+			
+			Intent intent = getIntent();
+			String chatroomName = intent.getStringExtra(NearbyConversationsActivity.EXTRA_MESSAGE);
+
+			chatroom = Chatrooms.getByName(chatroomName);
 			appendSome(25);
-			appendToChatLogHistory(chatroom.getName(), "Welcome to this chatroom!");
+			tvChatLogHistory.append(chatroom.readLog(this));
+			//appendToChatLogHistory(chatroom.getName(), "Welcome to this chatroom!");
 
 		}
 		
@@ -177,6 +180,8 @@ public class ChatActivity extends Activity {
 					// register this device for this project
 					GCMRegistrar.register(this, PROJECT_ID);
 					regId = GCMRegistrar.getRegistrationId(this);
+					
+					MiscResources.REGID = regId;
 
 					//registrationStatus = "Registration Acquired";
 
@@ -214,7 +219,7 @@ public class ChatActivity extends Activity {
 
 		private void sendRegistrationToServer() {
 
-			new HttpMessage(StringLiterals.DBREGISTER_MESSAGE_TYPE, Settings.getNickname(), regId, null);
+			new HttpMessage(StringLiterals.DBREGISTER_MESSAGE_TYPE, Settings.getNickname(), regId, null, null, null);
 
 
 		}
@@ -295,14 +300,20 @@ public class ChatActivity extends Activity {
 			String messageToSend = etMessageInput.getText().toString();
 			if(messageToSend.equals("") || messageToSend == null)
 				return;
-			new HttpMessage(StringLiterals.CHATROOM_MESSAGE_TYPE, chatroom.getName(), Settings.getNickname(), messageToSend);
+			new HttpMessage(StringLiterals.CHATROOM_MESSAGE_TYPE, chatroom.getName(), Settings.getNickname(), messageToSend, null, null);
+			//for testing
+			//appendToChatLogHistory(Settings.getNickname(), messageToSend);
+			//chatroom.saveMessage(Settings.getNickname() + ": " + messageToSend, this);
+			//bbb
 			etMessageInput.setText("");
 		}
 
 		private void appendToChatLogHistory(String username, String message) {
 			if (username != null && message != null) {
 				tvChatLogHistory.append(username + ": ");								
-				tvChatLogHistory.append(message + "\n");	
+				tvChatLogHistory.append(message + "\n");
+				
+				
 			}
 		}
 
@@ -323,7 +334,7 @@ public class ChatActivity extends Activity {
 			else{
 				message = temp[1];
 			}
-
+			chatroom.saveMessage(username + ": " + message, this);
 			appendToChatLogHistory(username, message);
 
 		}

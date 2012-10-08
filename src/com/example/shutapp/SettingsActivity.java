@@ -121,7 +121,7 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		switch(position){
 		//nickname case
-		case StringLiterals.NICKNAME_CASE:
+		case StringLiterals.NICKNAME_INDEX:
 			clickOnNicknameItem();
 			break;
 		}

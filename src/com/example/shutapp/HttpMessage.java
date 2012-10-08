@@ -39,7 +39,7 @@ public class HttpMessage implements Runnable{
  	* @param var2			
  	* @param var3			
  	*/
-	public HttpMessage(int messageType, String var1, String var2, String var3){
+	public HttpMessage(int messageType, String var1, String var2, String var3, String var4, String var5){
 		nameValuePairs = new ArrayList<NameValuePair>(2);
 		switch(messageType){
 		
@@ -57,9 +57,21 @@ public class HttpMessage implements Runnable{
 	            nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_DBREGISTER_MESSAGE_VAR_NICK, var1));
 	            nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_DBREGISTER_MESSAGE_VAR_REGID, var2));
 	            break;
+			case StringLiterals.CREATE_CHATROOM_MESSAGE_TYPE:
+				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_ACTION,
+						StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VALUE_ACTION));
+				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_NAME, var1));
+				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_MEMBERS, var2));
+				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_LAT, var3));
+				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_LONG, var4));
+				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_RADIUS, var5));
+				break;
+	            
+	        
 		}
 		new Thread(this).start();
 	}
+	
 	/**
 	 * Run application
 	 */

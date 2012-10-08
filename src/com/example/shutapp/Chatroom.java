@@ -48,13 +48,21 @@ public class Chatroom {
 	 * @param name  The name of the chat room
 	 * @param loc	the location of the chat room
 	 */
-	public Chatroom(String name, Location loc){
+	public Chatroom(String name, Location loc, Context ctx){
 		members = new ArrayList<User>();
 		CHATROOM_NAME = name;
 		gps_location = loc;
+		//Initiates chatlogfile
+		Parser.write(StringLiterals.EMPTY_STRING, CHATROOM_NAME, ctx);
 		//When a chatroom is initialized, it's added to Chatrooms
 		Chatrooms.add(CHATROOM_NAME, this);
+		//tells the server that this chatroom is created
+		new HttpMessage(StringLiterals.CREATE_CHATROOM_MESSAGE_TYPE, CHATROOM_NAME, MiscResources.REGID, 
+				Double.toString(gps_location.getLatitude()),
+				Double.toString(gps_location.getLongitude()), 
+				"1000");
 	}
+	
 	/**
 	 * Get the name of the room
 	 */
@@ -109,20 +117,12 @@ public class Chatroom {
 	 * @return theConv a String of the last message("Error Occurred" if no message was able to be saved) 
 	 */
 	public String getLastMessage(Context ctx){
-		String theConv = "Error Occurred";
-		try {
-			InputStream is = ctx.openFileInput(CHATROOM_NAME);
-			BufferedReader bfr = new BufferedReader(new InputStreamReader(is));
-			theConv = bfr.readLine();
-		} catch (FileNotFoundException e) {
-			Log.d("Chatroom" , "FileNotFoundException");
-			e.printStackTrace();
-		} catch (IOException e){
-			Log.d("Chatroom" , "IOException");
-			e.printStackTrace();
-		}
-		return theConv;
+		return null;
 
+	}
+	
+	public String readLog(Context ctx){
+		return Parser.readAll(CHATROOM_NAME, ctx);
 	}
 	
 	
