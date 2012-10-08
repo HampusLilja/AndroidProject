@@ -1,14 +1,9 @@
 package com.example.shutapp;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
+import java.io.*;
+import java.net.*;
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 public abstract class Parser {
@@ -75,6 +70,30 @@ public abstract class Parser {
 			e.printStackTrace();
 		}
 		return allText;
+	}
+	public static void updateLocalDB(){
+		try {
+            URL url = new URL(StringLiterals.SERVER_DB_URL);
+            URLConnection connection = url.openConnection();
+            connection.connect();
+
+            // Downloading the latest DB
+            InputStream input = new BufferedInputStream(url.openStream());
+            OutputStream output = new FileOutputStream("/sdcard/shutappdb");
+
+            byte data[] = new byte[1024];
+            long total = 0;
+            int count;
+            while ((count = input.read(data)) != -1) {
+                total += count;
+                output.write(data, 0, count);
+            }
+
+            output.flush();
+            output.close();
+            input.close();
+        } catch (Exception e) {
+        }
 	}
 
 }

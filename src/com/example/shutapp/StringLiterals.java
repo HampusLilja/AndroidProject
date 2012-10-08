@@ -33,7 +33,7 @@ public abstract class StringLiterals {
 	public static final String HTTP_DBREGISTER_MESSAGE_VAR_REGID = "DBREGID";
 	
 	public static final String SERVER_ADRESS = "http://109.225.112.99:8084/GCM_Server/GCM";
-	
+	public static final String SERVER_DB_URL = "http://109.225.112.99:8084/GCM_Server/shutappdb";
 	public static final int NICKNAME_CASE = 0;
 	
 	

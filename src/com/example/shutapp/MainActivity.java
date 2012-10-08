@@ -53,6 +53,8 @@ public class MainActivity extends Activity {
         //testing parser
         Parser.write("test1", "test", this);
         Parser.write("test2", "test", this);
+        Parser.updateLocalDB();
+        Log.d("UpdateDB", "downloaded DB");
        // Parser.write("test3", "test", this);
        // Parser.write("test4", "test", this);
         
