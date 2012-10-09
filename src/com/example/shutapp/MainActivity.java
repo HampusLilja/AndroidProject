@@ -18,13 +18,10 @@ package com.example.shutapp;
 
 import static com.example.shutapp.MiscResources.PROJECT_ID;
 
-import java.io.File;
-
 import com.google.android.gcm.GCMRegistrar;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,7 +34,7 @@ public class MainActivity extends Activity {
 
 	// This string will hold the lengthy registration id that comes from GCMRegistrar.register()
 	private String regId = "";
-	
+
 	private String registrationStatus = "Not yet registered";
 	/**
 	 * Sets the content view and 
@@ -48,62 +45,18 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		//Parser.clean(StringLiterals.FILENAME_SETTINGS, this);
-		File settingsFile = this.getFileStreamPath(StringLiterals.FILENAME_SETTINGS);
-		String tempName;
-		if(settingsFile.exists()){
-			tempName = Parser.readAtIndex(StringLiterals.NICKNAME_INDEX, StringLiterals.FILENAME_SETTINGS, this);
-			Settings.setNickname(tempName, this); 
-		}
-		else{
-			tempName = StringLiterals.STANDARD_NICKNAME;
+
+		//if it is the first time you run this app then you will have to
+		//initiate the settingsfile
+		if(Parser.checkFileExistance(StringLiterals.FILENAME_SETTINGS, this))
+			Settings.setNickname(Parser.readAtIndex(StringLiterals.NICKNAME_INDEX, StringLiterals.FILENAME_SETTINGS, this), this); 
+		else
 			Settings.initiateSettingsFile(this);
-		}
-		
+
 		registerClient();
-		
-		Log.d("regid", regId);
 
-
-
-
-		// Parser.clean("test", this);
-		//testing parser
-		// Parser.write("test1", "test", this);
-		// Parser.write("test2", "test", this);
-		// Parser.write("test3", "test", this);
-		// Parser.writeAtIndex(1, "testindex", "test", this);
-		// Parser.write("test4", "test", this);
-
-		// Log.d("PARSER", Parser.readFirst("test", this));
-		// Log.d("PARSER", Parser.readAll("test", this));
-		// Log.d("PARSER", Parser.readAtIndex(1, "test", this));
-
-		//Settings.setNickname("Prassel");
-		/*
-        if( Settings.getNickname().equals("") ){
-        	setContentView(R.layout.activity_main);  	
-        } else {
-        //manageAccount(); // You have to comment this for the application to work in the AVD!
-       testChatroom();
-    	Intent i = new Intent(MainActivity.this, NearbyConversationsActivity.class);
-    	startActivity(i);
-    	overridePendingTransition(0, 0);      
-        }
-		 */
 	}
 
-	/*private void testChatroom() {
-    	Location loc = new Location("loc");
-    	loc.setLatitude(57.697261);
-    	loc.setLongitude(11.97975);
-		Chatroom cr = new Chatroom("chatrum1", loc);
-		cr.saveMessage("Chatroom works", this);
-		cr.saveMessage("asdasdasdasds", this);
-		TextView textview = (TextView) findViewById(R.id.textView1);
-    	textview.setText(cr.getLastMessage(this));
-	}*/
-	
 	/**
 	 * checks the current device, checks the 
 	 * manifest for the appropriate rights, and then retrieves a registration id
@@ -113,10 +66,10 @@ public class MainActivity extends Activity {
 	public void registerClient() {
 
 		try {
-			// Check that the device supports GCM (should be in a try / catch)
+			// Check that the device supports GCM 
 			GCMRegistrar.checkDevice(this);
 
-			// Check the manifest to be sure this app has all the required
+			// Check the manifest to be sure the app has all the required
 			// permissions.
 			GCMRegistrar.checkManifest(this);
 
@@ -125,55 +78,25 @@ public class MainActivity extends Activity {
 
 			if (regId.equals("")) {
 
-				registrationStatus = "Registering...";
-
-				//tvRegStatusResult.setText(registrationStatus);
-
 				// register this device for this project
 				GCMRegistrar.register(this, PROJECT_ID);
 				regId = GCMRegistrar.getRegistrationId(this);
-
-				
-
-				registrationStatus = "Registration Acquired";
-
-				// This is actually a dummy function.  At this point, one
-				// would send the registration id, and other identifying
-				// information to your server, which should save the id
-				// for use when broadcasting messages.
-				sendRegistrationToServer();
 
 				Log.d(TAG, "sendregtoserver has been initialized");
 				registrationStatus = "Registration of regid done";
 
 			} else {
 				registrationStatus = "Already registered";
-
 			}
 
-			
 		} catch (Exception e) {
-
 			e.printStackTrace();
 			registrationStatus = e.getMessage();
-
 		}
 
 		Log.d(TAG, registrationStatus);
-		//tvRegStatusResult.setText(registrationStatus);
-
-		// This is part of our CHEAT.  For this demo, you'll need to
-		// capture this registration id so it can be used in our demo web
-		// service.
 		Log.d(TAG, regId);
-		//MiscResources.REGID = regId;
-
-	}
-
-	private void sendRegistrationToServer() {
-
-		new HttpMessage(StringLiterals.DBREGISTER_MESSAGE_TYPE, Settings.getNickname(), regId, null, null, null);
-
+		MiscResources.REGID = regId;
 
 	}
 
@@ -188,17 +111,6 @@ public class MainActivity extends Activity {
 		overridePendingTransition(0, 0);
 	}
 
-	/**
-	 * Registers broadcast receivers when the activity is resumed 
-	 */
-	/*
-	@Override
-	protected void onResume() {
-		super.onResume();
-		registerReceiver(gcmReceiver, gcmFilter);
-
-	}
-	 */
 
 }
 

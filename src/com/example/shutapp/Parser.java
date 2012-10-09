@@ -1,7 +1,7 @@
 package com.example.shutapp;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,6 +19,12 @@ import android.util.Log;
  */
 public abstract class Parser {
 	
+	
+	/**
+	 * Creates an empty file
+	 * @param filename
+	 * @param ctx
+	 */
 	public static void initiateFile(String filename, Context ctx){
 		FileOutputStream fos;
 		String temp = "";
@@ -165,6 +171,11 @@ public abstract class Parser {
 			e.printStackTrace();
 		}
 		return allText;
+	}
+	
+	public static boolean checkFileExistance(String filename, Context ctx){
+		File settingsFile = ctx.getFileStreamPath(StringLiterals.FILENAME_SETTINGS);
+		return settingsFile.exists();
 	}
 
 }

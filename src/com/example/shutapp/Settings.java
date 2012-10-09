@@ -16,10 +16,6 @@
 */
 package com.example.shutapp;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import android.content.Context;
 
 /**
@@ -27,7 +23,7 @@ import android.content.Context;
  * settings avaible in the application.
  */
 public abstract class Settings {
-	private static String nickname="";
+	private static String nickname;
 	
 	/**
 	 * Initiates the settingsfile for first time users.

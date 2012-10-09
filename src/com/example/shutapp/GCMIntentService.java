@@ -26,9 +26,7 @@ import android.util.Log;
 import com.google.android.gcm.*;
 
 	public class GCMIntentService extends GCMBaseIntentService {
-
-		
-	     
+  
 	    private static final String TAG = "GCMIntentService";
 	    
 	    /**
@@ -47,7 +45,6 @@ import com.google.android.gcm.*;
 	     */ 
 	    @Override
 	    protected void onError(Context ctx, String error) {
-	        // Do something here if error!
 	        Log.d(TAG, "Error: " + error);
 	         
 	    }

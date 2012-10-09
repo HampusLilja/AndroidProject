@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
+
     <FrameLayout
         android:id="@+id/iconFrame_1"
         android:layout_width="wrap_content"
@@ -11,16 +11,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:background="@drawable/ic_most_left_bar" >
-
     </FrameLayout>
-
+
     <FrameLayout
         android:id="@+id/banner"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/create_new_chatroom_button"
         android:background="@drawable/ic_banner" >
 
     </FrameLayout>
@@ -62,24 +61,25 @@
         android:layout_toRightOf="@+id/nearby_conversations_button"
         android:background="@drawable/ic_social_chat"
         android:onClick="toChatActivity" />
-
+
     <Button
         android:id="@+id/create_new_chatroom_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignBottom="@+id/banner"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/banner"
-        android:text="@string/create_chatroom_button" 
-        android:onClick="showCreateChatroomDialog" />
-
+        android:layout_alignParentTop="true"
+        android:background="@drawable/ic_content_new_inverted"
+        android:onClick="showCreateChatroomDialog"
+        android:width="40dip" />
+
     <ListView
         android:id="@+id/listOfNearbyConversations"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/settings_button"
+        android:layout_above="@+id/iconFrame_1"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/create_new_chatroom_button"
+        android:layout_below="@+id/banner"
         android:divider="@color/dim_foreground_inverse_holo_light"
         android:dividerHeight="2dp" >
 

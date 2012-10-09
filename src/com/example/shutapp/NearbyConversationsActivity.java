@@ -243,47 +243,6 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 
 	}/* End of Class MyLocationListener */
 	
-	// 
-	// Methodes for test rooms
-	//
-	/*
-	private void initiateTestRooms() {
-		Location loc1 = new Location("loc1"), loc2 = new Location("loc2"), 
-				loc3 = new Location("loc3"), loc4 = new Location("loc4"), loc5 = new Location("loc5");
-		
-		loc1.setLatitude(57.7012596130371);
-		loc1.setLongitude(11.9670495986938);
-		loc2.setLatitude(57.699242);
-		loc2.setLongitude(11.986369);
-		loc3.setLatitude(57.687583);
-		loc3.setLongitude(11.980708);
-		loc4.setLatitude(57.689431);
-		loc4.setLongitude(11.974092);
-		loc5.setLatitude(57.695697);
-		loc5.setLongitude(11.974067);
-		Chatroom cr1 = new Chatroom("Chatroom1", loc1);Chatroom cr2 = new Chatroom("Chatroom2", loc2);Chatroom cr3 = new Chatroom("Chatroom3", loc3);
-		Chatroom cr4 = new Chatroom("Chatroom4", loc4);Chatroom cr5 = new Chatroom("Chatroom5", loc5);
-		testNearbyCR = new ArrayList<Chatroom>();
-		testNearbyCR.add(cr1); testNearbyCR.add(cr2); testNearbyCR.add(cr3); testNearbyCR.add(cr4); testNearbyCR.add(cr5);
-
-	}
 	
-	private String[] initTestArray() {
-		String[] testArray = new String[testNearbyCR.size()];
-		int i = 0;
-		for(Chatroom cr : testNearbyCR){
-			testArray[i] = cr.getName();
-			i++;
-		}
-		return testArray;
-	}
-	
-	private void createTestArrayAdapter(String[] myStringArray) {
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myStringArray);
-		ListView listView = (ListView) findViewById(R.id.listOfNearbyConversations);
-		listView.setAdapter(adapter);
 
-		listView.setOnItemClickListener(this); 
-	}
-	*/
 }

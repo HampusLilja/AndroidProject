@@ -27,15 +27,15 @@
         android:background="@drawable/ic_right_middle_bar" >
 
     </FrameLayout>
-    
+    
      <FrameLayout
-        android:id="@+id/banner"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/ic_banner" >
+         android:id="@+id/banner"
+         android:layout_width="wrap_content"
+         android:layout_height="40dp"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentTop="true"
+         android:layout_toLeftOf="@+id/settings_button"
+         android:background="@drawable/ic_banner" >
 
     </FrameLayout>
 
@@ -75,5 +75,16 @@
         android:layout_toRightOf="@+id/nearby_conversations_button"
         android:onClick="toChatActivity" 
         android:background="@drawable/ic_social_chat" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/mapView"
+        android:layout_alignLeft="@+id/settings_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/ic_holo_light_grey_background" >
+
+    </FrameLayout>
 
 </RelativeLayout>

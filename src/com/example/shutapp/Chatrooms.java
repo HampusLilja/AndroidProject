@@ -57,10 +57,18 @@ public abstract class Chatrooms {
 		return crMap.values();
 	}
 	
+	/**
+	 * Sets a new current chatroom
+	 * @param cr The new current chatroom
+	 * 
+	 */
 	public static void setCurrentChatroom(Chatroom cr){
 		currentChatroom = cr;
 	}
 	
+	/**
+	 * @return the current chatroom
+	 */
 	public static Chatroom getCurrentChatroom(){
 		return currentChatroom;
 	}

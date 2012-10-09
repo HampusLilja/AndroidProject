@@ -21,19 +21,13 @@ public abstract class StringLiterals {
 	public static final String EMPTY_STRING = "";
 	
 	public static final int CHATROOM_MESSAGE_TYPE = 1;
-	public static final int DBREGISTER_MESSAGE_TYPE = 2;
-	public static final int CREATE_CHATROOM_MESSAGE_TYPE = 3;
+	public static final int CREATE_CHATROOM_MESSAGE_TYPE = 2;
 	
 	public static final String HTTP_CHATROOM_MESSAGE_VAR_ACTION = "action";
 	public static final String HTTP_CHATROOM_MESSAGE_VALUE_ACTION = "chatRoomMsg";
 	public static final String HTTP_CHATROOM_MESSAGE_VAR_CHATROOM = "chatRoom";
 	public static final String HTTP_CHATROOM_MESSAGE_VAR_USER = "user";
 	public static final String HTTP_CHATROOM_MESSAGE_VAR_MESSAGE = "Message";
-	
-	public static final String HTTP_DBREGISTER_MESSAGE_VAR_ACTION = "action";
-	public static final String HTTP_DBREGISTER_MESSAGE_VALUE_ACTION = "addtodb";
-	public static final String HTTP_DBREGISTER_MESSAGE_VAR_NICK = "DBNICK";
-	public static final String HTTP_DBREGISTER_MESSAGE_VAR_REGID = "DBREGID";
 	
 	public static final String HTTP_CREATE_CHATROOM_MESSAGE_VAR_ACTION = "action";
 	public static final String HTTP_CREATE_CHATROOM_MESSAGE_VALUE_ACTION = "createNewChatRoom";

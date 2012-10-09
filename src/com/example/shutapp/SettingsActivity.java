@@ -17,7 +17,6 @@
 package com.example.shutapp;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import android.os.Bundle;
@@ -52,6 +51,10 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
     }
     
     
+    /**
+     * Private method that creates the arraylist that represents
+     * all our settings avaible
+     */
     private void initiateSettingsList() {
     	
     	//Adds the nickname list item
@@ -61,6 +64,10 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
 		
 	}
     
+    /**
+     * When list is updated, e.g with new username this method 
+     * needs to be run.
+     */
     private void updateSettingsList(){
     	settingsList.removeAll(settingsList);
     	initiateSettingsList();
@@ -118,6 +125,7 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
     	overridePendingTransition(0, 0);
     }
 
+
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		switch(position){
 		//nickname case
@@ -129,6 +137,9 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
 	}
 
 
+	/**
+	 * Makes the dialog popup for changing nickname
+	 */
 	private void clickOnNicknameItem() {
 			final Dialog changeNicknameDialog = new Dialog(this);
 			changeNicknameDialog.setContentView(R.layout.change_nickname_dialog);

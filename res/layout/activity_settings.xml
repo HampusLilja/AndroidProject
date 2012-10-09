@@ -13,15 +13,15 @@
         android:background="@drawable/ic_most_right_bar" >
 
     </FrameLayout>
-    
+    
      <FrameLayout
-        android:id="@+id/banner"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/ic_banner" >
+         android:id="@+id/banner"
+         android:layout_width="wrap_content"
+         android:layout_height="40dp"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentTop="true"
+         android:layout_toLeftOf="@+id/settings_button"
+         android:background="@drawable/ic_banner" >
 
     </FrameLayout>
 
@@ -74,5 +74,16 @@
         android:dividerHeight="2dp" >
 
     </ListView>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/settingsList"
+        android:layout_alignLeft="@+id/settings_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/ic_holo_light_grey_background" >
+
+    </FrameLayout>
 
 </RelativeLayout>

@@ -51,12 +51,6 @@ public class HttpMessage implements Runnable{
 				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_CHATROOM_MESSAGE_VAR_MESSAGE, var3));
 				break;
 				
-			case StringLiterals.DBREGISTER_MESSAGE_TYPE:
-				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_DBREGISTER_MESSAGE_VAR_ACTION, 
-						StringLiterals.HTTP_DBREGISTER_MESSAGE_VALUE_ACTION));
-	            nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_DBREGISTER_MESSAGE_VAR_NICK, var1));
-	            nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_DBREGISTER_MESSAGE_VAR_REGID, var2));
-	            break;
 			case StringLiterals.CREATE_CHATROOM_MESSAGE_TYPE:
 				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_ACTION,
 						StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VALUE_ACTION));
@@ -85,7 +79,6 @@ public class HttpMessage implements Runnable{
 
 			// Execute HTTP Post Request
 			httpclient.execute(httppost);
-			//HttpResponse response = httpclient.execute(httppost);
 
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
