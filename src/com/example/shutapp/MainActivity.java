@@ -18,6 +18,8 @@ package com.example.shutapp;
 
 import static com.example.shutapp.MiscResources.PROJECT_ID;
 
+import java.io.File;
+
 import com.google.android.gcm.GCMRegistrar;
 
 import android.app.Activity;
@@ -47,12 +49,16 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		//Parser.clean(StringLiterals.FILENAME_SETTINGS, this);
-
-		String tempName = Parser.readAtIndex(StringLiterals.NICKNAME_INDEX, StringLiterals.FILENAME_SETTINGS, this);
-		if(tempName != null || !tempName.equals(StringLiterals.EMPTY_STRING))
+		File settingsFile = this.getFileStreamPath(StringLiterals.FILENAME_SETTINGS);
+		String tempName;
+		if(settingsFile.exists()){
+			tempName = Parser.readAtIndex(StringLiterals.NICKNAME_INDEX, StringLiterals.FILENAME_SETTINGS, this);
 			Settings.setNickname(tempName, this); 
-		else
+		}
+		else{
+			tempName = StringLiterals.STANDARD_NICKNAME;
 			Settings.initiateSettingsFile(this);
+		}
 		
 		registerClient();
 		
@@ -119,7 +125,7 @@ public class MainActivity extends Activity {
 
 			if (regId.equals("")) {
 
-				//registrationStatus = "Registering...";
+				registrationStatus = "Registering...";
 
 				//tvRegStatusResult.setText(registrationStatus);
 
@@ -129,7 +135,7 @@ public class MainActivity extends Activity {
 
 				
 
-				//registrationStatus = "Registration Acquired";
+				registrationStatus = "Registration Acquired";
 
 				// This is actually a dummy function.  At this point, one
 				// would send the registration id, and other identifying
@@ -138,14 +144,14 @@ public class MainActivity extends Activity {
 				sendRegistrationToServer();
 
 				Log.d(TAG, "sendregtoserver has been initialized");
-				//registrationStatus = "Registration of regid done";
+				registrationStatus = "Registration of regid done";
 
 			} else {
-				//registrationStatus = "Already registered";
+				registrationStatus = "Already registered";
 
 			}
 
-			MiscResources.REGID = regId;
+			
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -160,6 +166,7 @@ public class MainActivity extends Activity {
 		// capture this registration id so it can be used in our demo web
 		// service.
 		Log.d(TAG, regId);
+		//MiscResources.REGID = regId;
 
 	}
 

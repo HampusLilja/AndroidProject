@@ -84,6 +84,7 @@ import com.google.android.gcm.*;
 	    protected void onRegistered(Context ctx, String regId) {
 	        // send regId to your server
 	        Log.d(TAG, regId);
+	        MiscResources.REGID = regId;
 	         
 	    }
 	    /**

@@ -34,6 +34,7 @@ public abstract class Settings {
 	 * @param ctx
 	 */
 	public static void initiateSettingsFile(Context ctx){
+		Parser.initiateFile(StringLiterals.FILENAME_SETTINGS, ctx);
 		Parser.writeAtIndex(StringLiterals.NICKNAME_INDEX, StringLiterals.STANDARD_NICKNAME,
 				StringLiterals.FILENAME_SETTINGS, ctx);
 		setNickname(StringLiterals.STANDARD_NICKNAME, ctx);
