@@ -38,14 +38,11 @@ import com.google.android.gcm.GCMRegistrar;
 
 public class ChatActivity extends Activity {
 
-	// This tag is used in Log.x() calls
-	private static final String TAG = "MainActivity";
 
-		// This string will hold the lengthy registration id that comes from GCMRegistrar.register()
-		private String regId = "";
+	
 
 		// These strings are hopefully self-explanatory
-		private String registrationStatus = "Not yet registered";
+		
 		private String broadcastMessage = "No broadcast message";
 
 		// This intent filter will be set to filter on the string "GCM_RECEIVED_ACTION"
@@ -120,19 +117,20 @@ public class ChatActivity extends Activity {
 				}
 			});
 
-			// Create our IntentFilter, which will be used in conjunction with a
-			// broadcast receiver.
-			gcmFilter = new IntentFilter();
-			gcmFilter.addAction("GCM_RECEIVED_ACTION");
-
-			registerClient();
+			  // Create our IntentFilter, which will be used in conjunction with a
+ 			// broadcast receiver.
+ 			gcmFilter = new IntentFilter();
+ 			gcmFilter.addAction("GCM_RECEIVED_ACTION");
 			
-			Intent intent = getIntent();
-			String chatroomName = intent.getStringExtra(NearbyConversationsActivity.EXTRA_MESSAGE);
-
-			chatroom = Chatrooms.getByName(chatroomName);
-			appendSome(25);
-			tvChatLogHistory.append(chatroom.readLog(this));
+			if(Chatrooms.getCurrentChatroom() != null){
+				chatroom = Chatrooms.getCurrentChatroom();
+				appendSome(25);
+				tvChatLogHistory.append(chatroom.readLog(this));
+			}
+				
+			else
+				toNearbyConversationsActivity(findViewById(R.layout.activity_chat));
+			
 			//appendToChatLogHistory(chatroom.getName(), "Welcome to this chatroom!");
 
 		}
@@ -152,77 +150,12 @@ public class ChatActivity extends Activity {
 			
 		}*/
 
-		/**
-		 * checks the current device, checks the 
-		 * manifest for the appropriate rights, and then retrieves a registration id
-		 * from the GCM cloud. 
-		 *
-		 */
-		public void registerClient() {
+		
 
-			try {
-				// Check that the device supports GCM (should be in a try / catch)
-				GCMRegistrar.checkDevice(this);
-
-				// Check the manifest to be sure this app has all the required
-				// permissions.
-				GCMRegistrar.checkManifest(this);
-
-				// Get the existing registration id, if it exists.
-				regId = GCMRegistrar.getRegistrationId(this);
-
-				if (regId.equals("")) {
-
-					//registrationStatus = "Registering...";
-
-					//tvRegStatusResult.setText(registrationStatus);
-
-					// register this device for this project
-					GCMRegistrar.register(this, PROJECT_ID);
-					regId = GCMRegistrar.getRegistrationId(this);
-					
-					MiscResources.REGID = regId;
-
-					//registrationStatus = "Registration Acquired";
-
-					// This is actually a dummy function.  At this point, one
-					// would send the registration id, and other identifying
-					// information to your server, which should save the id
-					// for use when broadcasting messages.
-					sendRegistrationToServer();
-
-					Log.d(TAG, "sendregtoserver has been initialized");
-					//registrationStatus = "Registration of regid done";
-
-				} else {
-					//registrationStatus = "Already registered";
-
-				}
+	
 
 
-			} catch (Exception e) {
-
-				e.printStackTrace();
-				registrationStatus = e.getMessage();
-
-			}
-
-			Log.d(TAG, registrationStatus);
-			//tvRegStatusResult.setText(registrationStatus);
-
-			// This is part of our CHEAT.  For this demo, you'll need to
-			// capture this registration id so it can be used in our demo web
-			// service.
-			Log.d(TAG, regId);
-
-		}
-
-		private void sendRegistrationToServer() {
-
-			new HttpMessage(StringLiterals.DBREGISTER_MESSAGE_TYPE, Settings.getNickname(), regId, null, null, null);
-
-
-		}
+		
 
 
 		/**
@@ -289,7 +222,6 @@ public class ChatActivity extends Activity {
 
 			super.onDestroy();
 		}
-
 		/**
 		 * Is called when the send button is pressed and sends the message
 		 *

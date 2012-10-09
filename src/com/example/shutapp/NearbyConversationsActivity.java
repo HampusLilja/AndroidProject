@@ -41,10 +41,9 @@ import android.widget.Toast;
 
 public class NearbyConversationsActivity extends Activity implements OnItemClickListener{
 
-	public final static String EXTRA_MESSAGE = "com.example.shutapp.MESSAGE";
 	//private List<Chatroom> testNearbyCR;
 	private List<String> nearbyChatRoomNames;
-	private String clickedChatroom = "No chatroom";
+	private String clickedChatroom = "";
 	private Location currentLocation = new Location("current");
 
 	/**
@@ -175,8 +174,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	 * @param view	a view of the text model
 	 */
 	public void toChatActivity(View view){
-		Intent intentToRedirect = new Intent(this, ChatActivity.class);
-		intentToRedirect.putExtra(EXTRA_MESSAGE, clickedChatroom);
+		Intent intentToRedirect = new Intent(this, ChatActivity.class);		
 		startActivity(intentToRedirect);
 		overridePendingTransition(0, 0);
 	}
@@ -211,6 +209,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) {
 		Log.d("listan", "you clicked item " + position);
 		clickedChatroom = nearbyChatRoomNames.get(position);
+		Chatrooms.setCurrentChatroom(Chatrooms.getByName(clickedChatroom));
 		toChatActivity(view);
 		
 	}

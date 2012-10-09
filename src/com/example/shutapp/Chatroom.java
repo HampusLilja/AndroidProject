@@ -53,10 +53,12 @@ public class Chatroom {
 		CHATROOM_NAME = name;
 		gps_location = loc;
 		//Initiates chatlogfile
+		Parser.initiateFile(CHATROOM_NAME, ctx);
 		Parser.write(StringLiterals.EMPTY_STRING, CHATROOM_NAME, ctx);
 		//When a chatroom is initialized, it's added to Chatrooms
 		Chatrooms.add(CHATROOM_NAME, this);
 		//tells the server that this chatroom is created
+		Log.d("chatroom", MiscResources.REGID);
 		new HttpMessage(StringLiterals.CREATE_CHATROOM_MESSAGE_TYPE, CHATROOM_NAME, MiscResources.REGID, 
 				Double.toString(gps_location.getLatitude()),
 				Double.toString(gps_location.getLongitude()), 

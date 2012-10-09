@@ -19,6 +19,19 @@ import android.util.Log;
  */
 public abstract class Parser {
 	
+	public static void initiateFile(String filename, Context ctx){
+		FileOutputStream fos;
+		String temp = "";
+		try {
+			fos = ctx.openFileOutput(filename, Context.MODE_PRIVATE);
+			fos.write(temp.getBytes());
+			fos.close();
+		} catch (FileNotFoundException e) {
+	           e.printStackTrace();
+	    }catch(IOException e){
+	            e.printStackTrace();
+	    }
+	}
 	/**
 	 * This method writes text to a new line
 	 * at the end of wished file.

@@ -24,7 +24,8 @@ import java.util.Map;
 //We use this class to store the chatrooms, and make them
 //reachable throughout our project
 public abstract class Chatrooms {
-
+	
+	private static Chatroom currentChatroom;
 	private static Map<String, Chatroom> crMap;
 	/**
 	 * Add a name and chatroom to a list of rooms
@@ -54,5 +55,13 @@ public abstract class Chatrooms {
 	 */
 	public static Collection<Chatroom> getAll(){
 		return crMap.values();
+	}
+	
+	public static void setCurrentChatroom(Chatroom cr){
+		currentChatroom = cr;
+	}
+	
+	public static Chatroom getCurrentChatroom(){
+		return currentChatroom;
 	}
 }
