@@ -15,30 +15,19 @@
 ** along with ShutApp.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.example.shutapp.test;
-/*
-import com.example.shutapp.ChatActivity;
-import com.example.shutapp.SettingsActivity;
-import com.example.shutapp.NearbyConversationsActivity;
 
-import android.app.Instrumentation.ActivityMonitor;
+import com.example.shutapp.NearbyConversationsActivity;
+import com.example.shutapp.R;
+import com.jayway.android.robotium.solo.Solo;
+
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
-import android.widget.TextView;
+
 
 public class NearbyConversationTest extends
 		ActivityInstrumentationTestCase2<NearbyConversationsActivity> {
-	
-	private NearbyConversationsActivity nActivity;
-	private Button cButton;
-	private Button nButton;
-	private Button sButton;
-	private Button mButton;
-	private Button newChatRoomButton;
-	private TextView resultView;
-	private ActivityMonitor activityChatMonitor;
-	private ActivityMonitor activitySettingsMonitor;
-	private ActivityMonitor activityNearbyConversationMonitor;
-	
+	private Solo solo;
+
 	@SuppressWarnings("deprecation")
 	public NearbyConversationTest() {
 		super("com.example.shutapp.MainActivity", NearbyConversationsActivity.class);
@@ -48,163 +37,40 @@ public class NearbyConversationTest extends
 	protected void setUp() throws Exception {
 		super.setUp();
 
-		// register next activity that need to be monitored.
-		activityChatMonitor = getInstrumentation().addMonitor(ChatActivity.class.getName(), null, false);
-		activitySettingsMonitor = getInstrumentation().addMonitor(SettingsActivity.class.getName(), null, false);
-		activityNearbyConversationMonitor = getInstrumentation().addMonitor(NearbyConversationsActivity.class.getName(), null, false);
-
-	    nActivity = getActivity();
-
-	    nButton =
-	    		(Button) nActivity.findViewById(
-	    				com.example.shutapp.R.id.nearby_conversations_button
-	    				);
-	    
-	    mButton =
-	    		(Button) nActivity.findViewById(
-	    				com.example.shutapp.R.id.map_button
-	    				);
-	    
-	    cButton =
-	    		(Button) nActivity.findViewById(
-	    				com.example.shutapp.R.id.chat_button
-	    				);
-	    
-	    sButton =
-	    		(Button) nActivity.findViewById(
-	    				com.example.shutapp.R.id.settings_button
-	    				);
-	    
-	    resultView = (TextView) nActivity.findViewById(
-	    		com.example.shutapp.R.id.textView1); 
-	    
-	    newChatRoomButton = 
-	    		(Button) nActivity.findViewById(
-	    				com.example.shutapp.R.id.create_new_chatroom_button
-	    				);
-		
+		solo = new Solo(getInstrumentation(), getActivity());	
 	}
-	
-	public void testPreConditions() {
-		assertNotNull("Can´t find the Map Button", mButton);
-		assertNotNull("Can´t find the Nearby Conversation Button", nButton);
-		assertNotNull("Can´t find the Chat Button", cButton);
-		assertNotNull("Can´t find the Settings Button", sButton);
+	@Override
+	protected void tearDown(){
+		solo.finishOpenedActivities();
 	}
-	
-	public void testNearbyConversationButton() {
-		
-		nActivity.runOnUiThread(
-				new Runnable() {
-					public void run() {
-						nButton.requestFocus();
-						nButton.performClick();
-					}
-				});
-
-		wait(4);
-		
-		NearbyConversationsActivity nActivity = (NearbyConversationsActivity) getInstrumentation().
-				waitForMonitorWithTimeout(activityNearbyConversationMonitor, 5);
-		
-		// next activity is opened and captured.
-		assertNotNull("Could´t open Activity", nActivity);
-		nActivity.finish();
-
-		assertTrue(true);
-	
+	public void testRedirectToChatActivity() throws Exception{
+		/*
+		Button chatButton = (Button) solo.getView(R.id.chat_button);
+		solo.clickOnView(chatButton);
+		solo.assertCurrentActivity("Expected Chat activity", "ChatActivity");
+		solo.goBack();
+		*/
 	}
-	
-	/*public void testChatButton() {
-		
-		nActivity.runOnUiThread(
-				new Runnable() {
-					public void run() {
-						cButton.requestFocus();
-						cButton.performClick();
-					}
-				});
-
-		wait(4);
-		
-		ChatActivity cActivity = (ChatActivity) getInstrumentation().waitForMonitorWithTimeout(activityChatMonitor, 5);
-		
-		// next activity is opened and captured.
-		assertNotNull("Could´t open Activity", cActivity);
-		cActivity.finish();
-
-
-//		resultView = (TextView) cActivity.findViewById(
-//	    		com.example.shutapp.R.id.write_msg); 
-
-		resultView = (TextView) cActivity.findViewById(
-	    		com.example.shutapp.R.id.written_msg); 
-
-		
-//		assertNotNull("Can´t find the Text View", resultView);
-	//    assertEquals("Wrong text",
-	//    		"ChatActivity", resultView.getText());
-	
+	public void testRedirectToGpsActivity() throws Exception {
+		Button mapButton = (Button) solo.getView(R.id.map_button);
+		solo.clickOnView(mapButton);
+		solo.assertCurrentActivity("Expected Gps activity", "GpsActivity");
+		solo.goBack();
 	}
-	
-	public void testSettingsButton() {
-		
-		nActivity.runOnUiThread(
-				new Runnable() {
-					public void run() {
-						sButton.requestFocus();
-						sButton.performClick();
-					}
-				});
-
-		wait(4);
-		
-		SettingsActivity sActivity = (SettingsActivity) getInstrumentation().waitForMonitorWithTimeout(activitySettingsMonitor, 5);
-		
-		// next activity is opened and captured.
-		assertNotNull("Could´t open Activity", sActivity);
-		sActivity.finish();
-
-		resultView = (TextView) sActivity.findViewById(
-	    		com.example.shutapp.R.id.textView1); 
-		
-		assertNotNull("Can´t find the Text View", resultView);
-	    assertEquals("Wrong text",
-	    		"SettingsActivity", resultView.getText());
-	
+	public void testRedirectToSettingsActivity() throws Exception{
+		Button settingsButton = (Button) solo.getView(R.id.settings_button);
+		solo.clickOnView(settingsButton);
+		solo.assertCurrentActivity("Expected Settings activity", "SettingsActivity");
+		solo.goBack();
 	}
-	
+	public void testRedirectToNearbyConversationsActivity() throws Exception{
+		Button chatRoomButton = (Button) solo.getView(R.id.nearby_conversations_button);
+		solo.clickOnView(chatRoomButton);
+		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
+		solo.goBack();
+	}
 	public void testCreateNewChatRoom() {
 		
-		nActivity.runOnUiThread(
-				new Runnable() {
-					public void run(){
-						newChatRoomButton.requestFocus();
-						newChatRoomButton.performClick();
-					}
-				});
-
-		wait(4);
-		
-		NearbyConversationsActivity nActivity = (NearbyConversationsActivity) getInstrumentation().
-				waitForMonitorWithTimeout(activityNearbyConversationMonitor, 5);
-		
-		// next activity is opened and captured.
-		assertNotNull("Could´t open Activity", nActivity);
-		nActivity.finish();
-
-		assertTrue(true);
-		
-	}
-	
-	public void wait(int sec){
-		
-		try {
-			Thread.sleep(sec*1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
 	}
 
-}*/
+}

@@ -16,21 +16,20 @@
 */
 package com.example.shutapp.test;
 
-import com.example.shutapp.GpsActivity;
-import com.example.shutapp.R;
-import com.jayway.android.robotium.solo.Solo;
-
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 
-public class GpsTest extends ActivityInstrumentationTestCase2<GpsActivity>{
+import com.example.shutapp.*;
+import com.example.shutapp.R;
+import com.jayway.android.robotium.solo.Solo;
+
+public class SettingsActivityTest extends ActivityInstrumentationTestCase2<SettingsActivity>{
 	private Solo solo;
 	
 	@SuppressWarnings("deprecation")
-	public GpsTest() {
-		super("com.example.shutapp.GpsActivity", GpsActivity.class);
+	public SettingsActivityTest() {
+		super("com.example.shutapp.SettingsActivity", SettingsActivity.class);
 	}
-	
 	
 	@Override
 	protected void setUp() throws Exception {
@@ -68,5 +67,4 @@ public class GpsTest extends ActivityInstrumentationTestCase2<GpsActivity>{
 		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
 		solo.goBack();
 	}
-	
 }
