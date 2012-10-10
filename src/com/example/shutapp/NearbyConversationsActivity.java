@@ -45,7 +45,8 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	private List<String> nearbyChatRoomNames;
 	private String clickedChatroom = "";
 	private Location currentLocation = new Location("current");
-
+	
+	private DatabaseHandler db;
 	/**
 	 * Creates an environment for NearbyConversationActivity 
 	 *
@@ -85,11 +86,10 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	 * Initiate chat rooms
 	 */
 	private void initiateChatRooms() {
-		
+		db = new DatabaseHandler(this);
 		try {
-			List<Chatroom> nearbyChatRoom = new ArrayList<Chatroom>();
-			for(Chatroom room : Chatrooms.getAll()){
-				nearbyChatRoom.add(room);
+			List<Chatroom> nearbyChatRoom = db.getAllChatrooms();
+			for(Chatroom room : nearbyChatRoom){
 				nearbyChatRoomNames.add(room.getName());
 			}
 		} catch(Exception e) {
@@ -105,6 +105,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	public void addChatroom(String name){
 		Chatroom cr = new Chatroom(name, currentLocation, this);
 		Chatrooms.add(cr.getName(), cr);
+		db.addChatroom(cr);
 		nearbyChatRoomNames.add(name);
 	}
 	/**

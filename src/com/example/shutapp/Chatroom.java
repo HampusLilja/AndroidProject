@@ -28,12 +28,28 @@ import android.content.Context;
 //An object of this class represents a chatroom
 public class Chatroom {
 	
-	private final String CHATROOM_NAME;
-	private List<User> members;
+	private String CHATROOM_NAME;
 	
 	//The representation of this objects gps location
 	private Location gps_location;
 	
+	private double latitude;
+	
+
+	private double longitude;
+	
+	private int radius;
+	
+	public Chatroom(){
+		
+	}
+	
+	public Chatroom(String name, double latitude, double longitude, int radius){
+		this.CHATROOM_NAME = name;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.radius = radius;
+	}
 	/**
 	 * Constructor for Chatroom, add a room to Chatrooms
 	 *
@@ -41,10 +57,11 @@ public class Chatroom {
 	 * @param loc	the location of the chat room
 	 */
 	public Chatroom(String name, Location loc, Context ctx){
-		members = new ArrayList<User>();
 		CHATROOM_NAME = name;
 		gps_location = loc;
-		
+		latitude = loc.getLatitude();
+		longitude = loc.getLongitude();
+		radius = 1000;
 		//Initiates chatlogfile
 		Parser.initiateFile(CHATROOM_NAME, ctx);
 
@@ -64,24 +81,11 @@ public class Chatroom {
 	public String getName(){
 		return CHATROOM_NAME;
 	}
-	/**
-	 * Add a member to the room
-	 *
-	 * @param user The user who is about to be added
-	 * @return true if the add is successful, otherwise false
-	 */
-	public boolean addMember(User user) {
-		return members.add(user);
+	
+	public void setName(String name){
+		CHATROOM_NAME = name;
 	}
-	/**
-	 * Remove a member from the room
-	 *
-	 * @param user The user who is about to be removed
-	 * @return true if the remove is successful, otherwise false
-	 */
-	public boolean removeMember(User user) {
-		return members.remove(user);
-	}
+
 	/**
 	 * Set the location of the room
 	 */
@@ -118,6 +122,25 @@ public class Chatroom {
 	
 	public String readLog(Context ctx){
 		return Parser.readAll(CHATROOM_NAME, ctx);
+	}
+	
+	public double getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+	public double getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+	public int getRadius() {
+		return radius;
+	}
+	public void setRadius(int radius) {
+		this.radius = radius;
 	}
 	
 	
