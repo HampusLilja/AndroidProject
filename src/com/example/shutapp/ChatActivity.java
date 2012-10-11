@@ -111,7 +111,13 @@ public class ChatActivity extends Activity {
 		//check if you currently are in a chatroom, if not you are redirected
 		//to nearbyChatroomsactivity
 		if(Chatrooms.getCurrentChatroom() != null){
+			
 			chatroom = Chatrooms.getCurrentChatroom();
+			if(!Parser.checkFileExistance(chatroom.getName(), this)){
+				Parser.initiateFile(chatroom.getName(), this);
+			}
+			
+			new HttpMessage(StringLiterals.JOIN_CHATROOM_MESSAGE_TYPE, chatroom.getName(), MiscResources.REGID, null, null, null);
 			appendSome(25);
 			tvChatLogHistory.append(chatroom.readLog(this));
 		}

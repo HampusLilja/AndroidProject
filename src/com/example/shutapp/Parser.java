@@ -174,8 +174,8 @@ public abstract class Parser {
 	}
 	
 	public static boolean checkFileExistance(String filename, Context ctx){
-		File settingsFile = ctx.getFileStreamPath(StringLiterals.FILENAME_SETTINGS);
-		return settingsFile.exists();
+		File file = ctx.getFileStreamPath(filename);
+		return file.exists();
 	}
 
 }

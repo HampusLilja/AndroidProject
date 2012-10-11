@@ -22,6 +22,7 @@ public abstract class StringLiterals {
 	
 	public static final int CHATROOM_MESSAGE_TYPE = 1;
 	public static final int CREATE_CHATROOM_MESSAGE_TYPE = 2;
+	public static final int JOIN_CHATROOM_MESSAGE_TYPE = 3;
 	
 	public static final String HTTP_CHATROOM_MESSAGE_VAR_ACTION = "action";
 	public static final String HTTP_CHATROOM_MESSAGE_VALUE_ACTION = "chatRoomMsg";
@@ -46,6 +47,16 @@ public abstract class StringLiterals {
 	public static final String STANDARD_NICKNAME = "Anonymous";
 	
 	public static final String FILENAME_SETTINGS = "SETTINGS";
+
+	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VAR_ACTION = "action";
+
+	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VALUE_ACTION = "joinChatroom";
+
+	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VAR_NAME = "name";
+
+	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VAR_REGID = "regid";
+
+	
 	
 	
 	

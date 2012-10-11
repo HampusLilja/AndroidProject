@@ -91,6 +91,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 			List<Chatroom> nearbyChatRoom = db.getAllChatrooms();
 			for(Chatroom room : nearbyChatRoom){
 				nearbyChatRoomNames.add(room.getName());
+				Chatrooms.add(room.getName(), room);
 			}
 		} catch(Exception e) {
 			System.out.println("No known chat rooms");
