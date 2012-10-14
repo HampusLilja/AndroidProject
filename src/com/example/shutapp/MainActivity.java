@@ -1,4 +1,12 @@
 /*
+ ** Copyright (C)  2012  Tomas Arnesson, Hampus Lilja, Mattias Herzog & Mathias Dosé
+ ** Permission is granted to copy, distribute and/or modify this document
+ ** under the terms of the GNU Free Documentation License, Version 1.3
+ ** or any later version published by the Free Software Foundation;
+ ** with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+ ** A copy of the license is included in the section entitled "LICENSE.txt".
+ */
+/*
  ** This file is part of ShutApp.
  **
  ** ShutApp is free software: you can redistribute it and/or modify

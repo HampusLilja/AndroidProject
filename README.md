@@ -3,6 +3,23 @@ AndroidProject
 
 SoftwareEngineering
 
+HANDIN_05
+==============
+Release Notice for HANDIN_05: 
+New from previous release server database is now Android Native SQLite. This is for enabling directdownload 
+to device, with support for Android SQLite Libs instantly.The device now downloads the latest list of 
+chatrooms during startup. Application is now able to store settings and changes locally on device. New for 
+NearByChatrooms view is now that it reads in the downloaded database and uses that for creating a list of 
+current chatrooms.
+The user can hereby join current chatrooms with added function both in device and on server. The bug of 
+application crashing when using "back-key" in android softkey buttons, instead of the inbuilt menu is now fixed.
+
+Furthermore Robotium is implementet instead of Androids testing tools for a smoother devlop experience.
+For those test including Google Maps we had to write manual test (see Test.pdf under docs) specification due to 
+Google's privacy policy regarding thier maps.
+
+HANDIN_04
+==============
 Release Notice for HANDIN_04:
 In this release you can create a chat room at your location and it will show a shaded circle on the map.
 The colour of the circle on the map depends on your location.
