@@ -3,10 +3,14 @@ package com.tomasar.shutapp_gcm_server;
 import com.google.android.gcm.server.*;
 import com.google.android.gcm.server.MulticastResult;
 import com.google.android.gcm.server.Sender;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +21,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.sqlite.SQLiteConfig;
+import org.sqlite.SQLiteOpenMode;
 
 /*
  * This is added server package to ShutAPP Android application.
@@ -25,8 +31,7 @@ import javax.servlet.http.HttpSession;
  */
 
 @WebServlet(name = "GCM", urlPatterns = {"/GCM"})
-//@WebServlet("GCM_Server")
-public class GCM_Server extends HttpServlet {
+public class GCM_Server extends HttpServlet implements Serializable {
 
     //This is the registered key for access via Google API, GCM.
     private static final String SENDER_ID = "AIzaSyAbgoOa_EvIBk81TxI8oTm8d_0he1aqzWU";
@@ -35,42 +40,36 @@ public class GCM_Server extends HttpServlet {
     //These are static configurations, for testing purposes.
     private static final String TOMAS = "APA91bEqKVrHg19T-I5MKgp707wMhcgAdmzOfr0IPAsTyk5O0citkgjl4rHdYcz7axKbA9ODwDFPb4I2ISwwdZntheJcLdoeHJCkESs7F145PKBmU92bALDPg_ClwS82pO3UnLVGCvmAyWl15B9Qpk9jjQd-Fwa_5Q";
     private static final String DOSE = "APA91bHCMst1WyecOE-T6IyrLlwa2E-9mwRYVE3T1KHrdcFNMBlehvxmHHPWNGPL0alH02cfOxuj1Qvk4rc03k3Zd0Khp33d4dREYUSXUGQ_nO1Vdkhg03Qg4j4jsojmSk89Ym4AlsCMuglHHU47TuX4SbJNYSONFg";     
-    private static final String ROOM1 = "chatroom001";
-    private static final String ROOM2 = "chatroom002";
     /*
      * Static SQL part/strings below this line.
      */
     //MYSQL part containing vital connect information.
-    private static String DBURL = "jdbc:derby://localhost:1527/SHUTAPPDB";
+    //private static String DBURL = "jdbc:derby://localhost:1527/SHUTAPPDB";
+    private static String DBURL = "jdbc:sqlite:C:\\Tomas\\Software Engineering\\ShutAPP_GCM_SERVER\\src\\main\\webapp\\shutappdb.db";
     private static String DBUSER = "gcm";
     private static String DBPASS = "gcm";
-    private static String DBDriver = "org.apache.derby.jdbc.ClientDriver";
+    //private static String DBDriver = "org.apache.derby.jdbc.ClientDriver";
+    private static String DBDriver = "org.sqlite.JDBC"; 
     //MYSQL prepared statements
     //When a new users is registered, put hes/hers chose nickname in DB
     private static String newUserToSQLDB = "INSERT INTO USERS" + "(REGID, NICK) VALUES" + "(?,?)";
+    //When a new chatroom is created, put the details into DB
+    private static String createNewChatRoomInDB = "INSERT INTO CHATROOMS " + "(NAME, MEMBERS, LAT, LONG, RADIUS, PASSWD) VALUES " + "(?,?,?,?,?,?)";
+    private static String addMemberToChatRoomInDB = "UPDATE CHATROOMS SET MEMBERS=" + "?" + "  WHERE NAME=" + "?";
     //When a user uninstall application, remove the REGID from GCM.USERS
-    private static String delUserFromSQLDB = "DELETE FROM USERS WHERE REGID" + "=" + "(?)";
-    //"DELETE FROM USERS WHERE REGID = "+"'" +DBREGID +"'");
-    
-    
-    //List of current users
-    private List<String> users = new ArrayList<String>();
-    //String singleuser = TOMAS;
-    //List of current chatrooms
-    private List<String> chatrooms = new ArrayList<String>();
-
-    
+    private static String delUserFromSQLDB = "DELETE FROM USERS WHERE REGID" + "=" + "'" + "(?)" + "'";
+    //Checks which users are members or chatroom
+    private static String getCurrentChatRoomUsers = "SELECT MEMBERS FROM CHATROOMS WHERE NAME="+"?";
     
     public GCM_Server() {
          
         super();
-        //Adding hardcoded targets
-        users.add(DOSE);
-        users.add(TOMAS);
-        List<String> chatrooms = new ArrayList<String>();
-        chatrooms.add(ROOM1);
-        chatrooms.add(ROOM2);
-    }    
+        SQLiteConfig config = new SQLiteConfig();
+        config.setSharedCache(true);
+        config.setSharedCache(true);
+        config.setOpenMode(SQLiteOpenMode.READWRITE);
+    }   
+    
      /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -85,10 +84,8 @@ public class GCM_Server extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
+            //processRequest(request, response);
     }
-
-    
     /**
      * Handles the HTTP
      * <code>GET</code> method.
@@ -129,28 +126,44 @@ public class GCM_Server extends HttpServlet {
         String chatRoom = request.getParameter("chatRoom");
         String userMessage = request.getParameter("Message");
         String userName = request.getParameter("user");
-        
-        sendMsgToChatRoom(buildMsg(chatRoom, userMessage, userName));
-        Logger.getAnonymousLogger().log(Level.INFO, "Recevied HTTP POST to send msg to all in chatroom");
+        sendMsgToChatRoom(buildMsg(chatRoom, userMessage, userName), convertToArrayListForGCM(chatRoom));
+        Logger.getAnonymousLogger().log(Level.INFO, "Recevied HTTP POST to send msg to all in chatroom: " +chatRoom);
         //line below is only for test environment.
         response.sendRedirect("index.jspx");
-           } else if( typeOfAction.equals("addUserToDB")) {
+           } else if( typeOfAction.equals("createNewChatRoom")) {
         /*
-         * This ACTION handles requests regarding registereing a new nick/regid to SQLDB.
+         * This ACTION handles creation of a new chatroom.
          */ 
-        String DBNICK = request.getParameter("DBNICK");
-        String DBREGID = request.getParameter("DBREGID");
-        applyChangesToSQL(DBREGID, DBNICK, newUserToSQLDB);
-        Logger.getAnonymousLogger().log(Level.INFO, "Recieved HTTP POST for new user to DB");
+        String name = request.getParameter("NAME");
+        String members = request.getParameter("MEMBERS");
+        String lat = request.getParameter("LAT");
+        String longitud = request.getParameter("LONG");
+        String radius = request.getParameter("RADIUS");
+        String passwd = request.getParameter("PASSWD");
+        //applyChangesToSQL("roomtest", usertest, lat, longitud, radius, createNewChatRoomInDB);
+        applyChangesToSQL(name, members, lat, longitud, radius, passwd, createNewChatRoomInDB);
+        Logger.getAnonymousLogger().log(Level.INFO, "Recieved HTTP POST for creation of new chatroom.");
         //line below is only for test environment.
         response.sendRedirect("index.jspx");
-       }else if( typeOfAction.equals("remUserFromDB")) {
+       }else if( typeOfAction.equals("removeChatroom")) {
         /*
-         * This ACTION handles requests regarding the removal of a user from SQL DB.
+         * This ACTION handles the removal of a user from a chatroom.
          */  
-        String DBREGID = request.getParameter("DBREGID");
-        applyChangesToSQL(DBREGID, delUserFromSQLDB);
-        Logger.getAnonymousLogger().log(Level.INFO, "Recieved HTTP POST for new user to DB");
+        String chatRoom = request.getParameter("name");
+        String regId = request.getParameter("regid");
+        //removeUserFromChatRoom(DBREGID, delUserFromSQLDB);
+        Logger.getAnonymousLogger().log(Level.INFO, "Recieved HTTP POST for new user to join chatroom: " + chatRoom);
+        //line below is only for test environment.
+        response.sendRedirect("index.jspx");
+        }else if( typeOfAction.equals("joinChatroom")) {
+        /*
+         * This ACTION handles adding a new member to a chatroom(join).
+         */  
+        String chatRoom = request.getParameter("name");
+        String regId = request.getParameter("regid");
+        applyChangesToSQL(addUserToChatRoom(regId, chatRoom), chatRoom, addMemberToChatRoomInDB);
+        
+        Logger.getAnonymousLogger().log(Level.INFO, "Recieved HTTP POST for new user to join chatroom: " + chatRoom);
         //line below is only for test environment.
         response.sendRedirect("index.jspx");
         }
@@ -172,12 +185,14 @@ public class GCM_Server extends HttpServlet {
      * This class is used to build a complete message string in correct format, before being sent.
      */
     public Message buildMsg(String chatRoom, String userMessage, String userName){
+        
+        //Appending username to sent message, so chatlog shows who sent what.
         StringBuffer temp = new StringBuffer();
         temp.append(userName);
         temp.append(":");
         temp.append(userMessage);        
         // This is used for building message!
-        // Could be String or JSON Object!
+        // Could be either string or JSON Object!
         Message message;
         message = new Message.Builder()
 
@@ -185,10 +200,12 @@ public class GCM_Server extends HttpServlet {
 // the android target device, if it was offline during earlier message
 // transmissions, will only receive the latest message for that key when
 // it goes back on-line.
-.collapseKey(chatRoom)
-.timeToLive(30)
+//.collapseKey(chatRoom)
+//.timeToLive(30)
 //.delayWhileIdle(true)
-//.addData("chatroom", chatRoom)
+// Above functions not implemented in ShutApp
+                
+.addData("chatroom", chatRoom)
 .addData("message", temp.toString())
 .build();
         
@@ -200,13 +217,14 @@ public class GCM_Server extends HttpServlet {
      * The following function is responsible for sending a built message to GCM server
      * imparmeters is a formatted and built message, by com.google.android.gcm.server.message; class
      */
-    public void sendMsgToChatRoom(Message message){
+    public void sendMsgToChatRoom(Message message, List<String> users){
                         // Instance of com.android.gcm.server.Sender, that does the
                 // transmission of a Message to the Google Cloud Messaging service.
         Sender sender = new Sender(SENDER_ID);
         try {
+            
             MulticastResult result = sender.send(message, users, 1);
-            Logger.getAnonymousLogger().log(Level.INFO, "Built and sent MSG to " + users);
+            Logger.getAnonymousLogger().log(Level.INFO, "Built and sent MSG to {0}", users);
             if (result.getResults() != null) {
                 int canonicalRegId = result.getCanonicalIds();
                 if (canonicalRegId != 0) {
@@ -222,6 +240,7 @@ public class GCM_Server extends HttpServlet {
         }
     }
     
+ 
 
     /* ---------------------------------------------------------------
      * ALL BELOW THIS LINE BELONGS TO SQL PART OF SERVER COMMUNICATION
@@ -260,7 +279,7 @@ public class GCM_Server extends HttpServlet {
         ps_sql.setString(1, var1);
         ps_sql.setString(2, var2);
         ps_sql.executeUpdate();
-        System.out.println("JAVA: Performed sql string " + sqlstatement + "with variables " + var1 +", " + var2);
+        System.out.println("JAVA: Performed sql string " + sqlstatement + " with variables " + var1 +", " + var2);
       }
       catch(SQLException e){
           System.out.println(e.getMessage());
@@ -299,8 +318,9 @@ public class GCM_Server extends HttpServlet {
         
         ps_sql = SQLconnection.prepareStatement(sqlstatement);
         ps_sql.setString(1, var1);
+        ps_sql.setQueryTimeout(2);
         ps_sql.executeUpdate();
-        System.out.println("JAVA: Performed sql string " + sqlstatement + "with variables " + var1);
+        System.out.println("JAVA: Performed sql string " + sqlstatement + " with variables " + var1);
       }
       catch(SQLException e){
           System.out.println(e.getMessage());
@@ -326,6 +346,163 @@ public class GCM_Server extends HttpServlet {
                             }	
             }
         }
+}
+    
+    
+    
+    
+            /*
+     * This class handles updates to SQL Database, which has five variables.
+     * And uses predefined static SQL strings, with variables.
+     */
+    private void applyChangesToSQL(String var1, String var2, String var3, String var4, String var5, String var6, String sqlstatement){
+        Connection SQLconnection = null;
+        PreparedStatement ps_sql = null;
+      try{
+        SQLconnection = connectSQLDB();
+        
+        ps_sql = SQLconnection.prepareStatement(sqlstatement);
+        ps_sql.setString(1, var1);
+        ps_sql.setString(2, var2);
+        ps_sql.setString(3, var3);
+        ps_sql.setString(4, var4);
+        ps_sql.setString(5, var5);
+        ps_sql.setString(6, var6);
+        ps_sql.executeUpdate();
+        System.out.println("JAVA: Performed sql string " + sqlstatement + " with variables " + var1 +" " + var2 +" " + var3 +" " +var4 +" " +var5 +" " +var6);
+      }
+      catch(SQLException e){
+          System.out.println(e.getMessage());
+      }		
+          catch (Exception e){
+        e.printStackTrace();
+    }
+      finally {
+            if (ps_sql != null) {
+                         try{
+                        	ps_sql.close();
+                            }
+                           catch(SQLException e){
+                           System.out.println(e.getMessage());
+            }	
+                         try{
+                            if (SQLconnection != null) {
+				SQLconnection.close();
+                            }
+            }
+                            catch(SQLException e){
+                           System.out.println(e.getMessage());
+                            }	
+            }
+        }
+}
+    
+        /*
+         * Collects a list of members for a specific chatroom, splits it to regIds and adds into an arraylist.
+         * It then returns the arraylist.
+         * */
+         
+        private static List<String> convertToArrayListForGCM(String chatRoom){
+        List<String> chatroom_members = new ArrayList<>();
+        Connection SQLconnection = null;
+        PreparedStatement ps_sql = null;
+        ResultSet result;
+        String members;
+      try{
+        SQLconnection = connectSQLDB();
+        
+        ps_sql = SQLconnection.prepareStatement(getCurrentChatRoomUsers);
+        ps_sql.setString(1, chatRoom);
+        result = ps_sql.executeQuery();
+        System.out.println("JAVA: Performed sql string " + getCurrentChatRoomUsers+ "with variables " + chatRoom);
+        while (result.next()) {               // Position the cursor                   
+        members = result.getString(1);        // Retrieve the first column value
+        chatroom_members = new ArrayList<String>(Arrays.asList(members.split(",")));
+        //chatroom_members.add(members);
+        result.close();
+        
+}
+      }
+      catch(SQLException e){
+          System.out.println(e.getMessage());
+      }		
+          catch (Exception e){
+        e.printStackTrace();
+    }
+      finally {
+            if (ps_sql != null) {
+                         try{
+                        	ps_sql.close();
+                            }
+                           catch(SQLException e){
+                           System.out.println(e.getMessage());
+            }	
+                         try{
+                            if (SQLconnection != null) {
+				SQLconnection.close();
+                            }
+            }
+                            catch(SQLException e){
+                           System.out.println(e.getMessage());
+                            }	
+            }
+        }
+      return chatroom_members;
+        }
+        
+        private String addUserToChatRoom(String regId, String chatRoom){
+        List<String> chatroom_members = new ArrayList<>();
+        Connection SQLconnection = null;
+        PreparedStatement ps_sql = null;
+        ResultSet result;
+        String members;
+        String updated_memberlist = "";
+      try{
+        SQLconnection = connectSQLDB();
+        
+        ps_sql = SQLconnection.prepareStatement(getCurrentChatRoomUsers);
+        ps_sql.setString(1, chatRoom);
+        result = ps_sql.executeQuery();
+        System.out.println("JAVA: Performed sql string " + getCurrentChatRoomUsers+ "with variables " + chatRoom);
+        while (result.next()) {               // Position the cursor                   
+        members = result.getString(1);        // Retrieve the first column value
+        result.close();
+        ps_sql.close();
+        /* ok now we have our info, append and update with new*/
+        StringBuffer temp = new StringBuffer();
+        temp.append(members);
+        temp.append(",");
+        temp.append(regId);
+        updated_memberlist = temp.toString();
+        applyChangesToSQL(updated_memberlist, chatRoom, addMemberToChatRoomInDB);
+       
+}
+      }
+      catch(SQLException e){
+          System.out.println(e.getMessage());
+      }		
+          catch (Exception e){
+        e.printStackTrace();
+    }
+      finally {
+            if (ps_sql != null) {
+                         try{
+                        	ps_sql.close();
+                            }
+                           catch(SQLException e){
+                           System.out.println(e.getMessage());
+            }	
+                         try{
+                            if (SQLconnection != null) {
+				SQLconnection.close();
+                            }
+            }
+                            catch(SQLException e){
+                           System.out.println(e.getMessage());
+                            }	
+            }
+
+        }return updated_memberlist;
         }
 }
 

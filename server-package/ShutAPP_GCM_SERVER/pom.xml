@@ -46,6 +46,17 @@
             <version>10.6.1.0</version>
         </dependency>
         <dependency>
+            <groupId>unknown.binary</groupId>
+            <artifactId>sqlite-jdbc-3.7.8-20111025.014814-1</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.almworks.sqlite4java</groupId>
+            <artifactId>sqlite4java-win32-x64</artifactId>
+            <version>0.282</version>
+            <type>dll</type>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>6.0</version>
