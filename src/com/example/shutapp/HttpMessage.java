@@ -63,7 +63,7 @@ public class HttpMessage implements Runnable{
 				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_ACTION,
 						StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VALUE_ACTION));
 				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_NAME, var1));
-				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_MEMBERS, var2));
+				//nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_MEMBERS, var2));
 				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_LAT, var3));
 				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_LONG, var4));
 				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_RADIUS, var5));
@@ -74,6 +74,13 @@ public class HttpMessage implements Runnable{
 						StringLiterals.HTTP_JOIN_CHATROOM_MESSAGE_VALUE_ACTION));
 				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_JOIN_CHATROOM_MESSAGE_VAR_NAME, var1));
 				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_JOIN_CHATROOM_MESSAGE_VAR_REGID, var2));
+				break;
+				
+			case StringLiterals.LEAVE_CHATROOM_MESSAGE_TYPE:
+				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_LEAVE_CHATROOM_MESSAGE_VAR_ACTION,
+						StringLiterals.HTTP_LEAVE_CHATROOM_MESSAGE_VALUE_ACTION));
+				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_LEAVE_CHATROOM_MESSAGE_VAR_NAME, var1));
+				nameValuePairs.add(new BasicNameValuePair(StringLiterals.HTTP_LEAVE_CHATROOM_MESSAGE_VAR_REGID, var2));
 				break;
 	            
 	        

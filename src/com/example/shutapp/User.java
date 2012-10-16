@@ -26,4 +26,20 @@ package com.example.shutapp;
 
 public class User {
 
+	public String removeRegIdFromChatroom(String regIds, String userRegId){
+		String[] temp;
+		StringBuffer sb= new StringBuffer();;
+		temp = regIds.split(",");
+		for(int i = 0; i<temp.length; i++){
+			if(!temp[i].equals(userRegId)){
+				sb.append(temp[i]);
+				if(i != temp.length-1){
+					sb.append(",");
+				}
+			}
+		}
+		return sb.toString();
+	}
 }
+
+

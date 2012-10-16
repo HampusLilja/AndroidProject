@@ -30,6 +30,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -152,8 +153,33 @@ public class ChatActivity extends Activity {
 	@Override
 	public void onDestroy() {
 		GCMRegistrar.onDestroy(this);
+		
 		super.onDestroy();
 	}
+	 // If our activity is paused, it is important to UN-register any
+    // broadcast receivers.
+    @Override
+    protected void onPause() {
+         
+        unregisterReceiver(gcmReceiver);
+        super.onPause();
+    }
+     
+    // When an activity is resumed, be sure to register any
+    // broadcast receivers with the appropriate intent
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(gcmReceiver, gcmFilter);
+ 
+    }
+	@Override
+	public void onStop(){
+		Log.d("Chatroom", "Leaving chatroom " + chatroom.getName());
+		new HttpMessage(StringLiterals.LEAVE_CHATROOM_MESSAGE_TYPE, chatroom.getName(), MiscResources.REGID, null, null, null);
+		super.onStop();
+		
+	} 
 	/**
 	 * Is called when the send button is pressed and sends the message
 	 *

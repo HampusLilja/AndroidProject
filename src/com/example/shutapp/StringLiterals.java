@@ -31,6 +31,7 @@ public abstract class StringLiterals {
 	public static final int CHATROOM_MESSAGE_TYPE = 1;
 	public static final int CREATE_CHATROOM_MESSAGE_TYPE = 2;
 	public static final int JOIN_CHATROOM_MESSAGE_TYPE = 3;
+	public static final int LEAVE_CHATROOM_MESSAGE_TYPE = 4;
 	
 	public static final String HTTP_CHATROOM_MESSAGE_VAR_ACTION = "action";
 	public static final String HTTP_CHATROOM_MESSAGE_VALUE_ACTION = "chatRoomMsg";
@@ -46,7 +47,15 @@ public abstract class StringLiterals {
 	public static final String HTTP_CREATE_CHATROOM_MESSAGE_VAR_LONG = "LONG";
 	public static final String HTTP_CREATE_CHATROOM_MESSAGE_VAR_RADIUS = "RADIUS";
 	
+	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VAR_ACTION = "action";
+	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VALUE_ACTION = "joinChatroom";
+	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VAR_NAME = "name";
+	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VAR_REGID = "regid";
 	
+	public static final String HTTP_LEAVE_CHATROOM_MESSAGE_VAR_ACTION = "action";
+	public static final String HTTP_LEAVE_CHATROOM_MESSAGE_VALUE_ACTION = "leaveChatroom";
+	public static final String HTTP_LEAVE_CHATROOM_MESSAGE_VAR_NAME = "name";
+	public static final String HTTP_LEAVE_CHATROOM_MESSAGE_VAR_REGID = "regid";
 	
 	public static final String SERVER_ADRESS = "http://109.225.112.99:8084/GCM_Server/GCM";
 	
@@ -56,13 +65,11 @@ public abstract class StringLiterals {
 	
 	public static final String FILENAME_SETTINGS = "SETTINGS";
 
-	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VAR_ACTION = "action";
+	
 
-	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VALUE_ACTION = "joinChatroom";
+	
 
-	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VAR_NAME = "name";
-
-	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VAR_REGID = "regid";
+	
 
 	
 	

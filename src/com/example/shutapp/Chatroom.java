@@ -80,7 +80,7 @@ public class Chatroom {
 		new HttpMessage(StringLiterals.CREATE_CHATROOM_MESSAGE_TYPE, CHATROOM_NAME, MiscResources.REGID, 
 				Double.toString(gps_location.getLatitude()),
 				Double.toString(gps_location.getLongitude()), 
-				"1000");
+				"1000");	
 	}
 	
 	/**
