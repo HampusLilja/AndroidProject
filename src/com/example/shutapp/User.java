@@ -28,7 +28,7 @@ public class User {
 
 	public String removeRegIdFromChatroom(String regIds, String userRegId){
 		String[] temp;
-		StringBuffer sb= new StringBuffer();;
+		StringBuffer sb= new StringBuffer();
 		temp = regIds.split(",");
 		for(int i = 0; i<temp.length; i++){
 			if(!temp[i].equals(userRegId)){

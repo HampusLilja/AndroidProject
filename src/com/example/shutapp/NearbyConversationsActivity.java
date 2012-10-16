@@ -124,7 +124,6 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nearbyChatRoomNames);
 		ListView listView = (ListView) findViewById(R.id.listOfNearbyConversations);
 		listView.setAdapter(adapter);
-
 		listView.setOnItemClickListener(this); 
 	}
 	/**
@@ -164,6 +163,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		String Text = "My current location is: " + 
 		" Latitud = " + currentLocation.getLatitude() + " Longitud = " + 
 				currentLocation.getLongitude();
+		//Log.d("Loc", Text);
 
 		Toast.makeText( getApplicationContext(),
 				Text, Toast.LENGTH_SHORT).show();
@@ -220,7 +220,28 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		Log.d("listan", "you clicked item " + position);
 		clickedChatroom = nearbyChatRoomNames.get(position);
 		Chatrooms.setCurrentChatroom(Chatrooms.getByName(clickedChatroom));
+		Log.d("is in range", "" + isInRange(Chatrooms.getByName(clickedChatroom)));
 		toChatActivity(view);
+		
+	}
+	
+	public boolean isInRange(Chatroom cr){
+		float distanceBetween = currentLocation.distanceTo(cr.getLocation());
+		Log.d("distance between", "" + distanceBetween);
+		String Text = "rooms current location is: " + 
+				" Latitud = " + cr.getLatitude() + " Longitud = " + 
+						cr.getLongitude();
+		Log.d("ROOM", Text);
+		String Text1 = "My current location is: " + 
+						" Latitud = " + currentLocation.getLatitude() + " Longitud = " + 
+								currentLocation.getLongitude();
+		Log.d("USER", Text1);
+		if(distanceBetween <= cr.getRadius()){
+			return true;
+		}
+		else{
+			return false;
+		}
 		
 	}
 	/**
@@ -233,6 +254,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		}
 		
 		public void onLocationChanged(Location loc) {
+			
 			updatePosition(loc.getLatitude(), loc.getLongitude());
 		}
 

@@ -57,6 +57,7 @@ public class Chatroom {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.radius = radius;
+		
 	}
 	/**
 	 * Constructor for Chatroom, add a room to Chatrooms
@@ -105,6 +106,9 @@ public class Chatroom {
 	 * @return gps_location	the location of the room
 	 */
 	public Location getLocation(){
+		gps_location = new Location("ChatroomLocation");
+		gps_location.setLatitude(latitude);
+		gps_location.setLongitude(longitude);
 		return gps_location;
 	}
 	
