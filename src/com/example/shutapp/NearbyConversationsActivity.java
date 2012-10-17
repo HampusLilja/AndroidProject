@@ -85,7 +85,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		}
 		
 		nearbyChatRoomNames = new ArrayList<String>();
-		initiateChatRooms();
+		//initiateChatRooms();
 		createArrayAdapter();
 		
 		// 
@@ -93,6 +93,14 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		//
 		//initiateTestRooms();
 		//createTestArrayAdapter(initTestArray());
+	}
+	
+	@Override
+	protected void onResume() {
+		db.downloadAndCopyDB();
+		initiateChatRooms();
+		super.onResume();
+		
 	}
 	/**
 	 * Initiate chat rooms
@@ -250,7 +258,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		public void onLocationChanged(Location loc) {
 			
 			updatePosition(loc.getLatitude(), loc.getLongitude());
-			db.downloadAndCopyDB();
+			
 		}
 
 		public void onProviderDisabled(String provider)	{
