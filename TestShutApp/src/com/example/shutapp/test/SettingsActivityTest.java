@@ -24,6 +24,7 @@
 */
 package com.example.shutapp.test;
 
+import junit.framework.Assert;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 
@@ -49,12 +50,21 @@ public class SettingsActivityTest extends ActivityInstrumentationTestCase2<Setti
 	protected void tearDown(){
 		solo.finishOpenedActivities();
 	}
-	public void testRedirectToChatActivity() throws Exception{
+	public void testChangeName() throws Exception{
+		solo.clickInList(0);
+		solo.typeText(0, "test");
+		solo.clickLongOnText("OK");
+		Button settingsButton = (Button) solo.getView(R.id.settings_button);
+		solo.clickOnView(settingsButton);
+		Assert.assertEquals("test", Settings.getNickname());
+	}
+	public void testRedirectToChatActivity() throws Exception{	
 		/*
 		Button chatButton = (Button) solo.getView(R.id.chat_button);
 		solo.clickOnView(chatButton);
-		solo.assertCurrentActivity("Expected Chat activity", "ChatActivity");
-		solo.goBack();
+		//chat activity redirects to nearbyConversations if no room has been entered
+		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
+		solo.goBackToActivity("SettingsActivity");
 		*/
 	}
 	public void testRedirectToGpsActivity() throws Exception {

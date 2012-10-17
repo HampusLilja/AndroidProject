@@ -26,7 +26,6 @@ package com.example.shutapp.test;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.example.shutapp.NearbyConversationsActivity;
 import com.example.shutapp.R;
@@ -56,70 +55,59 @@ public class ChatRoomTest extends ActivityInstrumentationTestCase2<NearbyConvers
 		//finishOpenedActivities() will finish all the activities that have been opened during the test execution.
 		solo.finishOpenedActivities();
 	}
-
-
-	public void testCreatedChatRoomShowsInList() throws Exception {
-		//Assert that NearbyConversationActivity activity is opened
-		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
-		
-		Button chatRoomButton = (Button) solo.getView(R.id.nearby_conversations_button);
-		
-		solo.clickOnMenuItem("Create new chatroom"); 
-		
-		EditText chatRoomName = (EditText) solo.getView(R.id.chatroom_name);
-		solo.typeText(chatRoomName, "ChatRoom1");
-		solo.clickOnButton("OK");
-		
-		//Have to reload the activity for the created chat room to show
-		//Have to click on view if there is no text on button or you do not know the index
-		solo.clickOnView(chatRoomButton);
-		 
-		//Takes a screenshot and saves it in "/sdcard/Robotium-Screenshots/".
-		solo.takeScreenshot();
-		boolean expected = true;
-		boolean actual = solo.searchText("ChatRoom1");
-		//Assert that ChatRoom1 are found
-		assertEquals("ChatRoom1 are not found", expected, actual); 
-
-	}
-
+	
+	
 	public void testEnterChatActivityFromChatRoom() throws Exception {
+		//Create a new room to make sure we can join a room
+		Button createRoomButton = (Button) solo.getView(R.id.create_new_chatroom_button);
+		solo.clickOnView(createRoomButton);
+		solo.typeText(0, "Testing");
+		solo.clickLongOnText("OK");
+		
+		//Refresh the page
+		Button chatRoomButton = (Button) solo.getView(R.id.nearby_conversations_button);
+		solo.clickOnView(chatRoomButton);
 		// Click on the first list line
-		solo.clickInList(1); 
-		// redirected to a new activity
+		solo.clickInList(0);
 
 		// Check if the new activity is ChatActivity
 		solo.assertCurrentActivity("Expected Chat activity", "ChatActivity");
+		//write message
+		solo.typeText(0, "Test");
+		Button sendButton = (Button) solo.getView(R.id.send_button);
+		solo.clickOnView(sendButton);
+		//end write message
+		
 		solo.goBack();
 		//Assert that NearbyConversationActivity activity is opened
 		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
 		
 	}
-	
-	public void testButtons() throws Exception {
-		Button chatRoomButton = (Button) solo.getView(R.id.nearby_conversations_button);
-		//Button chatButton = (Button) solo.getView(R.id.chat_button);
-		Button mapButton = (Button) solo.getView(R.id.map_button);
-		Button settingsButton = (Button) solo.getView(R.id.settings_button);
-		
-		solo.clickOnView(chatRoomButton);
-		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
-		solo.goBack();
+	public void testRedirectToChatActivity() throws Exception{
 		/*
+		Button chatButton = (Button) solo.getView(R.id.chat_button);
 		solo.clickOnView(chatButton);
 		solo.assertCurrentActivity("Expected Chat activity", "ChatActivity");
 		solo.goBack();
 		*/
+	}
+	public void testRedirectToGpsActivity() throws Exception {
+		Button mapButton = (Button) solo.getView(R.id.map_button);
 		solo.clickOnView(mapButton);
 		solo.assertCurrentActivity("Expected Gps activity", "GpsActivity");
 		solo.goBack();
-		
+	}
+	public void testRedirectToSettingsActivity() throws Exception{
+		Button settingsButton = (Button) solo.getView(R.id.settings_button);
 		solo.clickOnView(settingsButton);
 		solo.assertCurrentActivity("Expected Settings activity", "SettingsActivity");
 		solo.goBack();
-		
-		
-		
+	}
+	public void testRedirectToNearbyConversationsActivity() throws Exception{
+		Button chatRoomButton = (Button) solo.getView(R.id.nearby_conversations_button);
+		solo.clickOnView(chatRoomButton);
+		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
+		solo.goBack();
 	}
 
 }
