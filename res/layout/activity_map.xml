@@ -12,7 +12,7 @@
                  android:layout_height="wrap_content"
                  android:layout_above="@id/map_button"
                  android:layout_below="@id/banner"
-                 android:apiKey= "0XsBLVmbVke-htke8cLLtPhlPXO2SwxjWnCpRig" />
+                 android:apiKey= "0P5FFhYuxZg_V2MzsdXEuW7GZ1OUIHUfOdqxK-Q" />
     <!-- APIKEY Might need to be changed later? Hampus 0P5FFhYuxZg_V2MzsdXEuW7GZ1OUIHUfOdqxK-Q
     //Mattias 0XRekQN89MSaaGQZnuXn0c7tjUrXUemgRyF-nYA  
     //DOSE LAPTOP "0XsBLVmbVke-htke8cLLtPhlPXO2SwxjWnCpRig"
