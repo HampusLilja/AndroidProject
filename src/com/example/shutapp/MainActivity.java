@@ -77,17 +77,9 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		//DATABASETESTS
 		db = new DatabaseHandler(this);
 		db.downloadAndCopyDB();
 
-
-		Log.d("Insert: ", "Inserting ..");
-		/*
-		db.addChatroom(new Chatroom("chatroom1" , 11.0, 11.0, 1000));
-		db.addChatroom(new Chatroom("chatroom2" , 22.0, 22.0, 1000));
-		db.addChatroom(new Chatroom("chatroom3" , 33.0, 33.0, 1000));
-		 */
 
 
 		//if it is the first time you run this app then you will have to

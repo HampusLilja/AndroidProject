@@ -189,7 +189,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	 *
 	 * @param view	a view of the text model
 	 */
-	public void toNearbyConversationsActivity(View view){
+	public void updateChatroomList(View view){
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 		overridePendingTransition(0, 0);

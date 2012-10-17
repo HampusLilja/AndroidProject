@@ -40,7 +40,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:background="@drawable/ic_social_group"
-        android:onClick="toNearbyConversationsActivity" />
+        android:onClick="updateChatroomList" />
 
     <Button
         android:id="@+id/map_button"
