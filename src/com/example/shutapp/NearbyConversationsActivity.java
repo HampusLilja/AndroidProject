@@ -64,15 +64,15 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_nearby_conversations);
-		
+		db = new DatabaseHandler(this);
 		/* Use the LocationManager class to obtain GPS locations */
 		LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		LocationListener locationListener = new MyLocationListener();
 		locationManager.requestLocationUpdates(locationManager.getBestProvider(new Criteria(), false), 1*1000, 0, locationListener);
 		
-		nearbyChatRoomNames = new ArrayList<String>();
 		
-		createArrayAdapter();
+		
+		
 		
 		String bestProvider = locationManager.getBestProvider(new Criteria(), false);       
         Location startLocation = locationManager.getLastKnownLocation(bestProvider);
@@ -84,6 +84,10 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 			updatePosition(57.691469,11.977469);
 		}
 		
+		nearbyChatRoomNames = new ArrayList<String>();
+		initiateChatRooms();
+		createArrayAdapter();
+		
 		// 
 		// Test Rooms
 		//
@@ -94,7 +98,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	 * Initiate chat rooms
 	 */
 	private void initiateChatRooms() {
-		db = new DatabaseHandler(this);
+		
 		
 		try {
 			List<Chatroom> nearbyChatRoom = db.getAllChatrooms();
@@ -246,8 +250,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		public void onLocationChanged(Location loc) {
 			
 			updatePosition(loc.getLatitude(), loc.getLongitude());
-			initiateChatRooms();
-			
+			db.downloadAndCopyDB();
 		}
 
 		public void onProviderDisabled(String provider)	{
