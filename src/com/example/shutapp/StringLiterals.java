@@ -60,10 +60,13 @@ public abstract class StringLiterals {
 	public static final String SERVER_ADRESS = "http://109.225.112.99:8084/GCM_Server/GCM";
 	
 	public static final int NICKNAME_INDEX = 0;
+	public static final int SATELLITE_INDEX = 1;
 	
 	public static final String STANDARD_NICKNAME = "Anonymous";
 	
 	public static final String FILENAME_SETTINGS = "SETTINGS";
+	
+	public static final boolean SATELLITE = false;
 
 	
 

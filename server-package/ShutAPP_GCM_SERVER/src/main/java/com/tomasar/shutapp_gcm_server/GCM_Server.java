@@ -64,7 +64,7 @@ public class GCM_Server extends HttpServlet implements Serializable {
      * !-!-! BEFORE DEPLOYING CHECK PATH BELOW !-!-!
      * Static path to server SQLite database below
     */
-    private static String DBURL = "jdbc:sqlite:C:\\Tomas\\Software Engineering\\ShutAPP_GCM_SERVER\\src\\main\\webapp\\shutappdb.db";
+    private static String DBURL = "jdbc:sqlite:C:\\Users\\Hampus\\Desktop\\SugarSync\\Chalmers\\SoftwareEngineering\\GitHub\\AndroidProject\\server-package\\ShutAPP_GCM_SERVER\\src\\main\\webapp\\shutappdb.db";
     private static String DBUSER = "gcm";
     private static String DBPASS = "gcm";
     private static String DBDriver = "org.sqlite.JDBC"; 

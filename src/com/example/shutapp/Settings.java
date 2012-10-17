@@ -32,6 +32,7 @@ import android.content.Context;
  */
 public abstract class Settings {
 	private static String nickname;
+	private static boolean satellite;
 	
 	/**
 	 * Initiates the settingsfile for first time users.
@@ -60,5 +61,23 @@ public abstract class Settings {
 	 */
 	public static String getNickname(){
 		return nickname;
+	}
+	
+	/**
+	 * Set the map view
+	 *
+	 * @param sat 	a boolean with the current map view
+	 */
+	public static void setSatellite(boolean sat){
+		satellite = sat;
+	}
+	
+	/**
+	 * Get the boolean value if the satellite is set
+	 *
+	 * @return satellite 	a boolean with the current map view
+	 */
+	public static boolean isSatellite(){
+		return satellite;
 	}
 }
