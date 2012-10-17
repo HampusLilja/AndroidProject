@@ -36,9 +36,11 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ToggleButton;
 
 public class SettingsActivity extends Activity implements OnItemClickListener{
 	
@@ -69,6 +71,7 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
     	if(settingsList == (null))
     		settingsList = new ArrayList<String>();
 		settingsList.add("Nickname:" + "\t" + Settings.getNickname());
+		settingsList.add("Satellite view:" + "\t" + Settings.isSatellite());
 		
 	}
     
@@ -134,15 +137,41 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
     	overridePendingTransition(0, 0);
     }
 
-
+    /**
+	 * Determines which setting is clicked
+	 */
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		switch(position){
 		//nickname case
 		case StringLiterals.NICKNAME_INDEX:
 			clickOnNicknameItem();
 			break;
+		case StringLiterals.SATELLITE_INDEX:
+			clickOnSatelliteItem();
+			break;
 		}
 		
+	}
+
+	/**
+	 * Sets the Satellite option to true or false
+	 */
+	private void clickOnSatelliteItem() {
+		if(Settings.isSatellite()){
+			Settings.setSatellite(false);
+		}
+		else {
+			Settings.setSatellite(true);
+		}
+		
+		recreate();
+		
+	}
+	
+	@Override
+	public void recreate(){
+		overridePendingTransition(0, 0);
+		super.recreate();
 	}
 
 

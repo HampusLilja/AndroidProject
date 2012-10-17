@@ -52,6 +52,7 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	private GeoPoint currentGeoPoint = null;
 	private Location currentLocation = new Location("current");
 	
+	private MapView mapView;
 	private MapController mapControl;
 	private MyLocationOverlay compass;
 	private MapOverlay itemizedoverlay;
@@ -61,6 +62,8 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	private LocationManager locationManager;
 	private RadiusOverlay radiusOverlay;
 	private Criteria criteria;
+	
+	private DatabaseHandler db;
 	
 	/**
 	 * Creates an environment for a GPS map
@@ -76,10 +79,11 @@ public class GpsActivity extends MapActivity implements LocationListener {
 
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-		MapView mapView = (MapView) findViewById(R.id.mapView);
+		mapView = (MapView) findViewById(R.id.mapView);
 		mapView.setBuiltInZoomControls(true);   //true = being able to zoom with buttons
 		mapView.getController().setZoom(ZOOMLEVEL); //sets zoomlevel from the startup
 
+		
 		mapControl = mapView.getController();
 		mapOverlays = mapView.getOverlays();
 		compass = new MyLocationOverlay(GpsActivity.this, mapView);
@@ -96,6 +100,7 @@ public class GpsActivity extends MapActivity implements LocationListener {
 			Log.e("geoPointS","Unable to get startlocation");
 			updatePosition(57.691469,11.977469);
 		}
+		db = new DatabaseHandler(this);
 
 		drawAllCircles();
 
@@ -131,7 +136,8 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	
 	private void drawAllCircles() {
 		try{
-			for(Chatroom room : Chatrooms.getAll()) {
+			List<Chatroom> chatRooms = db.getAllChatrooms();
+			for(Chatroom room : chatRooms) {
 				Location chatRoomLocation = room.getLocation();
 			
 				boolean nearby = inRangeOfChatRoom(currentLocation, chatRoomLocation);
@@ -185,9 +191,10 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		mapView.setSatellite(Settings.isSatellite());
 		compass.enableCompass();
 		newOverlay();
-		locationManager.requestLocationUpdates(locationManager.getBestProvider(criteria, false), 1*1000, 1, this);        
+		locationManager.requestLocationUpdates(locationManager.getBestProvider(criteria, false), 5*1000, 0, this);        
 		//locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, this);
 	}
 

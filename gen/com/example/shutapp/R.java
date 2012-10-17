@@ -66,8 +66,8 @@ public final class R {
         public static final int banner=0x7f090005;
         public static final int btn_change_nickname=0x7f090016;
         public static final int chat_button=0x7f090009;
-        public static final int chatroom_name=0x7f090019;
-        public static final int create_chatroom=0x7f090018;
+        public static final int chatroom_name=0x7f09001a;
+        public static final int create_chatroom=0x7f090019;
         public static final int create_new_chatroom_button=0x7f090012;
         public static final int et_change_nickname=0x7f090017;
         public static final int iconFrame_1=0x7f090011;
@@ -82,8 +82,9 @@ public final class R {
         public static final int listOfNearbyConversations=0x7f090013;
         public static final int mapView=0x7f09000f;
         public static final int map_button=0x7f09000c;
-        public static final int menu_settings=0x7f09001a;
+        public static final int menu_settings=0x7f09001b;
         public static final int nearby_conversations_button=0x7f090001;
+        public static final int satellitebutton=0x7f090018;
         public static final int send_button=0x7f090003;
         public static final int settingsList=0x7f090015;
         public static final int settings_button=0x7f090004;
@@ -98,11 +99,13 @@ public final class R {
         public static final int activity_nearby_conversations=0x7f030003;
         public static final int activity_settings=0x7f030004;
         public static final int change_nickname_dialog=0x7f030005;
-        public static final int create_chatroom_dialog=0x7f030006;
-        public static final int ic_action_settings=0x7f030007;
-        public static final int ic_location_map=0x7f030008;
-        public static final int ic_social_chat=0x7f030009;
-        public static final int ic_social_group=0x7f03000a;
+        public static final int change_satellite_dialog=0x7f030006;
+        public static final int create_chatroom_dialog=0x7f030007;
+        public static final int ic_action_settings=0x7f030008;
+        public static final int ic_content_new=0x7f030009;
+        public static final int ic_location_map=0x7f03000a;
+        public static final int ic_social_chat=0x7f03000b;
+        public static final int ic_social_group=0x7f03000c;
     }
     public static final class menu {
         public static final int activity_chat=0x7f080000;

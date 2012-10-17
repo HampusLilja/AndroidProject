@@ -117,8 +117,8 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 			cursor.moveToFirst();
 		
 		Chatroom chatroom = new Chatroom(cursor.getString(0),
-				cursor.getDouble(1), cursor.getDouble(2),
-							cursor.getInt(3));
+				cursor.getDouble(2), cursor.getDouble(3),
+							cursor.getInt(4));
 		// return chatroom
 		return chatroom;
 	}

@@ -40,7 +40,28 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:background="@layout/ic_social_group"
-        android:onClick="toNearbyConversationsActivity" />
+        android:onClick="updateChatroomList" />
+
+    <Button
+        android:id="@+id/map_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/settings_button"
+        android:background="@drawable/ic_location_map"
+        android:onClick="toGpsActivity" />
+
+    <Button
+        android:id="@+id/chat_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="22dp"
+        android:layout_toRightOf="@+id/nearby_conversations_button"
+        android:background="@drawable/ic_social_chat"
+        android:onClick="toChatActivity" />
+>>>>>>> a70b7451202e4cf472aeea611a1e430fcbd70bfb
 
     <Button
         android:id="@+id/create_new_chatroom_button"
