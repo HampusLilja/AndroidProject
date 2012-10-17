@@ -62,6 +62,8 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	private RadiusOverlay radiusOverlay;
 	private Criteria criteria;
 	
+	private DatabaseHandler db;
+	
 	/**
 	 * Creates an environment for a GPS map
 	 *
@@ -96,6 +98,7 @@ public class GpsActivity extends MapActivity implements LocationListener {
 			Log.e("geoPointS","Unable to get startlocation");
 			updatePosition(57.691469,11.977469);
 		}
+		db = new DatabaseHandler(this);
 
 		drawAllCircles();
 
@@ -131,7 +134,8 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	
 	private void drawAllCircles() {
 		try{
-			for(Chatroom room : Chatrooms.getAll()) {
+			List<Chatroom> chatRooms = db.getAllChatrooms();
+			for(Chatroom room : chatRooms) {
 				Location chatRoomLocation = room.getLocation();
 			
 				boolean nearby = inRangeOfChatRoom(currentLocation, chatRoomLocation);
@@ -187,7 +191,7 @@ public class GpsActivity extends MapActivity implements LocationListener {
 		super.onResume();
 		compass.enableCompass();
 		newOverlay();
-		locationManager.requestLocationUpdates(locationManager.getBestProvider(criteria, false), 1*1000, 1, this);        
+		locationManager.requestLocationUpdates(locationManager.getBestProvider(criteria, false), 5*1000, 0, this);        
 		//locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, this);
 	}
 
