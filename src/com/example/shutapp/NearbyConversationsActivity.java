@@ -71,7 +71,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		locationManager.requestLocationUpdates(locationManager.getBestProvider(new Criteria(), false), 1*1000, 0, locationListener);
 		
 		nearbyChatRoomNames = new ArrayList<String>();
-		initiateChatRooms();
+		
 		createArrayAdapter();
 		
 		String bestProvider = locationManager.getBestProvider(new Criteria(), false);       
@@ -95,11 +95,14 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	 */
 	private void initiateChatRooms() {
 		db = new DatabaseHandler(this);
+		
 		try {
 			List<Chatroom> nearbyChatRoom = db.getAllChatrooms();
 			for(Chatroom room : nearbyChatRoom){
-				nearbyChatRoomNames.add(room.getName());
-				Chatrooms.add(room.getName(), room);
+				if(inRangeOfChatRoom(room)){
+					nearbyChatRoomNames.add(room.getName());
+					Chatrooms.add(room.getName(), room);
+				}
 			}
 		} catch(Exception e) {
 			System.out.println("No known chat rooms");
@@ -220,30 +223,17 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		Log.d("listan", "you clicked item " + position);
 		clickedChatroom = nearbyChatRoomNames.get(position);
 		Chatrooms.setCurrentChatroom(Chatrooms.getByName(clickedChatroom));
-		Log.d("is in range", "" + isInRange(Chatrooms.getByName(clickedChatroom)));
 		toChatActivity(view);
 		
 	}
 	
-	public boolean isInRange(Chatroom cr){
-		float distanceBetween = currentLocation.distanceTo(cr.getLocation());
-		Log.d("distance between", "" + distanceBetween);
-		String Text = "rooms current location is: " + 
-				" Latitud = " + cr.getLatitude() + " Longitud = " + 
-						cr.getLongitude();
-		Log.d("ROOM", Text);
-		String Text1 = "My current location is: " + 
-						" Latitud = " + currentLocation.getLatitude() + " Longitud = " + 
-								currentLocation.getLongitude();
-		Log.d("USER", Text1);
-		if(distanceBetween <= cr.getRadius()){
-			return true;
-		}
-		else{
-			return false;
-		}
-		
+	private boolean inRangeOfChatRoom(Chatroom cr) {
+		Log.d("radius", "" + cr.getRadius());
+		Log.d("distance", "" + currentLocation.distanceTo(cr.getLocation()));
+		int dist = (int) (cr.getRadius() - currentLocation.distanceTo(cr.getLocation()));
+		return (dist >= 0);
 	}
+	
 	/**
 	 * Class My Location Listener
 	 */
@@ -256,6 +246,8 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		public void onLocationChanged(Location loc) {
 			
 			updatePosition(loc.getLatitude(), loc.getLongitude());
+			initiateChatRooms();
+			
 		}
 
 		public void onProviderDisabled(String provider)	{
