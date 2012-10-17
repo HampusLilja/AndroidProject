@@ -40,7 +40,7 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Light">
+        android:theme="@style/Light" android:logo="@drawable/launcher_icon_xhdpi">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

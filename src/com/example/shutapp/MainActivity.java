@@ -33,7 +33,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.apache.http.util.ByteArrayBuffer;
 
@@ -55,7 +58,9 @@ public class MainActivity extends Activity {
 
 	// This tag is used in Log.x() calls
 	private static final String TAG = "MainActivity";
-	
+
+	private static final long SPLASHDELAY = 3000;
+
 	DatabaseHandler db;
 
 	// This string will hold the lengthy registration id that comes from GCMRegistrar.register()
@@ -71,20 +76,20 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		//DATABASETESTS
 		db = new DatabaseHandler(this);
 		db.downloadAndCopyDB();
-		
-		
+
+
 		Log.d("Insert: ", "Inserting ..");
 		/*
 		db.addChatroom(new Chatroom("chatroom1" , 11.0, 11.0, 1000));
 		db.addChatroom(new Chatroom("chatroom2" , 22.0, 22.0, 1000));
 		db.addChatroom(new Chatroom("chatroom3" , 33.0, 33.0, 1000));
-		*/
-		
-		
+		 */
+
+
 		//if it is the first time you run this app then you will have to
 		//initiate the settingsfile
 		if(Parser.checkFileExistance(StringLiterals.FILENAME_SETTINGS, this))
@@ -93,6 +98,17 @@ public class MainActivity extends Activity {
 			Settings.initiateSettingsFile(this);
 
 		registerClient();
+
+		TimerTask splashTask = new TimerTask() {
+			
+			@Override
+			public void run() {
+				finish();
+				redirectFromMain(findViewById(R.layout.activity_main));
+			}
+		};
+		Timer timer = new Timer();
+		timer.schedule(splashTask, SPLASHDELAY);
 
 	}
 
@@ -149,8 +165,8 @@ public class MainActivity extends Activity {
 		startActivity(intentToRedirect);
 		overridePendingTransition(0, 0);
 	}
-	
-	
+
+
 
 }
 

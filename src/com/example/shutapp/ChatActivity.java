@@ -175,8 +175,10 @@ public class ChatActivity extends Activity {
     }
 	@Override
 	public void onStop(){
-		Log.d("Chatroom", "Leaving chatroom " + chatroom.getName());
-		new HttpMessage(StringLiterals.LEAVE_CHATROOM_MESSAGE_TYPE, chatroom.getName(), MiscResources.REGID, null, null, null);
+		if(chatroom != null){
+			Log.d("Chatroom", "Leaving chatroom " + chatroom.getName());
+			new HttpMessage(StringLiterals.LEAVE_CHATROOM_MESSAGE_TYPE, chatroom.getName(), MiscResources.REGID, null, null, null);
+		}
 		super.onStop();
 		
 	} 

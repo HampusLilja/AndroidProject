@@ -26,6 +26,8 @@ package com.example.shutapp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -97,7 +99,6 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	
 	@Override
 	protected void onResume() {
-		db.downloadAndCopyDB();
 		initiateChatRooms();
 		super.onResume();
 		
@@ -180,8 +181,8 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 				currentLocation.getLongitude();
 		//Log.d("Loc", Text);
 
-		Toast.makeText( getApplicationContext(),
-				Text, Toast.LENGTH_SHORT).show();
+		//Toast.makeText( getApplicationContext(),
+			//	Text, Toast.LENGTH_SHORT).show();
 	}
 	/**
 	 * Redirects the user to toNearbyConversationsActivity.java
@@ -189,7 +190,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	 * @param view	a view of the text model
 	 */
 	public void toNearbyConversationsActivity(View view){
-		Intent intent = new Intent(this, NearbyConversationsActivity.class);
+		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 		overridePendingTransition(0, 0);
 	}
@@ -240,8 +241,8 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	}
 	
 	private boolean inRangeOfChatRoom(Chatroom cr) {
-		Log.d("radius", "" + cr.getRadius());
-		Log.d("distance", "" + currentLocation.distanceTo(cr.getLocation()));
+		//Log.d("radius", "" + cr.getRadius());
+		//Log.d("distance", "" + currentLocation.distanceTo(cr.getLocation()));
 		int dist = (int) (cr.getRadius() - currentLocation.distanceTo(cr.getLocation()));
 		return (dist >= 0);
 	}
