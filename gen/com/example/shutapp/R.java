@@ -59,8 +59,8 @@ public final class R {
         public static final int btn_change_nickname=0x7f090013;
         public static final int button1=0x7f09000b;
         public static final int chat_button=0x7f090006;
-        public static final int chatroom_name=0x7f090016;
-        public static final int create_chatroom=0x7f090015;
+        public static final int chatroom_name=0x7f090017;
+        public static final int create_chatroom=0x7f090016;
         public static final int create_new_chatroom_button=0x7f09000f;
         public static final int et_change_nickname=0x7f090014;
         public static final int iconFrame_1=0x7f09000e;
@@ -70,8 +70,9 @@ public final class R {
         public static final int listOfNearbyConversations=0x7f090010;
         public static final int mapView=0x7f09000c;
         public static final int map_button=0x7f090005;
-        public static final int menu_settings=0x7f090017;
+        public static final int menu_settings=0x7f090018;
         public static final int nearby_conversations_button=0x7f090001;
+        public static final int satellitebutton=0x7f090015;
         public static final int send_button=0x7f090003;
         public static final int settingsList=0x7f090012;
         public static final int settings_button=0x7f090004;
@@ -87,7 +88,8 @@ public final class R {
         public static final int activity_nearby_conversations=0x7f030003;
         public static final int activity_settings=0x7f030004;
         public static final int change_nickname_dialog=0x7f030005;
-        public static final int create_chatroom_dialog=0x7f030006;
+        public static final int change_satellite_dialog=0x7f030006;
+        public static final int create_chatroom_dialog=0x7f030007;
     }
     public static final class menu {
         public static final int activity_chat=0x7f080000;
