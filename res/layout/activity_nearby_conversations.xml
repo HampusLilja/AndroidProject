@@ -16,7 +16,7 @@
     <FrameLayout
         android:id="@+id/banner"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/create_new_chatroom_button"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/ic_action_settings"
+        android:background="@layout/ic_action_settings"
         android:onClick="toSettingsActivity" />
 
     <Button
@@ -39,28 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/ic_social_group"
+        android:background="@layout/ic_social_group"
         android:onClick="toNearbyConversationsActivity" />
-
-    <Button
-        android:id="@+id/map_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="20dp"
-        android:layout_toLeftOf="@+id/settings_button"
-        android:background="@drawable/ic_location_map"
-        android:onClick="toGpsActivity" />
-
-    <Button
-        android:id="@+id/chat_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="22dp"
-        android:layout_toRightOf="@+id/nearby_conversations_button"
-        android:background="@drawable/ic_social_chat"
-        android:onClick="toChatActivity" />
 
     <Button
         android:id="@+id/create_new_chatroom_button"
@@ -69,7 +49,7 @@
         android:layout_alignBottom="@+id/banner"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/ic_content_new_inverted"
+        android:background="@layout/ic_content_new"
         android:onClick="showCreateChatroomDialog"
         android:width="40dip" />
 
@@ -84,5 +64,63 @@
         android:dividerHeight="2dp" >
 
     </ListView>
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/nearby_conversations_button"
+        android:src="@drawable/ic_menu_splitter" />
+
+    <Button
+        android:id="@+id/chat_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/imageView1"
+        android:background="@layout/ic_social_chat"
+        android:onClick="toChatActivity" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/chat_button"
+        android:src="@drawable/ic_menu_splitter" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/settings_button"
+        android:src="@drawable/ic_menu_splitter" />
+
+    <Button
+        android:id="@+id/map_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/imageView3"
+        android:background="@layout/ic_location_map"
+        android:onClick="toGpsActivity" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/map_button"
+        android:src="@drawable/ic_menu_splitter" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_menubar_middle_wide" />
 
 </RelativeLayout>

@@ -109,6 +109,7 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
      */
     public void toNearbyConversationsActivity(View view){
     	Intent intentToRedirect = new Intent(this, NearbyConversationsActivity.class);
+
     	startActivity(intentToRedirect);
     	overridePendingTransition(0, 0);
     } 
