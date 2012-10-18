@@ -37,8 +37,6 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.android.gcm.GCMRegistrar;
-
 //Got a lot of help and inspiration from http://avilyne.com/?p=267
 
 public class ChatActivity extends Activity {

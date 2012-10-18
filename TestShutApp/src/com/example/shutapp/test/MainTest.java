@@ -28,7 +28,6 @@ import android.test.ActivityInstrumentationTestCase2;
 import com.example.shutapp.*;
 import com.example.shutapp.R;
 import com.jayway.android.robotium.solo.Solo;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainTest extends ActivityInstrumentationTestCase2<MainActivity> {
