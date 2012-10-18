@@ -90,7 +90,7 @@ public class ChatActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chat);
-
+		
 		//prevents androidkeyboard from autopopping when entering activity
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -126,7 +126,7 @@ public class ChatActivity extends Activity {
 				Parser.initiateFile(chatroom.getName(), this);
 			}
 			
-			new HttpMessage(StringLiterals.JOIN_CHATROOM_MESSAGE_TYPE, chatroom.getName(), MiscResources.REGID, null, null, null);
+			new HttpMessage(StringLiterals.JOIN_CHATROOM_MESSAGE_TYPE, chatroom.getName(), Settings.getREGID(), null, null, null);
 			appendSome(25);
 			tvChatLogHistory.append(chatroom.readLog(this));
 		}
@@ -152,7 +152,7 @@ public class ChatActivity extends Activity {
 	 */
 	@Override
 	public void onDestroy() {
-		GCMRegistrar.onDestroy(this);
+		//GCMRegistrar.onDestroy(this);
 		
 		super.onDestroy();
 	}
@@ -177,7 +177,7 @@ public class ChatActivity extends Activity {
 	public void onStop(){
 		if(chatroom != null){
 			Log.d("Chatroom", "Leaving chatroom " + chatroom.getName());
-			new HttpMessage(StringLiterals.LEAVE_CHATROOM_MESSAGE_TYPE, chatroom.getName(), MiscResources.REGID, null, null, null);
+			new HttpMessage(StringLiterals.LEAVE_CHATROOM_MESSAGE_TYPE, chatroom.getName(), Settings.getREGID(), null, null, null);
 		}
 		super.onStop();
 		

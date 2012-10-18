@@ -26,7 +26,6 @@
 /** this class should handle all GCM messaging (Intents) */
 package com.example.shutapp;
 
-import static com.example.shutapp.MiscResources.*;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -42,7 +41,7 @@ import com.google.android.gcm.*;
 	     */
 	    public GCMIntentService()
 	    {
-	        super(SENDER_ID);
+	        super(StringLiterals.SENDER_ID);
 	        Log.d(TAG, "GCMIntentService initiated");
 	    }
 	    /**
@@ -89,7 +88,7 @@ import com.google.android.gcm.*;
 	    protected void onRegistered(Context ctx, String regId) {
 	        // send regId to your server
 	        Log.d(TAG, regId);
-	        MiscResources.REGID = regId;
+	        Settings.setREGID(regId);
 	         
 	    }
 	    /**

@@ -24,12 +24,7 @@
 */
 package com.example.shutapp;
 
-import java.util.List;
-
 import android.location.Location;
-
-import java.util.ArrayList;
-
 
 import android.content.Context;
 
@@ -78,7 +73,7 @@ public class Chatroom {
 		Chatrooms.add(CHATROOM_NAME, this);
 		
 		//tells the server that this chatroom is created
-		new HttpMessage(StringLiterals.CREATE_CHATROOM_MESSAGE_TYPE, CHATROOM_NAME, MiscResources.REGID, 
+		new HttpMessage(StringLiterals.CREATE_CHATROOM_MESSAGE_TYPE, CHATROOM_NAME, Settings.getREGID(), 
 				Double.toString(gps_location.getLatitude()),
 				Double.toString(gps_location.getLongitude()), 
 				"1000");	

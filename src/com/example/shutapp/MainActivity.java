@@ -24,27 +24,11 @@
  */
 package com.example.shutapp;
 
-import static com.example.shutapp.MiscResources.PROJECT_ID;
-
-import java.io.BufferedInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Date;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.apache.http.util.ByteArrayBuffer;
-
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.*;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -126,7 +110,7 @@ public class MainActivity extends Activity {
 			if (regId.equals("")) {
 
 				// register this device for this project
-				GCMRegistrar.register(this, PROJECT_ID);
+				GCMRegistrar.register(this, StringLiterals.PROJECT_ID);
 				regId = GCMRegistrar.getRegistrationId(this);
 
 				Log.d(TAG, "sendregtoserver has been initialized");
@@ -143,7 +127,7 @@ public class MainActivity extends Activity {
 
 		Log.d(TAG, registrationStatus);
 		Log.d(TAG, regId);
-		MiscResources.REGID = regId;
+		Settings.setREGID(regId);
 
 	}
 

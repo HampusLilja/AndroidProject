@@ -185,7 +185,7 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 	private static boolean downloadDatabase(Context context) {
         try {
                 Log.d(TAG, "downloading database");
-                URL url = new URL(MiscResources.SERVER_DB_URL);
+                URL url = new URL(StringLiterals.SERVER_DB_URL);
                 /* Open a connection to that URL. */
                 URLConnection ucon = url.openConnection();
                 /*
@@ -240,7 +240,7 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
                 try {
                         Log.d(TAG, "Copying DB from server version into app");
                         is = mContext.openFileInput("db_name.s3db");
-                        os = new FileOutputStream("/data/data/com.example.shutapp/databases/chatroomsManager"); // XXX change this
+                        os = new FileOutputStream("/data/data/com.example.shutapp/databases/chatroomsManager"); 
 
                         copyFile(os, is);
                 } catch (Exception e) {

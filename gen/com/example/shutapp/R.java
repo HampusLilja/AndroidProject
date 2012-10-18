@@ -47,20 +47,23 @@ public final class R {
         public static final int ic_content_new_inverted=0x7f020007;
         public static final int ic_holo_light_grey_background=0x7f020008;
         public static final int ic_launcher=0x7f020009;
-        public static final int ic_location_map=0x7f02000a;
-        public static final int ic_location_map_clicked=0x7f02000b;
-        public static final int ic_menu_splitter=0x7f02000c;
-        public static final int ic_menubar_middle_wide=0x7f02000d;
-        public static final int ic_most_left_bar=0x7f02000e;
-        public static final int ic_most_right_bar=0x7f02000f;
-        public static final int ic_next_left_bar=0x7f020010;
-        public static final int ic_next_right_bar=0x7f020011;
-        public static final int ic_social_chat=0x7f020012;
-        public static final int ic_social_chat_clicked=0x7f020013;
-        public static final int ic_social_group=0x7f020014;
-        public static final int ic_social_group_clicked=0x7f020015;
-        public static final int maparrow=0x7f020016;
-        public static final int splash=0x7f020017;
+        public static final int ic_left_middle_bar=0x7f02000a;
+        public static final int ic_location_map=0x7f02000b;
+        public static final int ic_location_map_clicked=0x7f02000c;
+        public static final int ic_menu_splitter=0x7f02000d;
+        public static final int ic_menubar_middle_wide=0x7f02000e;
+        public static final int ic_most_left_bar=0x7f02000f;
+        public static final int ic_most_right_bar=0x7f020010;
+        public static final int ic_next_left_bar=0x7f020011;
+        public static final int ic_next_right_bar=0x7f020012;
+        public static final int ic_right_middle_bar=0x7f020013;
+        public static final int ic_social_chat=0x7f020014;
+        public static final int ic_social_chat_clicked=0x7f020015;
+        public static final int ic_social_group=0x7f020016;
+        public static final int ic_social_group_clicked=0x7f020017;
+        public static final int launcher_icon_xhdpi=0x7f020018;
+        public static final int maparrow=0x7f020019;
+        public static final int splash=0x7f02001a;
     }
     public static final class id {
         public static final int banner=0x7f090005;

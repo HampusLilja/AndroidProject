@@ -26,9 +26,6 @@ package com.example.shutapp;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -66,6 +63,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_nearby_conversations);
+		Log.d("onCreate", "get here");
 		db = new DatabaseHandler(this);
 		/* Use the LocationManager class to obtain GPS locations */
 		LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -87,7 +85,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		}
 		
 		nearbyChatRoomNames = new ArrayList<String>();
-		//initiateChatRooms();
+		initiateChatRooms();
 		createArrayAdapter();
 		
 		// 
@@ -97,12 +95,6 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		//createTestArrayAdapter(initTestArray());
 	}
 	
-	@Override
-	protected void onResume() {
-		initiateChatRooms();
-		super.onResume();
-		
-	}
 	/**
 	 * Initiate chat rooms
 	 */
@@ -175,14 +167,6 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	private void updatePosition(double latitude, double longitude) {
 		currentLocation.setLatitude(latitude);
 		currentLocation.setLongitude(longitude);
-
-		String Text = "My current location is: " + 
-		" Latitud = " + currentLocation.getLatitude() + " Longitud = " + 
-				currentLocation.getLongitude();
-		//Log.d("Loc", Text);
-
-		//Toast.makeText( getApplicationContext(),
-			//	Text, Toast.LENGTH_SHORT).show();
 	}
 	/**
 	 * Redirects the user to toNearbyConversationsActivity.java

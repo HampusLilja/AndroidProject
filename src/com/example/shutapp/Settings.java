@@ -33,7 +33,14 @@ import android.content.Context;
 public abstract class Settings {
 	private static String nickname;
 	private static boolean satellite;
+	private static String REGID = "";
 	
+	public static String getREGID() {
+		return REGID;
+	}
+	public static void setREGID(String rEGID) {
+		REGID = rEGID;
+	}
 	/**
 	 * Initiates the settingsfile for first time users.
 	 * @param ctx
