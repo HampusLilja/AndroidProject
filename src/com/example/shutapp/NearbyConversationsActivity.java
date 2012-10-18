@@ -106,7 +106,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 			for(Chatroom room : nearbyChatRoom){
 				if(inRangeOfChatRoom(room)){
 					nearbyChatRoomNames.add(room.getName());
-					Chatrooms.add(room.getName(), room);
+					//Chatrooms.add(room.getName(), room);
 				}
 			}
 		} catch(Exception e) {
@@ -120,10 +120,11 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	 * @param name 	a string containing the name of the room 
 	 */
 	public void addChatroom(String name){
-		Chatroom cr = new Chatroom(name, currentLocation, this);
-		Chatrooms.add(cr.getName(), cr);
-		db.addChatroom(cr);
-		nearbyChatRoomNames.add(name);
+		new Chatroom(name, currentLocation, this);
+		updateChatroomList(findViewById(R.layout.activity_nearby_conversations));
+		//Chatrooms.add(cr.getName(), cr);
+		//db.addChatroom(cr);
+		//nearbyChatRoomNames.add(name);
 	}
 	/**
 	 * Create an array adapter
@@ -219,7 +220,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) {
 		Log.d("listan", "you clicked item " + position);
 		clickedChatroom = nearbyChatRoomNames.get(position);
-		Chatrooms.setCurrentChatroom(Chatrooms.getByName(clickedChatroom));
+		Settings.setCurrentChatroom(clickedChatroom);
 		toChatActivity(view);
 		
 	}

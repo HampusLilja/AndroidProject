@@ -74,11 +74,7 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
     }
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		/*String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CHATROOMS + "("
-				+ KEY_NAME + " TEXT PRIMARY KEY,"
-                + KEY_LATITUDE + " REAL," + KEY_LONGITUDE + " REAL," + KEY_RADIUS + " INTEGER" + ")" ;
-        db.execSQL(CREATE_CONTACTS_TABLE);
-		*/
+		
 	}
 
 	@Override
@@ -91,9 +87,18 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 		
 	}
 	
+	/**
+	 * Initiates the thread which downloads DB and copies it to
+	 * the app's DB.
+	 */
 	public void downloadAndCopyDB(){
 		new Thread(this).start();
 	}
+	
+	/**
+	 * Adds a chatroom to the database.
+	 * @param chatroom
+	 */
 	public void addChatroom(Chatroom chatroom){
 		SQLiteDatabase db = this.getWritableDatabase();
 		 
@@ -108,21 +113,34 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 	    db.close(); // Closing database connection
 	}
 	
+	/**
+	 * Reads the database for a chatroom
+	 * @param name of the chatroom
+	 * @return the chatroom object
+	 */
 	public Chatroom getChatroom(String name){
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.query(TABLE_CHATROOMS, new String[] { KEY_NAME,
 				KEY_LATITUDE, KEY_LONGITUDE, KEY_RADIUS }, KEY_NAME + "=?",
-				new String[] { name }, null, null, null, null);
+				new String[] { name }, null, null, null, null); 
+		//String selectQuery = "SELECT  * FROM " + TABLE_CHATROOMS + " WHERE " + KEY_NAME + "=" + name;
+		//SQLiteDatabase db = this.getWritableDatabase();
+	    //Cursor cursor = db.rawQuery(selectQuery, null);
+	    
 		if (cursor != null)
 			cursor.moveToFirst();
 		
 		Chatroom chatroom = new Chatroom(cursor.getString(0),
-				cursor.getDouble(2), cursor.getDouble(3),
-							cursor.getInt(4));
+				cursor.getDouble(1), cursor.getDouble(2),
+							cursor.getInt(3));
 		// return chatroom
 		return chatroom;
 	}
 
+	/**
+	 * Reads the database for all chatrooms
+	 * @return A list of all chatrooms.
+	 */
 	public List<Chatroom> getAllChatrooms(){
 		List<Chatroom> chatroomList = new ArrayList<Chatroom>();
 	    // Select All Query
@@ -148,6 +166,9 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 	    return chatroomList;
 	}
 	
+	/**
+	 * @return the amount of chatrooms in the database.
+	 */
 	public int getChatroomsCount(){
 		String countQuery = "SELECT  * FROM " + TABLE_CHATROOMS;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -161,6 +182,10 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
         return count;
 	}
 	
+	/**
+	 * @param chatroom
+	 * @return 
+	 */
 	public int updateChatrooms(Chatroom chatroom){
 		SQLiteDatabase db = this.getWritableDatabase();
 		 
@@ -175,7 +200,7 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 	            new String[] { chatroom.getName() });
 	}
 	
-	public void deleteContact(Chatroom chatroom){
+	public void deleteChatroom(Chatroom chatroom){
 		SQLiteDatabase db = this.getWritableDatabase();
 	    db.delete(TABLE_CHATROOMS, KEY_NAME + " = ?",
 	            new String[] { chatroom.getName() });
