@@ -59,7 +59,8 @@ public class ChatActivity extends Activity {
 	private ScrollView svChatLog;
 	// The chatroom wich this activity currently handles
 	private Chatroom chatroom;
-
+	
+	private DatabaseHandler db;
 
 	/**
 	 * This broadcastreceiver instance will receive messages broadcast
@@ -116,12 +117,12 @@ public class ChatActivity extends Activity {
 		// broadcast receiver.
 		gcmFilter = new IntentFilter();
 		gcmFilter.addAction("GCM_RECEIVED_ACTION");
-
+		
+		db = new DatabaseHandler(this);
 		//check if you currently are in a chatroom, if not you are redirected
 		//to nearbyChatroomsactivity
-		if(Chatrooms.getCurrentChatroom() != null){
+		if((chatroom = db.getChatroom(Settings.getCurrentChatroom())) != null){
 			
-			chatroom = Chatrooms.getCurrentChatroom();
 			if(!Parser.checkFileExistance(chatroom.getName(), this)){
 				Parser.initiateFile(chatroom.getName(), this);
 			}

@@ -34,7 +34,14 @@ public abstract class Settings {
 	private static String nickname;
 	private static boolean satellite;
 	private static String REGID = "";
+	private static String currentChatroom;
 	
+	public static String getCurrentChatroom() {
+		return currentChatroom;
+	}
+	public static void setCurrentChatroom(String currentChatroom) {
+		Settings.currentChatroom = currentChatroom;
+	}
 	public static String getREGID() {
 		return REGID;
 	}

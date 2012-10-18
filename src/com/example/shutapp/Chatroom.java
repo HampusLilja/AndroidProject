@@ -70,7 +70,7 @@ public class Chatroom {
 		Parser.initiateFile(CHATROOM_NAME, ctx);
 
 		//When a chatroom is initialized, it's added to Chatrooms
-		Chatrooms.add(CHATROOM_NAME, this);
+		//Chatrooms.add(CHATROOM_NAME, this);
 		
 		//tells the server that this chatroom is created
 		new HttpMessage(StringLiterals.CREATE_CHATROOM_MESSAGE_TYPE, CHATROOM_NAME, Settings.getREGID(), 

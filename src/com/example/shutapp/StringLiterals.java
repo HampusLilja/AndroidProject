@@ -58,7 +58,7 @@ public abstract class StringLiterals {
 	public static final String HTTP_LEAVE_CHATROOM_MESSAGE_VAR_REGID = "regid";
 	
 	public static final String SERVER_ADRESS = "http://109.225.112.99:8084/GCM_Server/GCM";
-	public static final String SERVER_DB_URL = "http://109.225.112.99:8084/GCM_Server/shutappdb.db";
+	public static final String SERVER_DB_URL = "http://109.225.112.99:8084/GCM_Server/shutappdb_v3.db";
 	
 	public static final String SENDER_ID = "AIzaSyAGbXeI9lkNaqDp_oFove5dmUNqEsD5FOA";
 	public static final String PROJECT_ID = "971948008542";
