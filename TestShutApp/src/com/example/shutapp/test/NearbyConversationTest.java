@@ -51,6 +51,38 @@ public class NearbyConversationTest extends
 	protected void tearDown(){
 		solo.finishOpenedActivities();
 	}
+	public void testCreateChatRoom() throws Exception{
+		Button createRoomButton = (Button) solo.getView(R.id.create_new_chatroom_button);
+		solo.clickOnView(createRoomButton);
+		solo.typeText(0, "Testing");
+		solo.clickLongOnText("OK");
+		//Have to reload the activity for the created chat room to show
+		//Have to click on view if there is no text on button or you do not know the index
+		Button chatRoomButton = (Button) solo.getView(R.id.nearby_conversations_button);
+		solo.clickOnView(chatRoomButton);
+		 
+		//Takes a screenshot and saves it in "/sdcard/Robotium-Screenshots/".
+		solo.takeScreenshot();
+		boolean expected = true;
+		boolean actual = solo.searchText("Testing");
+		//Assert that ChatRoom1 are found
+		assertEquals("ChatRoom1 are not found", expected, actual);
+		
+	}
+
+	public void testEnterChatActivityFromChatRoom() throws Exception {
+		// Click on the first list line
+		solo.clickInList(1); 
+		// redirected to a new activity
+
+		// Check if the new activity is ChatActivity
+		solo.assertCurrentActivity("Expected Chat activity", "ChatActivity");
+		solo.goBack();
+		//Assert that NearbyConversationActivity activity is opened
+		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
+		
+	}
+	
 	public void testRedirectToChatActivity() throws Exception{
 		/*
 		Button chatButton = (Button) solo.getView(R.id.chat_button);
@@ -77,8 +109,4 @@ public class NearbyConversationTest extends
 		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
 		solo.goBack();
 	}
-	public void testCreateNewChatRoom() {
-		
-	}
-
 }
