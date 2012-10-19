@@ -36,7 +36,6 @@ import com.google.android.maps.Projection;
 
 public class RadiusOverlay extends Overlay {
 	
-	//private Context context;
 	private double latitude;
 	private double longitude;
 	private float radius;
@@ -53,7 +52,6 @@ public class RadiusOverlay extends Overlay {
 	 */
 	public RadiusOverlay(Context context, double latitude, double longitude, float radius, boolean nearby ) {
 		super();
-		//this.context = context;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.radius = radius;
@@ -71,7 +69,8 @@ public class RadiusOverlay extends Overlay {
 		super.draw(canvas, mapView, shadow);
 		
 		Point point = new Point();
-		GeoPoint geoPoint = new GeoPoint((int) (latitude * 1E6), (int) (longitude * 1E6));
+		GeoPoint geoPoint = new GeoPoint((int) (latitude * StringLiterals.LOCATION_TO_GEOPOINT_CONVERTER), 
+				(int) (longitude * StringLiterals.LOCATION_TO_GEOPOINT_CONVERTER));
 		
 		Projection projection = mapView.getProjection();
 		projection.toPixels(geoPoint, point);
@@ -80,9 +79,11 @@ public class RadiusOverlay extends Overlay {
 		Paint paint = new Paint();
 		paint.setStyle(Paint.Style.FILL);
 		if(green){
-			paint.setARGB(50, 50, 100, 50);
+			paint.setARGB(StringLiterals.HALF_COLOR, StringLiterals.HALF_COLOR, 
+					StringLiterals.FULL_COLOR, StringLiterals.HALF_COLOR);
 		}else{
-			paint.setARGB(50, 100, 50, 50);
+			paint.setARGB(StringLiterals.HALF_COLOR, StringLiterals.FULL_COLOR, 
+					StringLiterals.HALF_COLOR, StringLiterals.HALF_COLOR);
 		}
 		
 		

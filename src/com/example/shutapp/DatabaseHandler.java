@@ -55,7 +55,6 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
     private static final String TABLE_CHATROOMS = "chatrooms";
     
     // Chatrooms Table Columns names
-    //private static final String KEY_ID = "id";
     private static final String KEY_NAME = "NAME";
     private static final String KEY_LATITUDE = "LAT";
     private static final String KEY_LONGITUDE = "LONG";
@@ -123,12 +122,10 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 		Cursor cursor = db.query(TABLE_CHATROOMS, new String[] { KEY_NAME,
 				KEY_LATITUDE, KEY_LONGITUDE, KEY_RADIUS }, KEY_NAME + "=?",
 				new String[] { name }, null, null, null, null); 
-		//String selectQuery = "SELECT  * FROM " + TABLE_CHATROOMS + " WHERE " + KEY_NAME + "=" + name;
-		//SQLiteDatabase db = this.getWritableDatabase();
-	    //Cursor cursor = db.rawQuery(selectQuery, null);
 	    
-		if (cursor != null)
+		if (cursor != null){
 			cursor.moveToFirst();
+		}
 		
 		Chatroom chatroom = new Chatroom(cursor.getString(0),
 				cursor.getDouble(1), cursor.getDouble(2),
@@ -173,8 +170,9 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 		String countQuery = "SELECT  * FROM " + TABLE_CHATROOMS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
-        if (cursor != null)
+        if (cursor != null){
 			cursor.moveToFirst();
+        }
         int count = cursor.getCount();
         cursor.close();
  
@@ -236,13 +234,16 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
                 fos.close();
                 Log.d(TAG, "downloaded");
         } catch (IOException e) {
-                Log.e(TAG, "downloadDatabase Error: " , e);
+        	String exception = e.toString();
+                Log.e(TAG, "downloadDatabase Error: " + exception);
                 return false;
         }  catch (NullPointerException e) {
-                Log.e(TAG, "downloadDatabase Error: " , e);
+        	String exception = e.toString();
+                Log.e(TAG, "downloadDatabase Error: " + exception);
                 return false;
         } catch (Exception e){
-                Log.e(TAG, "downloadDatabase Error: " , e);
+        	String exception = e.toString();
+                Log.e(TAG, "downloadDatabase Error: " + exception);
                 return false;
         }
         return true;
@@ -269,7 +270,8 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 
                         copyFile(os, is);
                 } catch (Exception e) {
-                        Log.e(TAG, "Server Database was not found - did it download correctly?", e);                          
+                	String exception = e.toString();
+                        Log.e(TAG, "Server Database was not found - did it download correctly?" + exception);                          
                 } finally {
                         try {
                                 //Close the streams
@@ -280,10 +282,10 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
                                         is.close();
                                 }
                         } catch (IOException e) {
-                                Log.e(TAG, "failed to close databases");
+                        	String exception = e.toString();
+                                Log.e(TAG, "failed to close databases" + exception);
                         }
                 }
-                  // Log.d(TAG, "Done Copying DB from server");
         }
 
 

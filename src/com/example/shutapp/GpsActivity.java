@@ -46,11 +46,13 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 
 public class GpsActivity extends MapActivity implements LocationListener {
-	private final static int ZOOMLEVEL = 17; // 1 to 21
-	private final static float RADIUS = 1000; // size of the chat room radius
+	private final static float RADIUS = StringLiterals.RADIUS; // size of the chat room radius
+	private final static int ZOOM = StringLiterals.ZOOM_LEVEL; // 1 to 21
 	
 	private GeoPoint currentGeoPoint = null;
 	private Location currentLocation = new Location("current");
+	
+	private String geoP = "geoPointS";
 	
 	private MapView mapView;
 	private MapController mapControl;
@@ -60,7 +62,7 @@ public class GpsActivity extends MapActivity implements LocationListener {
 
 	private Drawable drawableArrow;
 	private LocationManager locationManager;
-	private RadiusOverlay radiusOverlay;
+
 	private Criteria criteria;
 	
 	private DatabaseHandler db;
@@ -81,7 +83,7 @@ public class GpsActivity extends MapActivity implements LocationListener {
 
 		mapView = (MapView) findViewById(R.id.mapView);
 		mapView.setBuiltInZoomControls(true);   //true = being able to zoom with buttons
-		mapView.getController().setZoom(ZOOMLEVEL); //sets zoomlevel from the startup
+		mapView.getController().setZoom(ZOOM); //sets zoomlevel from the startup
 
 		
 		mapControl = mapView.getController();
@@ -97,8 +99,8 @@ public class GpsActivity extends MapActivity implements LocationListener {
 		if (startLocation != null){
 			updatePosition(startLocation.getLatitude(), startLocation.getLongitude());
 		} else {
-			Log.e("geoPointS","Unable to get startlocation");
-			updatePosition(57.691469,11.977469);
+			Log.e(geoP,"Unable to get startlocation");
+			updatePosition(StringLiterals.START_LATITUDE, StringLiterals.START_LONGITUDE);
 		}
 		db = new DatabaseHandler(this);
 
@@ -109,7 +111,8 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	private void updatePosition(double latitude, double longitude) {
 		currentLocation.setLatitude(latitude);
 		currentLocation.setLongitude(longitude);
-		currentGeoPoint = new GeoPoint((int)(latitude*1E6), (int)(longitude*1E6)); //converting to micro-degrees with 1E6
+		currentGeoPoint = new GeoPoint((int)(latitude*StringLiterals.LOCATION_TO_GEOPOINT_CONVERTER), 
+				(int)(longitude*StringLiterals.LOCATION_TO_GEOPOINT_CONVERTER)); //converting to micro-degrees with 1E6
 		mapControl.animateTo(currentGeoPoint);
 	}
 	/**
@@ -130,6 +133,8 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	}
 	
 	private void setShadedCircleOnLocation(double latitude, double longitude, boolean nearby) {
+		RadiusOverlay radiusOverlay;
+		
 		radiusOverlay = new RadiusOverlay(this, latitude, longitude, RADIUS, nearby);
 		mapOverlays.add(radiusOverlay);
 	}
@@ -145,7 +150,8 @@ public class GpsActivity extends MapActivity implements LocationListener {
 						room.getLocation().getLongitude(), nearby);
 			}
 		} catch(Exception e) {
-			System.out.println("No Chat Rooms to print on map");
+			String exception = e.toString();
+			Log.e("TAG", "No Chat Rooms to print on map" + exception);
 		}
 	}
 	
@@ -168,7 +174,7 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	 * @param location the new location
 	 */
 	public void onLocationChanged(Location location) {
-		Log.e("geoPointS", "location changed: lat="+String.valueOf(location.getLatitude())+", lon="+String.valueOf(location.getLongitude()));
+		Log.e(geoP, "location changed: lat="+ location.getLatitude()+", lon=" + location.getLongitude());
 		updatePosition(location.getLatitude(), location.getLongitude());
 
 		if(itemizedoverlay!=null) {
@@ -194,18 +200,18 @@ public class GpsActivity extends MapActivity implements LocationListener {
 		mapView.setSatellite(Settings.isSatellite());
 		compass.enableCompass();
 		newOverlay();
-		locationManager.requestLocationUpdates(locationManager.getBestProvider(criteria, false), 5*1000, 0, this);        
-		//locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, this);
+		locationManager.requestLocationUpdates(locationManager.getBestProvider(criteria, false), 
+				StringLiterals.LOCATION_UPDATE_INTERVALL, 0, this);        
 	}
 
 	public void onProviderDisabled(String arg0) {
-		Log.e("geoPointS", "provider disabled " + arg0);
+		Log.e(geoP, "provider disabled " + arg0);
 	}
 	public void onProviderEnabled(String arg0) {
-		Log.e("geoPointS", "provider enabled " + arg0);
+		Log.e(geoP, "provider enabled " + arg0);
 	}
 	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
-		Log.e("geoPointS", "status changed to " + arg0 + " [" + arg1 + "]");
+		Log.e(geoP, "status changed to " + arg0 + " [" + arg1 + "]");
 	}
 	/**
 	 * Initialize the contents of the Activity's standard options menu

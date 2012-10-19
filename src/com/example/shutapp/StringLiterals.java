@@ -33,6 +33,9 @@ public abstract class StringLiterals {
 	public static final int JOIN_CHATROOM_MESSAGE_TYPE = 3;
 	public static final int LEAVE_CHATROOM_MESSAGE_TYPE = 4;
 	
+	public static final int FULL_COLOR = 100;
+	public static final int HALF_COLOR = 50;
+	
 	public static final String HTTP_CHATROOM_MESSAGE_VAR_ACTION = "action";
 	public static final String HTTP_CHATROOM_MESSAGE_VALUE_ACTION = "chatRoomMsg";
 	public static final String HTTP_CHATROOM_MESSAGE_VAR_CHATROOM = "chatRoom";
@@ -70,6 +73,14 @@ public abstract class StringLiterals {
 	
 	public static final String FILENAME_SETTINGS = "SETTINGS";
 	
+	public static final double LOCATION_TO_GEOPOINT_CONVERTER = 1E6;
+	public static final double START_LATITUDE = 57.691469;
+	public static final double START_LONGITUDE = 11.977469;
+	public static final int ZOOM_LEVEL = 17;
+	public static final float RADIUS = 1000;
+	
+	public static final int LOCATION_UPDATE_INTERVALL = 5000;
+			
 	public static final boolean SATELLITE = false;
 
 	

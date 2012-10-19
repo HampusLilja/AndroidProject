@@ -25,6 +25,8 @@
 package com.example.shutapp;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -37,7 +39,7 @@ import com.google.android.maps.OverlayItem;
 @SuppressWarnings("rawtypes")
 public class MapOverlay extends ItemizedOverlay{
 	
-	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
+	private List<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 	private Context mContext;
 	
 

@@ -43,7 +43,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class SettingsActivity extends Activity implements OnItemClickListener{
 	
 	private List<String> settingsList;
-	private ArrayAdapter<String> adapter;
+
 	/**
 	 * Creates an environment for SettingsActivity
 	 *
@@ -66,8 +66,9 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
     private void initiateSettingsList() {
     	
     	//Adds the nickname list item
-    	if(settingsList == (null))
+    	if(settingsList == (null)) {
     		settingsList = new ArrayList<String>();
+    	}
 		settingsList.add("Nickname:" + "\t" + Settings.getNickname());
 		settingsList.add("Satellite view:" + "\t" + Settings.isSatellite());
 		
@@ -87,6 +88,8 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
 	 * Create an array adapter
 	 */
 	private void initiateArrayAdapter() {
+		ArrayAdapter<String> adapter;
+		
 		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, settingsList);
 		ListView listView = (ListView) findViewById(R.id.settingsList);
 		listView.setAdapter(adapter);
@@ -186,8 +189,9 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
 				
 				public void onClick(View view){
 					String nameToBeChanged = etChatroomInput.getText().toString();
-					if(nameToBeChanged.equals("") || nameToBeChanged == null)
+					if(nameToBeChanged.equals("") || nameToBeChanged == null){
 						return;
+					}
 					Settings.setNickname(nameToBeChanged, SettingsActivity.this);
 					updateSettingsList();
 					changeNicknameDialog.cancel();

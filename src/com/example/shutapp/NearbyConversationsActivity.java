@@ -48,9 +48,8 @@ import android.widget.Toast;
 
 public class NearbyConversationsActivity extends Activity implements OnItemClickListener{
 
-	//private List<Chatroom> testNearbyCR;
 	private List<String> nearbyChatRoomNames;
-	private String clickedChatroom = "";
+
 	private Location currentLocation = new Location("current");
 	
 	private DatabaseHandler db;
@@ -68,7 +67,8 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		/* Use the LocationManager class to obtain GPS locations */
 		LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		LocationListener locationListener = new MyLocationListener();
-		locationManager.requestLocationUpdates(locationManager.getBestProvider(new Criteria(), false), 1*1000, 0, locationListener);
+		locationManager.requestLocationUpdates(locationManager.getBestProvider(new Criteria(), false), 
+				StringLiterals.LOCATION_UPDATE_INTERVALL, 0, locationListener);
 		
 		
 		
@@ -81,18 +81,12 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 			updatePosition(startLocation.getLatitude(), startLocation.getLongitude());
 		} else {
 			Log.e("geoPointS","Unable to get startlocation");
-			updatePosition(57.691469,11.977469);
+			updatePosition(StringLiterals.START_LATITUDE, StringLiterals.START_LONGITUDE);
 		}
 		
 		nearbyChatRoomNames = new ArrayList<String>();
 		initiateChatRooms();
 		createArrayAdapter();
-		
-		// 
-		// Test Rooms
-		//
-		//initiateTestRooms();
-		//createTestArrayAdapter(initTestArray());
 	}
 	
 	/**
@@ -106,11 +100,11 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 			for(Chatroom room : nearbyChatRoom){
 				if(inRangeOfChatRoom(room)){
 					nearbyChatRoomNames.add(room.getName());
-					//Chatrooms.add(room.getName(), room);
 				}
 			}
 		} catch(Exception e) {
-			System.out.println("No known chat rooms");
+			String exception = e.toString();
+			Log.e("TAG", "No known chat rooms" + exception);
 		}
 
 	}
@@ -122,9 +116,6 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	public void addChatroom(String name){
 		new Chatroom(name, currentLocation, this);
 		updateChatroomList(findViewById(R.layout.activity_nearby_conversations));
-		//Chatrooms.add(cr.getName(), cr);
-		//db.addChatroom(cr);
-		//nearbyChatRoomNames.add(name);
 	}
 	/**
 	 * Create an array adapter
@@ -150,8 +141,9 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 			
 			public void onClick(View view){
 				String chatRoomToBeAdded = etChatroomInput.getText().toString();
-				if(chatRoomToBeAdded.equals("") || chatRoomToBeAdded == null)
+				if(chatRoomToBeAdded.equals("") || chatRoomToBeAdded == null){
 					return;
+				}
 				addChatroom(chatRoomToBeAdded);
 				newChatroomDialog.cancel();
 				
@@ -218,6 +210,8 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	 * @param arg3		
 	 */
 	public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) {
+		String clickedChatroom = "";
+		
 		Log.d("listan", "you clicked item " + position);
 		clickedChatroom = nearbyChatRoomNames.get(position);
 		Settings.setCurrentChatroom(clickedChatroom);
@@ -226,8 +220,6 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	}
 	
 	private boolean inRangeOfChatRoom(Chatroom cr) {
-		//Log.d("radius", "" + cr.getRadius());
-		//Log.d("distance", "" + currentLocation.distanceTo(cr.getLocation()));
 		int dist = (int) (cr.getRadius() - currentLocation.distanceTo(cr.getLocation()));
 		return (dist >= 0);
 	}

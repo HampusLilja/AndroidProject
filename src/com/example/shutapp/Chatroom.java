@@ -31,24 +31,24 @@ import android.content.Context;
 //An object of this class represents a chatroom
 public class Chatroom {
 	
-	private String CHATROOM_NAME;
+	private String chatRoomName;
 	
 	//The representation of this objects gps location
-	private Location gps_location;
+	private Location gpsLocation;
 	
 	private double latitude;
 	
 
 	private double longitude;
 	
-	private int radius;
+	private float radius;
 	
 	public Chatroom(){
 		
 	}
 	
-	public Chatroom(String name, double latitude, double longitude, int radius){
-		this.CHATROOM_NAME = name;
+	public Chatroom(String name, double latitude, double longitude, float radius){
+		this.chatRoomName = name;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.radius = radius;
@@ -61,21 +61,21 @@ public class Chatroom {
 	 * @param loc	the location of the chat room
 	 */
 	public Chatroom(String name, Location loc, Context ctx){
-		CHATROOM_NAME = name;
-		gps_location = loc;
+		chatRoomName = name;
+		gpsLocation = loc;
 		latitude = loc.getLatitude();
 		longitude = loc.getLongitude();
-		radius = 1000;
+		radius = StringLiterals.RADIUS;
 		//Initiates chatlogfile
-		Parser.initiateFile(CHATROOM_NAME, ctx);
+		Parser.initiateFile(chatRoomName, ctx);
 
 		//When a chatroom is initialized, it's added to Chatrooms
 		//Chatrooms.add(CHATROOM_NAME, this);
 		
 		//tells the server that this chatroom is created
-		new HttpMessage(StringLiterals.CREATE_CHATROOM_MESSAGE_TYPE, CHATROOM_NAME, Settings.getREGID(), 
-				Double.toString(gps_location.getLatitude()),
-				Double.toString(gps_location.getLongitude()), 
+		new HttpMessage(StringLiterals.CREATE_CHATROOM_MESSAGE_TYPE, chatRoomName, Settings.getREGID(), 
+				Double.toString(gpsLocation.getLatitude()),
+				Double.toString(gpsLocation.getLongitude()), 
 				"1000");	
 	}
 	
@@ -83,28 +83,28 @@ public class Chatroom {
 	 * Get the name of the room
 	 */
 	public String getName(){
-		return CHATROOM_NAME;
+		return chatRoomName;
 	}
 	
 	public void setName(String name){
-		CHATROOM_NAME = name;
+		chatRoomName = name;
 	}
 
 	/**
 	 * Set the location of the room
 	 */
 	public void setLocation(Location loc) {
-		gps_location = loc;
+		gpsLocation = loc;
 	}
 	/**
 	 * Get the location of the room
 	 * @return gps_location	the location of the room
 	 */
 	public Location getLocation(){
-		gps_location = new Location("ChatroomLocation");
-		gps_location.setLatitude(latitude);
-		gps_location.setLongitude(longitude);
-		return gps_location;
+		gpsLocation = new Location("ChatroomLocation");
+		gpsLocation.setLatitude(latitude);
+		gpsLocation.setLongitude(longitude);
+		return gpsLocation;
 	}
 	
 	/**
@@ -113,7 +113,7 @@ public class Chatroom {
 	 * @param ctx	a list of properties
 	 */
 	public void saveMessage(String msg, Context ctx){
-		Parser.write(msg, CHATROOM_NAME, ctx);
+		Parser.write(msg, chatRoomName, ctx);
 	}
 	
 	/**
@@ -128,7 +128,7 @@ public class Chatroom {
 	}
 	
 	public String readLog(Context ctx){
-		return Parser.readAll(CHATROOM_NAME, ctx);
+		return Parser.readAll(chatRoomName, ctx);
 	}
 	
 	public double getLatitude() {
@@ -143,7 +143,7 @@ public class Chatroom {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-	public int getRadius() {
+	public float getRadius() {
 		return radius;
 	}
 	public void setRadius(int radius) {

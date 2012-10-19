@@ -43,6 +43,8 @@ import android.util.Log;
  */
 public abstract class Parser {
 	
+	private static String chatR = "ChatRoom";
+	
 	
 	/**
 	 * Creates an empty file
@@ -57,9 +59,11 @@ public abstract class Parser {
 			fos.write(temp.getBytes());
 			fos.close();
 		} catch (FileNotFoundException e) {
-	           e.printStackTrace();
+			String exception = e.toString();
+			Log.d(chatR , "FileNotFoundException" + exception);
 	    }catch(IOException e){
-	            e.printStackTrace();
+	    	String exception = e.toString();
+			Log.d(chatR , "IOException" + exception);
 	    }
 	}
 	/**
@@ -77,9 +81,11 @@ public abstract class Parser {
 			fos.write(temp.getBytes());
 			fos.close();
 		} catch (FileNotFoundException e) {
-	           e.printStackTrace();
+			String exception = e.toString();
+			Log.d(chatR , "FileNotFoundException" + exception);
 	    }catch(IOException e){
-	            e.printStackTrace();
+			String exception = e.toString();
+			Log.d(chatR , "IOException" + exception);
 	    }
 	}
 	
@@ -117,9 +123,11 @@ public abstract class Parser {
 			fos.write(temp.getBytes());
 			fos.close();
 		} catch (FileNotFoundException e) {
-	           e.printStackTrace();
+			String exception = e.toString();
+			Log.d(chatR , "FileNotFoundException" + exception);
 	    }catch(IOException e){
-	            e.printStackTrace();
+			String exception = e.toString();
+			Log.d(chatR , "IOException" + exception);
 	    }
 	}
 	
@@ -136,11 +144,11 @@ public abstract class Parser {
 			BufferedReader bfr = new BufferedReader(new InputStreamReader(is));
 			firstLine = bfr.readLine();
 		} catch (FileNotFoundException e) {
-			Log.d("Chatroom" , "FileNotFoundException");
-			e.printStackTrace();
+			String exception = e.toString();
+			Log.d(chatR , "FileNotFoundException" + exception);
 		} catch (IOException e){
-			Log.d("Chatroom" , "IOException");
-			e.printStackTrace();
+			String exception = e.toString();
+			Log.d(chatR , "IOException" + exception);
 		}
 		return firstLine;
 	}
@@ -152,7 +160,6 @@ public abstract class Parser {
 	 * @param ctx Context of called activity.
 	 */
 	public static String readAtIndex(int index, String filename, Context ctx){
-		//index++;
 		String tempLine = "";
 		try {
 			InputStream is = ctx.openFileInput(filename);
@@ -160,14 +167,13 @@ public abstract class Parser {
 			
 			for(int i=0; i<=index; i++){
 				tempLine = bfr.readLine();
-				//Log.d("readAtIndex" , tempLine);
 			}
 		} catch (FileNotFoundException e) {
-			Log.d("Chatroom" , "FileNotFoundException");
-			e.printStackTrace();
+			String exception = e.toString();
+			Log.d(chatR , "FileNotFoundException" + exception);
 		} catch (IOException e){
-			Log.d("Chatroom" , "IOException");
-			e.printStackTrace();
+			String exception = e.toString();
+			Log.d(chatR , "IOException" + exception);
 		}
 		return tempLine;
 	}
@@ -188,11 +194,11 @@ public abstract class Parser {
 				allText += tempLine + "\n";
 			}
 		} catch (FileNotFoundException e) {
-			Log.d("Chatroom" , "FileNotFoundException");
-			e.printStackTrace();
+			String exception = e.toString();
+			Log.d(chatR , "FileNotFoundException" + exception);
 		} catch (IOException e){
-			Log.d("Chatroom" , "IOException");
-			e.printStackTrace();
+			String exception = e.toString();
+			Log.d(chatR , "IOException" + exception);
 		}
 		return allText;
 	}

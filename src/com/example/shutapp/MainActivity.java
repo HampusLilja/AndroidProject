@@ -39,16 +39,12 @@ import com.google.android.gcm.GCMRegistrar;
 
 public class MainActivity extends Activity {
 
-
 	// This tag is used in Log.x() calls
 	private static final String TAG = "MainActivity";
 
 	private static final long SPLASHDELAY = 3000;
 
-	DatabaseHandler db;
-
-	// This string will hold the lengthy registration id that comes from GCMRegistrar.register()
-	private String regId = "";
+	private DatabaseHandler db;
 
 	private String registrationStatus = "Not yet registered";
 	/**
@@ -68,10 +64,12 @@ public class MainActivity extends Activity {
 
 		//if it is the first time you run this app then you will have to
 		//initiate the settingsfile
-		if(Parser.checkFileExistance(StringLiterals.FILENAME_SETTINGS, this))
-			Settings.setNickname(Parser.readAtIndex(StringLiterals.NICKNAME_INDEX, StringLiterals.FILENAME_SETTINGS, this), this); 
-		else
+		if(Parser.checkFileExistance(StringLiterals.FILENAME_SETTINGS, this)){
+			Settings.setNickname(Parser.readAtIndex(StringLiterals.NICKNAME_INDEX, StringLiterals.FILENAME_SETTINGS, this), this);
+		}
+		else{
 			Settings.initiateSettingsFile(this);
+		}
 
 		registerClient();
 
@@ -95,6 +93,8 @@ public class MainActivity extends Activity {
 	 *
 	 */
 	public void registerClient() {
+		// This string will hold the lengthy registration id that comes from GCMRegistrar.register()
+		String regId = "";
 
 		try {
 			// Check that the device supports GCM 
@@ -121,7 +121,6 @@ public class MainActivity extends Activity {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
 			registrationStatus = e.getMessage();
 		}
 

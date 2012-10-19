@@ -41,16 +41,8 @@ import android.widget.TextView;
 
 public class ChatActivity extends Activity {
 
-
-
-
-
-	private String receivedMessage = "No broadcast message";
-
 	// This intent filter will be set to filter on the string "GCM_RECEIVED_ACTION"
 	private IntentFilter gcmFilter;
-	// This EditText is used for messageinput
-	private EditText etMessageInput;
 	// This TextView is our chatlog
 	private TextView tvChatLogHistory;
 	// This ScrollView is going to contain our chatlog
@@ -65,15 +57,14 @@ public class ChatActivity extends Activity {
 	 * with the action "GCM_RECEIVED_ACTION" via the gcmFilter
 	 */
 	private BroadcastReceiver gcmReceiver = new BroadcastReceiver() {
-
+		
 		@Override
 		public void onReceive(Context context, Intent intent) {
+			String receivedMessage = "No broadcast message";
 
 			receivedMessage = intent.getExtras().getString("gcm");
 			if (receivedMessage != null) {
-				//chatroom.saveMessage(broadcastMessage, ChatActivity.this);
 				translateMessage(receivedMessage);
-				//appendToChatLogHistory("test", broadcastMessage);
 			}
 		}
 
@@ -129,9 +120,10 @@ public class ChatActivity extends Activity {
 			appendSome(25);
 			tvChatLogHistory.append(chatroom.readLog(this));
 		}
-		else
+		else{
 			toNearbyConversationsActivity(findViewById(R.layout.activity_chat));
-
+		}
+		
 		registerReceiver(gcmReceiver, gcmFilter);
 	}
 
@@ -151,7 +143,6 @@ public class ChatActivity extends Activity {
 	 */
 	@Override
 	public void onDestroy() {
-		//GCMRegistrar.onDestroy(this);
 		
 		super.onDestroy();
 	}
@@ -187,10 +178,14 @@ public class ChatActivity extends Activity {
 	 * @param view	a view of the text model
 	 */
 	public void sendMessage(View view){
+		// This EditText is used for messageinput
+		EditText etMessageInput;
+		
 		etMessageInput = (EditText) findViewById(R.id.written_msg);
 		String messageToSend = etMessageInput.getText().toString();
-		if(messageToSend.equals("") || messageToSend == null)
+		if(messageToSend.equals("") || messageToSend == null){
 			return;
+		}
 		new HttpMessage(StringLiterals.CHATROOM_MESSAGE_TYPE, chatroom.getName(), Settings.getNickname(), messageToSend, null, null);
 		etMessageInput.setText("");
 	}
@@ -284,9 +279,8 @@ public class ChatActivity extends Activity {
 	 */
 	public String saveMessage(View view){
 		EditText thetext = (EditText)findViewById(R.id.written_msg);
-		String chatmessage = thetext.getText().toString();
-		return chatmessage;
-
+		return thetext.getText().toString();
+	
 	}
 }
 
