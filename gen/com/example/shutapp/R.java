@@ -13,6 +13,7 @@ public final class R {
     public static final class color {
         public static final int background_holo_dark=0x7f040001;
         public static final int background_holo_light=0x7f040002;
+        public static final int blue=0x7f040015;
         public static final int bright_foreground_disabled_holo_dark=0x7f040003;
         public static final int bright_foreground_disabled_holo_light=0x7f040004;
         public static final int dim_foreground_disabled_holo_dark=0x7f040006;
@@ -23,12 +24,14 @@ public final class R {
         public static final int dim_foreground_inverse_disabled_holo_light=0x7f04000d;
         public static final int dim_foreground_inverse_holo_dark=0x7f040007;
         public static final int dim_foreground_inverse_holo_light=0x7f04000c;
+        public static final int green=0x7f040014;
         public static final int highlighted_text_holo_dark=0x7f04000f;
         public static final int highlighted_text_holo_light=0x7f040010;
         public static final int hint_foreground_holo_dark=0x7f040009;
         public static final int hint_foreground_holo_light=0x7f04000e;
         public static final int link_text_holo_dark=0x7f040011;
         public static final int link_text_holo_light=0x7f040012;
+        public static final int red=0x7f040013;
         public static final int test=0x7f040000;
     }
     public static final class dimen {
@@ -63,20 +66,23 @@ public final class R {
         public static final int ic_social_group_clicked=0x7f020017;
         public static final int launcher_icon_xhdpi=0x7f020018;
         public static final int maparrow=0x7f020019;
-        public static final int splash=0x7f02001a;
+        public static final int no=0x7f02001a;
+        public static final int ok=0x7f02001b;
+        public static final int splash=0x7f02001c;
     }
     public static final class id {
         public static final int banner=0x7f090005;
         public static final int btn_change_nickname=0x7f09001b;
         public static final int chat_button=0x7f090009;
-        public static final int chatroom_name=0x7f09001f;
-        public static final int create_chatroom=0x7f09001e;
+        public static final int chatroom_name=0x7f090021;
+        public static final int create_chatroom=0x7f090020;
         public static final int create_new_chatroom_button=0x7f090017;
         public static final int et_change_nickname=0x7f09001c;
         public static final int iconFrame_1=0x7f090016;
         public static final int iconFrame_2=0x7f090000;
         public static final int iconFrame_3=0x7f090010;
         public static final int iconFrame_4=0x7f090019;
+        public static final int image1=0x7f09001f;
         public static final int imageView1=0x7f090008;
         public static final int imageView2=0x7f09000a;
         public static final int imageView3=0x7f09000b;
@@ -85,7 +91,7 @@ public final class R {
         public static final int listOfNearbyConversations=0x7f090018;
         public static final int mapView=0x7f09000f;
         public static final int map_button=0x7f09000c;
-        public static final int menu_settings=0x7f090020;
+        public static final int menu_settings=0x7f090022;
         public static final int menu_splitter1=0x7f090011;
         public static final int menu_splitter2=0x7f090014;
         public static final int menu_splitter3=0x7f090012;
@@ -97,6 +103,7 @@ public final class R {
         public static final int settingsList=0x7f09001a;
         public static final int settings_button=0x7f090004;
         public static final int sv_chat_log=0x7f090006;
+        public static final int textV=0x7f09001e;
         public static final int tvChatLog=0x7f090007;
         public static final int written_msg=0x7f090002;
     }
@@ -108,12 +115,13 @@ public final class R {
         public static final int activity_settings=0x7f030004;
         public static final int change_nickname_dialog=0x7f030005;
         public static final int change_satellite_dialog=0x7f030006;
-        public static final int create_chatroom_dialog=0x7f030007;
-        public static final int ic_action_settings=0x7f030008;
-        public static final int ic_content_new=0x7f030009;
-        public static final int ic_location_map=0x7f03000a;
-        public static final int ic_social_chat=0x7f03000b;
-        public static final int ic_social_group=0x7f03000c;
+        public static final int chatroom_row=0x7f030007;
+        public static final int create_chatroom_dialog=0x7f030008;
+        public static final int ic_action_settings=0x7f030009;
+        public static final int ic_content_new=0x7f03000a;
+        public static final int ic_location_map=0x7f03000b;
+        public static final int ic_social_chat=0x7f03000c;
+        public static final int ic_social_group=0x7f03000d;
     }
     public static final class menu {
         public static final int activity_chat=0x7f080000;

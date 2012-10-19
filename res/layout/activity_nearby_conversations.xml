@@ -12,7 +12,7 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/ic_most_left_bar" >
     </FrameLayout>
-
+
     <FrameLayout
         android:id="@+id/banner"
         android:layout_width="wrap_content"
@@ -61,8 +61,7 @@
         android:layout_toRightOf="@+id/nearby_conversations_button"
         android:background="@drawable/ic_social_chat"
         android:onClick="toChatActivity" />
->>>>>>> a70b7451202e4cf472aeea611a1e430fcbd70bfb
-
+
     <Button
         android:id="@+id/create_new_chatroom_button"
         android:layout_width="wrap_content"
@@ -73,17 +72,17 @@
         android:background="@layout/ic_content_new"
         android:onClick="showCreateChatroomDialog"
         android:width="40dip" />
-
+
+    
     <ListView
         android:id="@+id/listOfNearbyConversations"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/iconFrame_1"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/banner"
+        android:layout_above="@+id/iconFrame_1"
         android:divider="@color/dim_foreground_inverse_holo_light"
         android:dividerHeight="2dp" >
-
     </ListView>
 
     <ImageView

@@ -49,6 +49,10 @@ import android.widget.Toast;
 public class NearbyConversationsActivity extends Activity implements OnItemClickListener{
 
 	private List<String> nearbyChatRoomNames;
+	private List<String> farAwayChatRoomNames;
+	private List<String> allChatRoomNames;
+	private List<Chatroom> allChatRoom;
+	private int numberOfGreenChatRooms;
 
 	private Location currentLocation = new Location("current");
 	
@@ -85,23 +89,28 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		}
 		
 		nearbyChatRoomNames = new ArrayList<String>();
+		farAwayChatRoomNames = new ArrayList<String>();
+		allChatRoomNames = new ArrayList<String>();
 		initiateChatRooms();
-		createArrayAdapter();
+		
 	}
 	
 	/**
 	 * Initiate chat rooms
 	 */
 	private void initiateChatRooms() {
-		
-		
 		try {
-			List<Chatroom> nearbyChatRoom = db.getAllChatrooms();
-			for(Chatroom room : nearbyChatRoom){
+			allChatRoom = db.getAllChatrooms();
+			for(Chatroom room : allChatRoom){
 				if(inRangeOfChatRoom(room)){
 					nearbyChatRoomNames.add(room.getName());
+				} else {
+					farAwayChatRoomNames.add(room.getName());
 				}
 			}
+			numberOfGreenChatRooms = nearbyChatRoomNames.size();
+			allChatRoomNames.addAll(nearbyChatRoomNames);
+			allChatRoomNames.addAll(farAwayChatRoomNames);
 		} catch(Exception e) {
 			String exception = e.toString();
 			Log.e("TAG", "No known chat rooms" + exception);
@@ -118,13 +127,25 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		updateChatroomList(findViewById(R.layout.activity_nearby_conversations));
 	}
 	/**
-	 * Create an array adapter
+	 * Create an array adapter only showing nearby chat rooms
 	 */
-	private void createArrayAdapter() {
+	private void createOnlyNearbyChatRoomArrayAdapter() {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nearbyChatRoomNames);
 		ListView listView = (ListView) findViewById(R.id.listOfNearbyConversations);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(this); 
+	}
+	/**
+	 * Create an array adapter with all chat rooms
+	 */
+	private void createAllChatRoomsArrayAdapter() {
+		String[] stringArray = allChatRoomNames.toArray(new String[allChatRoomNames.size()]); 
+		
+		ArrayAdapter<String> adapter = new ListChatRoomRowArrayAdapter(this, stringArray, numberOfGreenChatRooms);
+		ListView listView = (ListView) findViewById(R.id.listOfNearbyConversations);
+		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(this);
+
 	}
 	/**
 	 * Show a dialog when creating a chat room
@@ -213,9 +234,14 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		String clickedChatroom = "";
 		
 		Log.d("listan", "you clicked item " + position);
-		clickedChatroom = nearbyChatRoomNames.get(position);
-		Settings.setCurrentChatroom(clickedChatroom);
-		toChatActivity(view);
+		if( position < numberOfGreenChatRooms ){
+			clickedChatroom = nearbyChatRoomNames.get(position);
+			Settings.setCurrentChatroom(clickedChatroom);
+			toChatActivity(view);
+		} else {
+			Log.d("listan", "you clicked on a forbidden item ");
+		}
+
 		
 	}
 	
@@ -223,6 +249,21 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		float dist = (cr.getRadius()/2 - currentLocation.distanceTo(cr.getLocation()));
 		return (dist >= 0);
 	}
+	
+	/**
+	 * Lists all the chat Rooms
+	 */
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		if(Settings.allChatRoomsDisplayed()){
+			createAllChatRoomsArrayAdapter();
+		} else {
+			createOnlyNearbyChatRoomArrayAdapter();
+		}
+	}
+	
 	
 	/**
 	 * Class My Location Listener
