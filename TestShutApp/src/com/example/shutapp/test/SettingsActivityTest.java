@@ -26,6 +26,7 @@ package com.example.shutapp.test;
 
 import junit.framework.Assert;
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 import android.widget.Button;
 
 import com.example.shutapp.*;
@@ -41,10 +42,15 @@ public class SettingsActivityTest extends ActivityInstrumentationTestCase2<Setti
 	}
 	
 	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-
-		solo = new Solo(getInstrumentation(), getActivity());	
+	protected void setUp(){
+		try{
+			super.setUp();
+			solo = new Solo(getInstrumentation(), getActivity());
+		} catch(Exception e){
+			String exception = e.toString();
+			Log.e("TAG", "Could´t setUp or create Solo" + exception);
+		}
+			
 	}
 	@Override
 	protected void tearDown(){
@@ -59,13 +65,11 @@ public class SettingsActivityTest extends ActivityInstrumentationTestCase2<Setti
 		Assert.assertEquals("test", Settings.getNickname());
 	}
 	public void testRedirectToChatActivity() throws Exception{	
-		/*
 		Button chatButton = (Button) solo.getView(R.id.chat_button);
 		solo.clickOnView(chatButton);
 		//chat activity redirects to nearbyConversations if no room has been entered
 		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
 		solo.goBackToActivity("SettingsActivity");
-		*/
 	}
 	public void testRedirectToGpsActivity() throws Exception {
 		Button mapButton = (Button) solo.getView(R.id.map_button);

@@ -29,6 +29,7 @@ import com.example.shutapp.R;
 import com.jayway.android.robotium.solo.Solo;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 import android.widget.Button;
 
 
@@ -42,10 +43,14 @@ public class NearbyConversationTest extends
 	}
 	
 	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-
-		solo = new Solo(getInstrumentation(), getActivity());	
+	protected void setUp(){
+		try{
+			super.setUp();
+			solo = new Solo(getInstrumentation(), getActivity());
+		} catch(Exception e){
+			String exception = e.toString();
+			Log.e("TAG", "Could´t setUp or create Solo" + exception);
+		}
 	}
 	@Override
 	protected void tearDown(){
@@ -84,12 +89,10 @@ public class NearbyConversationTest extends
 	}
 	
 	public void testRedirectToChatActivity() throws Exception{
-		/*
 		Button chatButton = (Button) solo.getView(R.id.chat_button);
 		solo.clickOnView(chatButton);
 		solo.assertCurrentActivity("Expected Chat activity", "ChatActivity");
 		solo.goBack();
-		*/
 	}
 	public void testRedirectToGpsActivity() throws Exception {
 		Button mapButton = (Button) solo.getView(R.id.map_button);

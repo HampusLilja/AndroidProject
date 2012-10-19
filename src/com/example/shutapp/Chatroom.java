@@ -37,10 +37,7 @@ public class Chatroom {
 	private Location gpsLocation;
 	
 	private double latitude;
-	
-
-	private double longitude;
-	
+	private double longitude;	
 	private float radius;
 	
 	public Chatroom(){
@@ -68,9 +65,6 @@ public class Chatroom {
 		radius = StringLiterals.RADIUS;
 		//Initiates chatlogfile
 		Parser.initiateFile(chatRoomName, ctx);
-
-		//When a chatroom is initialized, it's added to Chatrooms
-		//Chatrooms.add(CHATROOM_NAME, this);
 		
 		//tells the server that this chatroom is created
 		new HttpMessage(StringLiterals.CREATE_CHATROOM_MESSAGE_TYPE, chatRoomName, Settings.getREGID(), 
@@ -146,7 +140,7 @@ public class Chatroom {
 	public float getRadius() {
 		return radius;
 	}
-	public void setRadius(int radius) {
+	public void setRadius(float radius) {
 		this.radius = radius;
 	}
 	

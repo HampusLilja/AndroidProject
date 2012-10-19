@@ -25,6 +25,7 @@
 package com.example.shutapp.test;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 import android.widget.Button;
 
 import com.example.shutapp.NearbyConversationsActivity;
@@ -43,14 +44,20 @@ public class ChatRoomTest extends ActivityInstrumentationTestCase2<NearbyConvers
 	}
 	
 	@Override
-	public void setUp() throws Exception {
+	public void setUp(){
 		//setUp() is run before a test case is started. 
 		//This is where the solo object is created.
-		solo = new Solo(getInstrumentation(), getActivity());
+		try{
+			super.setUp();
+			solo = new Solo(getInstrumentation(), getActivity());
+		} catch(Exception e){
+			String exception = e.toString();
+			Log.e("TAG", "Could´t setUp or create Solo" + exception);
+		}
 	}
 	
 	@Override
-	public void tearDown() throws Exception {
+	public void tearDown(){
 		//tearDown() is run after a test case has finished. 
 		//finishOpenedActivities() will finish all the activities that have been opened during the test execution.
 		solo.finishOpenedActivities();
@@ -84,12 +91,12 @@ public class ChatRoomTest extends ActivityInstrumentationTestCase2<NearbyConvers
 		
 	}
 	public void testRedirectToChatActivity() throws Exception{
-		/*
+		
 		Button chatButton = (Button) solo.getView(R.id.chat_button);
 		solo.clickOnView(chatButton);
 		solo.assertCurrentActivity("Expected Chat activity", "ChatActivity");
 		solo.goBack();
-		*/
+		
 	}
 	public void testRedirectToGpsActivity() throws Exception {
 		Button mapButton = (Button) solo.getView(R.id.map_button);

@@ -129,7 +129,7 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 		
 		Chatroom chatroom = new Chatroom(cursor.getString(0),
 				cursor.getDouble(1), cursor.getDouble(2),
-							cursor.getInt(3));
+							cursor.getFloat(StringLiterals.THREE));
 		// return chatroom
 		return chatroom;
 	}
@@ -152,8 +152,8 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 	            Chatroom chatroom = new Chatroom();
 	            chatroom.setName(cursor.getString(0));
 	            chatroom.setLatitude(cursor.getDouble(2));
-	            chatroom.setLongitude(cursor.getDouble(3));
-	            chatroom.setRadius(cursor.getInt(4));
+	            chatroom.setLongitude(cursor.getDouble(StringLiterals.THREE));
+	            chatroom.setRadius(cursor.getFloat(StringLiterals.FOUR));
 	            // Adding chatroom to list
 	            chatroomList.add(chatroom);
 	        } while (cursor.moveToNext());
@@ -219,7 +219,7 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
                 /*
                  * Read bytes to the Buffer until there is nothing more to read(-1).
                  */
-                ByteArrayBuffer baf = new ByteArrayBuffer(50);
+                ByteArrayBuffer baf = new ByteArrayBuffer(StringLiterals.DATABASE_BUFFER);
                 int current = 0;
                 while ((current = bis.read()) != -1) {
                         baf.append((byte) current);
@@ -237,11 +237,7 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
         	String exception = e.toString();
                 Log.e(TAG, "downloadDatabase Error: " + exception);
                 return false;
-        }  catch (NullPointerException e) {
-        	String exception = e.toString();
-                Log.e(TAG, "downloadDatabase Error: " + exception);
-                return false;
-        } catch (Exception e){
+        }  catch (Exception e){
         	String exception = e.toString();
                 Log.e(TAG, "downloadDatabase Error: " + exception);
                 return false;
@@ -293,7 +289,7 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 
      private void copyFile(OutputStream os, InputStream is) throws IOException {
     	    Log.d(TAG, "copy method runs");
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[StringLiterals.KILO_BYTE];
             int length;
             while((length = is.read(buffer))>0){
                     os.write(buffer, 0, length);

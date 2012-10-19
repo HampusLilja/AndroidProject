@@ -44,6 +44,8 @@ import android.util.Log;
 public abstract class Parser {
 	
 	private static String chatR = "ChatRoom";
+	private static String ioE = "IOException";
+	private static String fnfE = "FileNotFoundException";
 	
 	
 	/**
@@ -60,10 +62,10 @@ public abstract class Parser {
 			fos.close();
 		} catch (FileNotFoundException e) {
 			String exception = e.toString();
-			Log.d(chatR , "FileNotFoundException" + exception);
+			Log.d(chatR , fnfE + exception);
 	    }catch(IOException e){
 	    	String exception = e.toString();
-			Log.d(chatR , "IOException" + exception);
+			Log.d(chatR , ioE + exception);
 	    }
 	}
 	/**
@@ -82,10 +84,10 @@ public abstract class Parser {
 			fos.close();
 		} catch (FileNotFoundException e) {
 			String exception = e.toString();
-			Log.d(chatR , "FileNotFoundException" + exception);
+			Log.d(chatR , fnfE + exception);
 	    }catch(IOException e){
 			String exception = e.toString();
-			Log.d(chatR , "IOException" + exception);
+			Log.d(chatR , ioE + exception);
 	    }
 	}
 	
@@ -124,10 +126,10 @@ public abstract class Parser {
 			fos.close();
 		} catch (FileNotFoundException e) {
 			String exception = e.toString();
-			Log.d(chatR , "FileNotFoundException" + exception);
+			Log.d(chatR , fnfE + exception);
 	    }catch(IOException e){
 			String exception = e.toString();
-			Log.d(chatR , "IOException" + exception);
+			Log.d(chatR , ioE + exception);
 	    }
 	}
 	
@@ -145,10 +147,10 @@ public abstract class Parser {
 			firstLine = bfr.readLine();
 		} catch (FileNotFoundException e) {
 			String exception = e.toString();
-			Log.d(chatR , "FileNotFoundException" + exception);
+			Log.d(chatR , fnfE + exception);
 		} catch (IOException e){
 			String exception = e.toString();
-			Log.d(chatR , "IOException" + exception);
+			Log.d(chatR , ioE + exception);
 		}
 		return firstLine;
 	}
@@ -170,10 +172,10 @@ public abstract class Parser {
 			}
 		} catch (FileNotFoundException e) {
 			String exception = e.toString();
-			Log.d(chatR , "FileNotFoundException" + exception);
+			Log.d(chatR , fnfE + exception);
 		} catch (IOException e){
 			String exception = e.toString();
-			Log.d(chatR , "IOException" + exception);
+			Log.d(chatR , ioE + exception);
 		}
 		return tempLine;
 	}
@@ -195,10 +197,10 @@ public abstract class Parser {
 			}
 		} catch (FileNotFoundException e) {
 			String exception = e.toString();
-			Log.d(chatR , "FileNotFoundException" + exception);
+			Log.d(chatR , fnfE + exception);
 		} catch (IOException e){
 			String exception = e.toString();
-			Log.d(chatR , "IOException" + exception);
+			Log.d(chatR , ioE + exception);
 		}
 		return allText;
 	}

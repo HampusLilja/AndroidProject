@@ -33,7 +33,7 @@ import android.content.Context;
 public abstract class Settings {
 	private static String nickname;
 	private static boolean satellite;
-	private static String REGID = "";
+	private static String regID = "";
 	private static String currentChatroom;
 	
 	public static String getCurrentChatroom() {
@@ -43,10 +43,10 @@ public abstract class Settings {
 		Settings.currentChatroom = currentChatroom;
 	}
 	public static String getREGID() {
-		return REGID;
+		return regID;
 	}
 	public static void setREGID(String rEGID) {
-		REGID = rEGID;
+		regID = rEGID;
 	}
 	/**
 	 * Initiates the settingsfile for first time users.

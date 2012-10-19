@@ -49,8 +49,6 @@ public class ChatActivity extends Activity {
 	private ScrollView svChatLog;
 	// The chatroom wich this activity currently handles
 	private Chatroom chatroom;
-	
-	private DatabaseHandler db;
 
 	/**
 	 * This broadcastreceiver instance will receive messages broadcast
@@ -107,20 +105,25 @@ public class ChatActivity extends Activity {
 		gcmFilter = new IntentFilter();
 		gcmFilter.addAction("GCM_RECEIVED_ACTION");
 		
-		db = new DatabaseHandler(this);
+		DatabaseHandler db = new DatabaseHandler(this);
 		//check if you currently are in a chatroom, if not you are redirected
 		//to nearbyChatroomsactivity
-		if((chatroom = db.getChatroom(Settings.getCurrentChatroom())) != null){
-			
-			if(!Parser.checkFileExistance(chatroom.getName(), this)){
-				Parser.initiateFile(chatroom.getName(), this);
+		try{
+			chatroom = db.getChatroom(Settings.getCurrentChatroom());
+			if(chatroom != null){
+				
+				if(!Parser.checkFileExistance(chatroom.getName(), this)){
+					Parser.initiateFile(chatroom.getName(), this);
+				}
+				
+				new HttpMessage(StringLiterals.JOIN_CHATROOM_MESSAGE_TYPE, chatroom.getName(), Settings.getREGID(), null, null, null);
+				appendSome(StringLiterals.LINE_BUFFER);
+				tvChatLogHistory.append(chatroom.readLog(this));
 			}
 			
-			new HttpMessage(StringLiterals.JOIN_CHATROOM_MESSAGE_TYPE, chatroom.getName(), Settings.getREGID(), null, null, null);
-			appendSome(25);
-			tvChatLogHistory.append(chatroom.readLog(this));
-		}
-		else{
+		} catch(Exception e){
+			String exception = e.toString();
+			Log.e("TAG", "Not joind a chat room" + exception);
 			toNearbyConversationsActivity(findViewById(R.layout.activity_chat));
 		}
 		
@@ -138,14 +141,6 @@ public class ChatActivity extends Activity {
 		}
 	}
 
-	/**
-	 * Called when the activity is about to be destroyed
-	 */
-	@Override
-	public void onDestroy() {
-		
-		super.onDestroy();
-	}
 	 // If our activity is paused, it is important to UN-register any
     // broadcast receivers.
     @Override

@@ -25,24 +25,31 @@
 package com.example.shutapp;
 
 public abstract class StringLiterals {
+	private static final String ACTION = "action";
+	private static final int FIFTY = 50;
 	
+	public static final int LINE_BUFFER = 25;
+	public static final int DATABASE_BUFFER = FIFTY;
+	public static final int THREE = 3;
+	public static final int FOUR = 4;
+	public static final int KILO_BYTE = 1024;
 	public static final String EMPTY_STRING = "";
 	
 	public static final int CHATROOM_MESSAGE_TYPE = 1;
 	public static final int CREATE_CHATROOM_MESSAGE_TYPE = 2;
-	public static final int JOIN_CHATROOM_MESSAGE_TYPE = 3;
-	public static final int LEAVE_CHATROOM_MESSAGE_TYPE = 4;
+	public static final int JOIN_CHATROOM_MESSAGE_TYPE = THREE;
+	public static final int LEAVE_CHATROOM_MESSAGE_TYPE = FOUR;
 	
 	public static final int FULL_COLOR = 100;
-	public static final int HALF_COLOR = 50;
+	public static final int HALF_COLOR = FIFTY;
 	
-	public static final String HTTP_CHATROOM_MESSAGE_VAR_ACTION = "action";
+	public static final String HTTP_CHATROOM_MESSAGE_VAR_ACTION = ACTION;
 	public static final String HTTP_CHATROOM_MESSAGE_VALUE_ACTION = "chatRoomMsg";
 	public static final String HTTP_CHATROOM_MESSAGE_VAR_CHATROOM = "chatRoom";
 	public static final String HTTP_CHATROOM_MESSAGE_VAR_USER = "user";
 	public static final String HTTP_CHATROOM_MESSAGE_VAR_MESSAGE = "Message";
 	
-	public static final String HTTP_CREATE_CHATROOM_MESSAGE_VAR_ACTION = "action";
+	public static final String HTTP_CREATE_CHATROOM_MESSAGE_VAR_ACTION = ACTION;
 	public static final String HTTP_CREATE_CHATROOM_MESSAGE_VALUE_ACTION = "createNewChatRoom";
 	public static final String HTTP_CREATE_CHATROOM_MESSAGE_VAR_NAME = "NAME";
 	public static final String HTTP_CREATE_CHATROOM_MESSAGE_VAR_MEMBERS = "MEMBERS";
@@ -50,12 +57,12 @@ public abstract class StringLiterals {
 	public static final String HTTP_CREATE_CHATROOM_MESSAGE_VAR_LONG = "LONG";
 	public static final String HTTP_CREATE_CHATROOM_MESSAGE_VAR_RADIUS = "RADIUS";
 	
-	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VAR_ACTION = "action";
+	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VAR_ACTION = ACTION;
 	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VALUE_ACTION = "joinChatroom";
 	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VAR_NAME = "name";
 	public static final String HTTP_JOIN_CHATROOM_MESSAGE_VAR_REGID = "regid";
 	
-	public static final String HTTP_LEAVE_CHATROOM_MESSAGE_VAR_ACTION = "action";
+	public static final String HTTP_LEAVE_CHATROOM_MESSAGE_VAR_ACTION = ACTION;
 	public static final String HTTP_LEAVE_CHATROOM_MESSAGE_VALUE_ACTION = "leaveChatroom";
 	public static final String HTTP_LEAVE_CHATROOM_MESSAGE_VAR_NAME = "name";
 	public static final String HTTP_LEAVE_CHATROOM_MESSAGE_VAR_REGID = "regid";

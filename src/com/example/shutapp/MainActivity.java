@@ -44,8 +44,6 @@ public class MainActivity extends Activity {
 
 	private static final long SPLASHDELAY = 3000;
 
-	private DatabaseHandler db;
-
 	private String registrationStatus = "Not yet registered";
 	/**
 	 * Sets the content view and 
@@ -57,7 +55,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		db = new DatabaseHandler(this);
+		DatabaseHandler db = new DatabaseHandler(this);
 		db.downloadAndCopyDB();
 
 

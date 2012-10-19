@@ -46,8 +46,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 
 public class GpsActivity extends MapActivity implements LocationListener {
-	private final static float RADIUS = StringLiterals.RADIUS; // size of the chat room radius
-	private final static int ZOOM = StringLiterals.ZOOM_LEVEL; // 1 to 21
 	
 	private GeoPoint currentGeoPoint = null;
 	private Location currentLocation = new Location("current");
@@ -83,7 +81,7 @@ public class GpsActivity extends MapActivity implements LocationListener {
 
 		mapView = (MapView) findViewById(R.id.mapView);
 		mapView.setBuiltInZoomControls(true);   //true = being able to zoom with buttons
-		mapView.getController().setZoom(ZOOM); //sets zoomlevel from the startup
+		mapView.getController().setZoom(StringLiterals.ZOOM_LEVEL); //sets zoomlevel from the startup, 1 to 21
 
 		
 		mapControl = mapView.getController();
@@ -135,7 +133,7 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	private void setShadedCircleOnLocation(double latitude, double longitude, boolean nearby) {
 		RadiusOverlay radiusOverlay;
 		
-		radiusOverlay = new RadiusOverlay(this, latitude, longitude, RADIUS, nearby);
+		radiusOverlay = new RadiusOverlay(latitude, longitude, StringLiterals.RADIUS, nearby);
 		mapOverlays.add(radiusOverlay);
 	}
 	
@@ -156,7 +154,7 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	}
 	
 	private boolean inRangeOfChatRoom(Location myLocation, Location chatRoomLocation) {
-		int dist = (int) (RADIUS - myLocation.distanceTo(chatRoomLocation));
+		int dist = (int) (StringLiterals.RADIUS - myLocation.distanceTo(chatRoomLocation));
 		return (dist >= 0);
 	}
 	/**

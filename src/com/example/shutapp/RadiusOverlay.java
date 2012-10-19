@@ -24,7 +24,6 @@
 */
 package com.example.shutapp;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -50,7 +49,7 @@ public class RadiusOverlay extends Overlay {
 	 * @param radius	how large radius the circle has	
 	 * @param nearby	if the user is within the radius or not
 	 */
-	public RadiusOverlay(Context context, double latitude, double longitude, float radius, boolean nearby ) {
+	public RadiusOverlay(double latitude, double longitude, float radius, boolean nearby ) {
 		super();
 		this.latitude = latitude;
 		this.longitude = longitude;
