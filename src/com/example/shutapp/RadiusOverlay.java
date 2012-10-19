@@ -54,7 +54,7 @@ public class RadiusOverlay extends Overlay {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.radius = radius;
-		green = nearby;
+		this.green = nearby;
 		
 	}
 	/**

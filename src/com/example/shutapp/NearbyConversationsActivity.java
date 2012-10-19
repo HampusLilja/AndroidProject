@@ -220,7 +220,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	}
 	
 	private boolean inRangeOfChatRoom(Chatroom cr) {
-		int dist = (int) (cr.getRadius() - currentLocation.distanceTo(cr.getLocation()));
+		float dist = (cr.getRadius()/2 - currentLocation.distanceTo(cr.getLocation()));
 		return (dist >= 0);
 	}
 	

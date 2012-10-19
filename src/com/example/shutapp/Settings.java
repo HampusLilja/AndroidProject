@@ -33,6 +33,7 @@ import android.content.Context;
 public abstract class Settings {
 	private static String nickname;
 	private static boolean satellite;
+	private static boolean displayAllChatRooms;
 	private static String regID = "";
 	private static String currentChatroom;
 	
@@ -93,5 +94,23 @@ public abstract class Settings {
 	 */
 	public static boolean isSatellite(){
 		return satellite;
+	}
+	
+	/**
+	 * Set the map view
+	 *
+	 * @param display 	a boolean with the current map view
+	 */
+	public static void setDisplayAllChatRooms(boolean display){
+		displayAllChatRooms = display;
+	}
+	
+	/**
+	 * Get the boolean value if all chat rooms are displayed
+	 *
+	 * @return displayAllChatRooms 	a boolean with the current map view
+	 */
+	public static boolean allChatRoomsDisplayed(){
+		return displayAllChatRooms;
 	}
 }

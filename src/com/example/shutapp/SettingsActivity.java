@@ -71,6 +71,7 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
     	}
 		settingsList.add("Nickname:" + "\t" + Settings.getNickname());
 		settingsList.add("Satellite view:" + "\t" + Settings.isSatellite());
+		settingsList.add("Display all chat rooms:" + "\t" + Settings.allChatRoomsDisplayed());
 		
 	}
     
@@ -150,7 +151,25 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
 		case StringLiterals.SATELLITE_INDEX:
 			clickOnSatelliteItem();
 			break;
+		case StringLiterals.DISPLAY_CHAT_ROOMS_INDEX:
+			clickOnDisplayChatRoomsItem();
+			break;
 		}
+		
+	}
+	
+	/**
+	 * Sets the Display All Chat Rooms option to true or false
+	 */
+	private void clickOnDisplayChatRoomsItem() {
+		if(Settings.allChatRoomsDisplayed()){
+			Settings.setDisplayAllChatRooms(false);
+		}
+		else {
+			Settings.setDisplayAllChatRooms(true);
+		}
+		
+		recreate();
 		
 	}
 

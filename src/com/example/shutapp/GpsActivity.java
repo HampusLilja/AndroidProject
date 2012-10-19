@@ -144,8 +144,16 @@ public class GpsActivity extends MapActivity implements LocationListener {
 				Location chatRoomLocation = room.getLocation();
 			
 				boolean nearby = inRangeOfChatRoom(currentLocation, chatRoomLocation);
-				setShadedCircleOnLocation(room.getLocation().getLatitude(), 
-						room.getLocation().getLongitude(), nearby);
+				if(Settings.allChatRoomsDisplayed()){
+					setShadedCircleOnLocation(room.getLocation().getLatitude(), 
+							room.getLocation().getLongitude(), nearby);
+				} else {
+					if(nearby){
+						setShadedCircleOnLocation(room.getLocation().getLatitude(), 
+								room.getLocation().getLongitude(), nearby);
+					}
+				}
+				
 			}
 		} catch(Exception e) {
 			String exception = e.toString();
@@ -154,7 +162,7 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	}
 	
 	private boolean inRangeOfChatRoom(Location myLocation, Location chatRoomLocation) {
-		int dist = (int) (StringLiterals.RADIUS - myLocation.distanceTo(chatRoomLocation));
+		float dist = (StringLiterals.RADIUS/2 - myLocation.distanceTo(chatRoomLocation));
 		return (dist >= 0);
 	}
 	/**

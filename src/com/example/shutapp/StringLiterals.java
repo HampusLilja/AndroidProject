@@ -75,6 +75,7 @@ public abstract class StringLiterals {
 	
 	public static final int NICKNAME_INDEX = 0;
 	public static final int SATELLITE_INDEX = 1;
+	public static final int DISPLAY_CHAT_ROOMS_INDEX = 2;
 	
 	public static final String STANDARD_NICKNAME = "Anonymous";
 	
@@ -89,6 +90,9 @@ public abstract class StringLiterals {
 	public static final int LOCATION_UPDATE_INTERVALL = 5000;
 			
 	public static final boolean SATELLITE = false;
+	public static final boolean DISPLAY_ALL_CHAT_ROOMS = true;
+
+	
 
 	
 

@@ -65,8 +65,6 @@ public class ChatActivity extends Activity {
 				translateMessage(receivedMessage);
 			}
 		}
-
-
 	};
 	/**
 	 * Creates an environment for chatActivity 
