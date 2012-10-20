@@ -51,7 +51,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	private List<String> nearbyChatRoomNames;
 	private List<String> farAwayChatRoomNames;
 	private List<String> allChatRoomNames;
-	private List<Chatroom> allChatRoom;
+
 	private int numberOfGreenChatRooms;
 
 	private Location currentLocation = new Location("current");
@@ -99,6 +99,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	 * Initiate chat rooms
 	 */
 	private void initiateChatRooms() {
+		List<Chatroom> allChatRoom;
 		try {
 			allChatRoom = db.getAllChatrooms();
 			for(Chatroom room : allChatRoom){

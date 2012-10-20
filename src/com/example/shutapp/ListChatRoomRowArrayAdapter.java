@@ -15,14 +15,30 @@ public class ListChatRoomRowArrayAdapter extends ArrayAdapter<String>{
 	  private final int numberOfNearbyChatRooms;
 
 	  static class ViewHolder {
-	    public TextView text;
-	    public ImageView image;
+	    private TextView text;
+	    private ImageView image;
+	    
+	    public void setTextView(TextView textView){
+	    	text = textView;
+	    }
+	    
+	    public void setImageView(ImageView imageView){
+	    	image = imageView;
+	    }
+	    
+	    public TextView getTextView(){
+	    	return text;
+	    }
+	    
+	    public ImageView getImageView(){
+	    	return image;
+	    }
 	  }
 
 	  public ListChatRoomRowArrayAdapter(Activity context, String[] names, int numberOfNearbyChatRooms) {
-	    super(context, android.R.layout.simple_list_item_1, names);
+	    super(context, android.R.layout.simple_list_item_1, names.clone());
 	    this.context = context;
-	    this.names = names;
+	    this.names = names.clone();
 	    this.numberOfNearbyChatRooms = numberOfNearbyChatRooms;
 	    
 	  }
