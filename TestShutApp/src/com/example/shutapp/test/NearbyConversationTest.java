@@ -24,13 +24,19 @@
 */
 package com.example.shutapp.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.example.shutapp.NearbyConversationsActivity;
 import com.example.shutapp.R;
+import com.example.shutapp.Settings;
 import com.jayway.android.robotium.solo.Solo;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 public class NearbyConversationTest extends
@@ -75,7 +81,7 @@ public class NearbyConversationTest extends
 		
 	}
 
-	public void testEnterChatActivityFromChatRoom() throws Exception {
+	public void testEnterChatActivityFromNearbyChatRoom() throws Exception {
 		// Click on the first list line
 		solo.clickInList(1); 
 		// redirected to a new activity
@@ -84,6 +90,39 @@ public class NearbyConversationTest extends
 		solo.assertCurrentActivity("Expected Chat activity", "ChatActivity");
 		solo.goBack();
 		//Assert that NearbyConversationActivity activity is opened
+		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
+		
+	}
+	
+	public void testDisplayAllChatRoomAndCantEnterFarAwayChatRooms() throws Exception {
+		View nearbyListView = solo.getView((R.id.nearby_conversations_button));
+		View allListView = solo.getView((R.layout.chatroom_row));
+		List<TextView> rows = new ArrayList<TextView>();
+		Button settingsButton = (Button) solo.getView(R.id.settings_button);
+		Button chatRoomButton = (Button) solo.getView(R.id.nearby_conversations_button);
+		
+		rows = solo.getCurrentTextViews(nearbyListView);
+		int onlyNearby = rows.size();
+
+		solo.clickOnView(settingsButton);
+		solo.assertCurrentActivity("Expected Settings activity", "SettingsActivity");
+		solo.clickLongInList(3);
+		assertTrue(Settings.allChatRoomsDisplayed());
+		
+		solo.clickOnView(chatRoomButton);
+		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
+		
+		rows = solo.getCurrentTextViews(allListView);
+		int all = rows.size();
+		
+		assertTrue(all + " chatrooms are not more then " + onlyNearby, all > onlyNearby);
+		Log.d("TAG", "all = " + all + " nearby = " + onlyNearby);
+		
+		int indexForInvalidChatroom = onlyNearby + 1;
+		
+		solo.clickInList(indexForInvalidChatroom);
+		
+		//Assert that NearbyConversationActivity activity is still opened
 		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
 		
 	}
@@ -109,6 +148,7 @@ public class NearbyConversationTest extends
 	public void testRedirectToNearbyConversationsActivity() throws Exception{
 		Button chatRoomButton = (Button) solo.getView(R.id.nearby_conversations_button);
 		solo.clickOnView(chatRoomButton);
+		solo.waitForActivity("NearbyConversationsActivity");
 		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
 		solo.goBack();
 	}

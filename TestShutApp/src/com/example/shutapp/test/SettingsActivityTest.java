@@ -64,6 +64,22 @@ public class SettingsActivityTest extends ActivityInstrumentationTestCase2<Setti
 		solo.clickOnView(settingsButton);
 		Assert.assertEquals("test", Settings.getNickname());
 	}
+	public void testChangeSatelliteView() throws Exception{
+		boolean before = Settings.isSatellite();
+		solo.clickLongInList(2);
+		boolean after = Settings.isSatellite();
+		Button settingsButton = (Button) solo.getView(R.id.settings_button);
+		solo.clickOnView(settingsButton);
+		Assert.assertEquals("Value did not change", before, !after);
+	}
+	public void testChangeDisplayAllChatRoomView() throws Exception{
+		boolean before = Settings.allChatRoomsDisplayed();
+		solo.clickLongInList(3);
+		boolean after = Settings.allChatRoomsDisplayed();
+		Button settingsButton = (Button) solo.getView(R.id.settings_button);
+		solo.clickOnView(settingsButton);
+		Assert.assertEquals("Value did not change", before, !after);
+	}
 	public void testRedirectToChatActivity() throws Exception{	
 		Button chatButton = (Button) solo.getView(R.id.chat_button);
 		solo.clickOnView(chatButton);
