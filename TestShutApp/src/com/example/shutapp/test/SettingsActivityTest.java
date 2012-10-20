@@ -36,11 +36,17 @@ import com.jayway.android.robotium.solo.Solo;
 public class SettingsActivityTest extends ActivityInstrumentationTestCase2<SettingsActivity>{
 	private Solo solo;
 	
+	/**
+	 * Constructs the activity to be tested
+	 */
 	@SuppressWarnings("deprecation")
 	public SettingsActivityTest() {
 		super("com.example.shutapp.SettingsActivity", SettingsActivity.class);
 	}
 	
+	/**
+	 * Sets up the preconditions for the test
+	 */
 	@Override
 	protected void setUp(){
 		try{
@@ -52,10 +58,18 @@ public class SettingsActivityTest extends ActivityInstrumentationTestCase2<Setti
 		}
 			
 	}
+	
+	/**
+	 * Tears down the test rig when all test are run
+	 */
 	@Override
 	protected void tearDown(){
 		solo.finishOpenedActivities();
 	}
+	
+	/**
+	 * Test the "change nick name" function
+	 */
 	public void testChangeName() throws Exception{
 		solo.clickInList(0);
 		solo.typeText(0, "test");
@@ -64,6 +78,10 @@ public class SettingsActivityTest extends ActivityInstrumentationTestCase2<Setti
 		solo.clickOnView(settingsButton);
 		Assert.assertEquals("test", Settings.getNickname());
 	}
+	
+	/**
+	 * Test the "satellite view" function
+	 */
 	public void testChangeSatelliteView() throws Exception{
 		boolean before = Settings.isSatellite();
 		solo.clickLongInList(2);
@@ -72,14 +90,22 @@ public class SettingsActivityTest extends ActivityInstrumentationTestCase2<Setti
 		solo.clickOnView(settingsButton);
 		Assert.assertEquals("Value did not change", before, !after);
 	}
+	
+	/**
+	 * Test the "display all chat rooms" function
+	 */
 	public void testChangeDisplayAllChatRoomView() throws Exception{
 		boolean before = Settings.allChatRoomsDisplayed();
-		solo.clickLongInList(3);
+		solo.clickLongInList(StringLiterals.DISPLAY_CHAT_ROOMS_ROW);
 		boolean after = Settings.allChatRoomsDisplayed();
 		Button settingsButton = (Button) solo.getView(R.id.settings_button);
 		solo.clickOnView(settingsButton);
 		Assert.assertEquals("Value did not change", before, !after);
 	}
+	
+	/**
+	 * Test the "Chat Activity" Button
+	 */
 	public void testRedirectToChatActivity() throws Exception{	
 		Button chatButton = (Button) solo.getView(R.id.chat_button);
 		solo.clickOnView(chatButton);
@@ -87,18 +113,30 @@ public class SettingsActivityTest extends ActivityInstrumentationTestCase2<Setti
 		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
 		solo.goBackToActivity("SettingsActivity");
 	}
+	
+	/**
+	 * Test the "Gps Activity" Button
+	 */
 	public void testRedirectToGpsActivity() throws Exception {
 		Button mapButton = (Button) solo.getView(R.id.map_button);
 		solo.clickOnView(mapButton);
 		solo.assertCurrentActivity("Expected Gps activity", "GpsActivity");
 		solo.goBack();
 	}
+	
+	/**
+	 * Test the "Settings Activity" Button
+	 */
 	public void testRedirectToSettingsActivity() throws Exception{
 		Button settingsButton = (Button) solo.getView(R.id.settings_button);
 		solo.clickOnView(settingsButton);
 		solo.assertCurrentActivity("Expected Settings activity", "SettingsActivity");
 		solo.goBack();
 	}
+	
+	/**
+	 * Test the "Nearby Conversations Activity" Button
+	 */
 	public void testRedirectToNearbyConversationsActivity() throws Exception{
 		Button chatRoomButton = (Button) solo.getView(R.id.nearby_conversations_button);
 		solo.clickOnView(chatRoomButton);

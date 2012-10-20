@@ -35,12 +35,17 @@ import android.widget.Button;
 public class GpsTest extends ActivityInstrumentationTestCase2<GpsActivity>{
 	private Solo solo;
 	
+	/**
+	 * Constructs the activity to be tested
+	 */
 	@SuppressWarnings("deprecation")
 	public GpsTest() {
 		super("com.example.shutapp.GpsActivity", GpsActivity.class);
 	}
 	
-	
+	/**
+	 * Sets up the preconditions for the test
+	 */
 	@Override
 	protected void setUp(){
 		try{
@@ -51,10 +56,18 @@ public class GpsTest extends ActivityInstrumentationTestCase2<GpsActivity>{
 			Log.e("TAG", "Could´t setUp or create Solo" + exception);
 		}
 	}
+	
+	/**
+	 * Tears down the test rig when all test are run
+	 */
 	@Override
 	protected void tearDown(){
 		solo.finishOpenedActivities();
 	}
+	
+	/**
+	 * Test the "Chat Activity" Button
+	 */
 	public void testRedirectToChatActivity() throws Exception{
 		
 		Button chatButton = (Button) solo.getView(R.id.chat_button);
@@ -63,18 +76,30 @@ public class GpsTest extends ActivityInstrumentationTestCase2<GpsActivity>{
 		solo.goBack();
 		
 	}
+	
+	/**
+	 * Test the "Gps Activity" Button
+	 */
 	public void testRedirectToGpsActivity() throws Exception {
 		Button mapButton = (Button) solo.getView(R.id.map_button);
 		solo.clickOnView(mapButton);
 		solo.assertCurrentActivity("Expected Gps activity", "GpsActivity");
 		solo.goBack();
 	}
+	
+	/**
+	 * Test the "Setting Activity" Button
+	 */
 	public void testRedirectToSettingsActivity() throws Exception{
 		Button settingsButton = (Button) solo.getView(R.id.settings_button);
 		solo.clickOnView(settingsButton);
 		solo.assertCurrentActivity("Expected Settings activity", "SettingsActivity");
 		solo.goBack();
 	}
+	
+	/**
+	 * Test the "Nearby Conversations Activity" Button
+	 */
 	public void testRedirectToNearbyConversationsActivity() throws Exception{
 		Button chatRoomButton = (Button) solo.getView(R.id.nearby_conversations_button);
 		solo.clickOnView(chatRoomButton);

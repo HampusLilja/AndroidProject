@@ -38,11 +38,17 @@ public class ChatRoomTest extends ActivityInstrumentationTestCase2<NearbyConvers
 	
 	private Solo solo;
 
+	/**
+	 * Constructs the activity to be tested
+	 */
 	public ChatRoomTest() {
 		super(NearbyConversationsActivity.class);
 
 	}
 	
+	/**
+	 * Sets up the preconditions for the test
+	 */
 	@Override
 	public void setUp(){
 		//setUp() is run before a test case is started. 
@@ -56,6 +62,9 @@ public class ChatRoomTest extends ActivityInstrumentationTestCase2<NearbyConvers
 		}
 	}
 	
+	/**
+	 * Tears down the test rig when all test are run
+	 */
 	@Override
 	public void tearDown(){
 		//tearDown() is run after a test case has finished. 
@@ -63,7 +72,9 @@ public class ChatRoomTest extends ActivityInstrumentationTestCase2<NearbyConvers
 		solo.finishOpenedActivities();
 	}
 	
-	
+	/**
+	 * Test to enter a valid chat room
+	 */
 	public void testEnterChatActivityFromChatRoom() throws Exception {
 		//Create a new room to make sure we can join a room
 		Button createRoomButton = (Button) solo.getView(R.id.create_new_chatroom_button);
@@ -90,6 +101,10 @@ public class ChatRoomTest extends ActivityInstrumentationTestCase2<NearbyConvers
 		solo.assertCurrentActivity("Expected NearbyConversations activity", "NearbyConversationsActivity");
 		
 	}
+	
+	/**
+	 * Test the "Chat Activity" Button
+	 */
 	public void testRedirectToChatActivity() throws Exception{
 		
 		Button chatButton = (Button) solo.getView(R.id.chat_button);
@@ -98,18 +113,30 @@ public class ChatRoomTest extends ActivityInstrumentationTestCase2<NearbyConvers
 		solo.goBack();
 		
 	}
+	
+	/**
+	 * Test the "Gps Activity" Button
+	 */
 	public void testRedirectToGpsActivity() throws Exception {
 		Button mapButton = (Button) solo.getView(R.id.map_button);
 		solo.clickOnView(mapButton);
 		solo.assertCurrentActivity("Expected Gps activity", "GpsActivity");
 		solo.goBack();
 	}
+	
+	/**
+	 * Test the "Setting Activity" Button
+	 */
 	public void testRedirectToSettingsActivity() throws Exception{
 		Button settingsButton = (Button) solo.getView(R.id.settings_button);
 		solo.clickOnView(settingsButton);
 		solo.assertCurrentActivity("Expected Settings activity", "SettingsActivity");
 		solo.goBack();
 	}
+	
+	/**
+	 * Test the "Nearby Conversations Activity" Button
+	 */
 	public void testRedirectToNearbyConversationsActivity() throws Exception{
 		Button chatRoomButton = (Button) solo.getView(R.id.nearby_conversations_button);
 		solo.clickOnView(chatRoomButton);

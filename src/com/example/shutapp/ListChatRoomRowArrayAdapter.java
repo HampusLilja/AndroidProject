@@ -35,6 +35,13 @@ public class ListChatRoomRowArrayAdapter extends ArrayAdapter<String>{
 	    }
 	  }
 
+	  /**
+	   * Constructor
+	   * 
+	   * @param context
+	   * @param names	an array of the strings that should be listed
+	   * @param numberOfNearbyChatRooms		how many chat rooms that should be available 
+	   */
 	  public ListChatRoomRowArrayAdapter(Activity context, String[] names, int numberOfNearbyChatRooms) {
 	    super(context, android.R.layout.simple_list_item_1, names.clone());
 	    this.context = context;
@@ -42,7 +49,16 @@ public class ListChatRoomRowArrayAdapter extends ArrayAdapter<String>{
 	    this.numberOfNearbyChatRooms = numberOfNearbyChatRooms;
 	    
 	  }
-
+	  
+	  /**
+	   * Customized getView
+	   * 
+	   * @return View	the customized view
+	   * 
+	   * @param position	position in this list
+	   * @param convertView		the layout to be converted
+	   * @param parent		
+	   */
 	  @Override
 	  public View getView(int position, View convertView, ViewGroup parent) {
 	    View chatRoomRow = convertView;

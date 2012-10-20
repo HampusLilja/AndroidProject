@@ -30,13 +30,15 @@ public abstract class StringLiterals {
 	
 	public static final int LINE_BUFFER = 25;
 	public static final int DATABASE_BUFFER = FIFTY;
+	public static final int ONE = 1;
+	public static final int TWO = 2;
 	public static final int THREE = 3;
 	public static final int FOUR = 4;
 	public static final int KILO_BYTE = 1024;
 	public static final String EMPTY_STRING = "";
 	
-	public static final int CHATROOM_MESSAGE_TYPE = 1;
-	public static final int CREATE_CHATROOM_MESSAGE_TYPE = 2;
+	public static final int CHATROOM_MESSAGE_TYPE = ONE;
+	public static final int CREATE_CHATROOM_MESSAGE_TYPE = TWO;
 	public static final int JOIN_CHATROOM_MESSAGE_TYPE = THREE;
 	public static final int LEAVE_CHATROOM_MESSAGE_TYPE = FOUR;
 	
@@ -74,8 +76,11 @@ public abstract class StringLiterals {
 	public static final String PROJECT_ID = "971948008542";
 	
 	public static final int NICKNAME_INDEX = 0;
-	public static final int SATELLITE_INDEX = 1;
-	public static final int DISPLAY_CHAT_ROOMS_INDEX = 2;
+	public static final int SATELLITE_INDEX = ONE;
+	public static final int DISPLAY_CHAT_ROOMS_INDEX = TWO;
+	public static final int NICKNAME_ROW = ONE;
+	public static final int SATELLITE_ROW = TWO;
+	public static final int DISPLAY_CHAT_ROOMS_ROW = THREE;
 	
 	public static final String STANDARD_NICKNAME = "Anonymous";
 	
