@@ -25,11 +25,15 @@
 package com.example.shutapp.test;
 
 import junit.framework.Assert;
+
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.widget.Button;
-import com.example.shutapp.*;
+
 import com.example.shutapp.R;
+import com.example.shutapp.Settings;
+import com.example.shutapp.SettingsActivity;
+import com.example.shutapp.StringLiterals;
 import com.jayway.android.robotium.solo.Solo;
 
 /**

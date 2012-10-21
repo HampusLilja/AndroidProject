@@ -26,18 +26,19 @@ package com.example.shutapp;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.os.Bundle;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * A class representing the Settings Activity.
@@ -223,6 +224,10 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
 						R.id.btn_change_nickname);
 		btnDialogChangeNickname.setOnClickListener(new OnClickListener() {
 
+			/**
+			 * OnClick action.
+			 * @param view
+			 */
 			public void onClick(View view){
 				String nameToBeChanged = 
 						etChatroomInput.getText().toString();

@@ -26,11 +26,13 @@ package com.example.shutapp;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
 import com.google.android.gcm.GCMRegistrar;
 
 /**

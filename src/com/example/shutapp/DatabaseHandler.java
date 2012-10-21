@@ -33,13 +33,15 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.http.util.ByteArrayBuffer;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import org.apache.http.util.ByteArrayBuffer;
 
 /**
  * 
@@ -130,7 +132,7 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.query(TABLE_CHATROOMS, new String[] { KEY_NAME,
 				KEY_LATITUDE, KEY_LONGITUDE, KEY_RADIUS }, KEY_NAME + "=?",
-				new String[] { name }, null, null, null, null); 
+				new String[] { name }, null, null, null, null);
 
 		if (cursor != null){
 			cursor.moveToFirst();
@@ -241,7 +243,7 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 			/* Convert the Bytes read to a String. */
 			FileOutputStream fos = null;
 			// Select storage location
-			fos = context.openFileOutput("db_name.s3db", Context.MODE_PRIVATE); 
+			fos = context.openFileOutput("db_name.s3db", Context.MODE_PRIVATE);
 
 			fos.write(baf.toByteArray());
 			fos.close();
@@ -258,14 +260,15 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 		return true;
 	}
 	/**
-	 * Copies your database from your local downloaded database that is copied from the server 
+	 * Copies your database from your local downloaded database that is copied from the server
 	 * into the just created empty database in the
 	 * system folder, from where it can be accessed and handled.
 	 * This is done by transfering bytestream.
 	 * */
 	private void copyServerDatabase() {
-		// by calling this line an empty database will be created into the default system path
-		// of this app - we will then overwrite this with the database from the server
+		// by calling this line an empty database will be created 
+		// into the default system path of this app - we will then
+		// overwrite this with the database from the server
 		SQLiteDatabase db = getReadableDatabase();
 		db.close();
 
@@ -276,13 +279,13 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 			Log.d(TAG, "Copying DB from server version into app");
 			is = mContext.openFileInput("db_name.s3db");
 			os = new FileOutputStream(
-					"/data/data/com.example.shutapp/databases/chatroomsManager"); 
+					"/data/data/com.example.shutapp/databases/chatroomsManager");
 
 			copyFile(os, is);
 		} catch (Exception e) {
 			String exception = e.toString();
 			Log.e(TAG, "Server Database was not found - did it download correctly?"
-			+ exception);                          
+			+ exception);
 		} finally {
 			try {
 				//Close the streams

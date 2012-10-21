@@ -25,13 +25,19 @@
 package com.example.shutapp;
 
 import java.util.List;
-import android.os.Bundle;
+
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.content.Context;
-import android.graphics.drawable.Drawable;
+
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
@@ -39,10 +45,7 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+
 
 /**
  * The Activity showing a Google map.
@@ -209,7 +212,8 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	public void newOverlay(){
 		itemizedoverlay = new MapOverlay(drawableArrow, this);
 		OverlayItem currentOverlay = new OverlayItem(
-				currentGeoPoint,"Current Location","Here is my current location!!!");
+				currentGeoPoint,"Current Location",
+				"Here is my current location!!!");
 		itemizedoverlay.addOverlay(currentOverlay);
 		mapOverlays.add(itemizedoverlay);
 	}

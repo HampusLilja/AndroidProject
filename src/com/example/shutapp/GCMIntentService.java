@@ -29,7 +29,8 @@ package com.example.shutapp;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import com.google.android.gcm.*;
+
+import com.google.android.gcm.GCMBaseIntentService;
 
 /**
  * A class to handle the GCM Intent.

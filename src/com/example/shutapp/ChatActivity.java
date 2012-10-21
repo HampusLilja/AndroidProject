@@ -61,6 +61,11 @@ public class ChatActivity extends Activity {
 	 */
 	private BroadcastReceiver gcmReceiver = new BroadcastReceiver() {
 
+		/**
+		 * onReceive.
+		 * @param context
+		 * @param intent
+		 */
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String receivedMessage = "No broadcast message";
@@ -92,6 +97,9 @@ public class ChatActivity extends Activity {
 
 		//scrollview autoscrolls down
 		svChatLog.post(new Runnable(){
+			/**
+			 * Run.
+			 */
 			public void run(){
 				svChatLog.scrollTo(0, tvChatLogHistory.getHeight());
 			}
@@ -99,6 +107,9 @@ public class ChatActivity extends Activity {
 
 		//both threads are needed
 		svChatLog.post(new Runnable(){
+			/**
+			 * Run.
+			 */
 			public void run(){
 				svChatLog.fullScroll(ScrollView.FOCUS_DOWN);
 			}
@@ -161,7 +172,7 @@ public class ChatActivity extends Activity {
 
 	/**
 	 * When an activity is resumed, be sure to register any
-	 * broadcast receivers with the appropriate intent
+	 * broadcast receivers with the appropriate intent.
 	 */
 	@Override
 	protected void onResume() {

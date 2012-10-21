@@ -24,8 +24,8 @@
  */
 package com.example.shutapp;
 
-import android.location.Location;
 import android.content.Context;
+import android.location.Location;
 
 /**
  * An object of class representing a chat room.

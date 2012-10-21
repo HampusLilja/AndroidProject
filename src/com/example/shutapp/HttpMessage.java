@@ -27,6 +27,7 @@ package com.example.shutapp;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -34,6 +35,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+
 import android.util.Log;
 
 /**
@@ -74,13 +76,16 @@ public class HttpMessage implements Runnable{
 					StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_ACTION,
 					StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VALUE_ACTION));
 			nameValuePairs.add(new BasicNameValuePair(
-					StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_NAME, var1));
+					StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_NAME,
+					var1));
 			nameValuePairs.add(new BasicNameValuePair(
 					StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_LAT, var3));
 			nameValuePairs.add(new BasicNameValuePair(
-					StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_LONG, var4));
+					StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_LONG,
+					var4));
 			nameValuePairs.add(new BasicNameValuePair(
-					StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_RADIUS, var5));
+					StringLiterals.HTTP_CREATE_CHATROOM_MESSAGE_VAR_RADIUS,
+					var5));
 			break;
 
 		case StringLiterals.JOIN_CHATROOM_MESSAGE_TYPE:
@@ -100,7 +105,8 @@ public class HttpMessage implements Runnable{
 			nameValuePairs.add(new BasicNameValuePair(
 					StringLiterals.HTTP_LEAVE_CHATROOM_MESSAGE_VAR_NAME, var1));
 			nameValuePairs.add(new BasicNameValuePair(
-					StringLiterals.HTTP_LEAVE_CHATROOM_MESSAGE_VAR_REGID, var2));
+					StringLiterals.HTTP_LEAVE_CHATROOM_MESSAGE_VAR_REGID,
+					var2));
 			break;
 
 

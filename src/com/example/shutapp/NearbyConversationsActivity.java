@@ -26,6 +26,7 @@ package com.example.shutapp;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
