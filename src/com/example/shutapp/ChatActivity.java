@@ -29,7 +29,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -225,8 +229,15 @@ public class ChatActivity extends Activity {
 	 */
 	private void appendToChatLogHistory(String username, String message) {
 		if (username != null && message != null) {
-			tvChatLogHistory.append(username + ": ");
-			tvChatLogHistory.append(message + "\n");
+			if(username.equals("SERVER")){
+				Spannable WordtoSpan = new SpannableString(username + ": " + message + "\n");        
+				WordtoSpan.setSpan(new ForegroundColorSpan(Color.BLUE), 0, WordtoSpan.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+				tvChatLogHistory.append(WordtoSpan);
+			}
+			else{
+				tvChatLogHistory.append(username + ": ");
+				tvChatLogHistory.append(message + "\n");
+			}
 		}
 	}
 
@@ -250,7 +261,8 @@ public class ChatActivity extends Activity {
 		}else{
 			message = temp[1];
 		}
-		chatroom.saveMessage(username + ": " + message, this);
+		if(!username.equals("SERVER"))
+			chatroom.saveMessage(username + ": " + message, this);
 		appendToChatLogHistory(username, message);
 
 	}
