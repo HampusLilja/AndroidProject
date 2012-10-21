@@ -26,11 +26,11 @@
 /** this class should handle all GCM messaging (Intents) */
 package com.example.shutapp;
 
+import com.google.android.gcm.GCMBaseIntentService;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-
-import com.google.android.gcm.GCMBaseIntentService;
 
 /**
  * A class to handle the GCM Intent.

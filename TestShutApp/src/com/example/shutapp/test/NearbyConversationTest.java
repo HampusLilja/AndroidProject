@@ -24,6 +24,12 @@
  */
 package com.example.shutapp.test;
 
+import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,13 +38,6 @@ import com.example.shutapp.R;
 import com.example.shutapp.Settings;
 import com.example.shutapp.StringLiterals;
 import com.jayway.android.robotium.solo.Solo;
-
-import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
 
 /**
  * Tests testing the Nearby Conversations Activity.

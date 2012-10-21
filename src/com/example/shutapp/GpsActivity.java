@@ -24,7 +24,13 @@
  */
 package com.example.shutapp;
 
-import java.util.List;
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+import com.google.android.maps.MyLocationOverlay;
+import com.google.android.maps.Overlay;
+import com.google.android.maps.OverlayItem;
 
 import android.content.Context;
 import android.content.Intent;
@@ -38,14 +44,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapController;
-import com.google.android.maps.MapView;
-import com.google.android.maps.MyLocationOverlay;
-import com.google.android.maps.Overlay;
-import com.google.android.maps.OverlayItem;
-
+import java.util.List;
 
 /**
  * The Activity showing a Google map.
@@ -156,11 +155,11 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	 * @param longitude
 	 * @param nearby sets which color
 	 */
-	private void setShadedCircleOnLocation(double latitude, double longitude, boolean nearby) {
+	private void setShadedCircleOnLocation(double latitude, double longitude, float radius, 
+			boolean nearby) {
 		RadiusOverlay radiusOverlay;
 
-		radiusOverlay = new RadiusOverlay(latitude, longitude,
-				StringLiterals.RADIUS, nearby);
+		radiusOverlay = new RadiusOverlay(latitude, longitude, radius, nearby);
 		mapOverlays.add(radiusOverlay);
 	}
 
@@ -171,19 +170,19 @@ public class GpsActivity extends MapActivity implements LocationListener {
 		try{
 			List<Chatroom> chatRooms = db.getAllChatrooms();
 			for(Chatroom room : chatRooms) {
-				Location chatRoomLocation = room.getLocation();
 
 				boolean nearby = inRangeOfChatRoom(
-						currentLocation, chatRoomLocation);
+						currentLocation, room);
 				if(Settings.allChatRoomsDisplayed()){
 					setShadedCircleOnLocation(room.getLocation().getLatitude(), 
-							room.getLocation().getLongitude(), nearby);
+							room.getLocation().getLongitude(), room.getRadius(),
+							nearby);
 				} else {
 					if(nearby){
 						setShadedCircleOnLocation(
 								room.getLocation().getLatitude(), 
-								room.getLocation().getLongitude(),
-								nearby);
+								room.getLocation().getLongitude(), 
+								room.getRadius(), nearby);
 					}
 				}
 
@@ -201,8 +200,9 @@ public class GpsActivity extends MapActivity implements LocationListener {
 	 * @return if you are in range
 	 */
 
-	private boolean inRangeOfChatRoom(Location myLocation, Location chatRoomLocation) {
-		float dist = (StringLiterals.RADIUS/2 - myLocation.distanceTo(chatRoomLocation));
+	private boolean inRangeOfChatRoom(Location myLocation, Chatroom chatRoom) {
+		float dist = (chatRoom.getRadius()/2 - myLocation.distanceTo(
+				chatRoom.getLocation()));
 		return (dist >= 0);
 	}
 

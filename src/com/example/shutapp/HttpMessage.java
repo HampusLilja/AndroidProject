@@ -24,9 +24,7 @@
  */
 package com.example.shutapp;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import android.util.Log;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -36,7 +34,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.util.Log;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class to handle the Http messages.

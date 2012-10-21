@@ -24,13 +24,13 @@
  */
 package com.example.shutapp.test;
 
-import com.example.shutapp.GpsActivity;
-import com.example.shutapp.R;
-import com.jayway.android.robotium.solo.Solo;
-
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.widget.Button;
+
+import com.example.shutapp.GpsActivity;
+import com.example.shutapp.R;
+import com.jayway.android.robotium.solo.Solo;
 
 /**
  * Tests testing the GPS Activity.

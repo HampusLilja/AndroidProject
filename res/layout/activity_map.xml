@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/banner"
+        android:layout_above="@+id/iconFrame_3"
         android:apiKey="0P5FFhYuxZg_V2MzsdXEuW7GZ1OUIHUfOdqxK-Q"
         android:clickable="true"
         android:enabled="true" />

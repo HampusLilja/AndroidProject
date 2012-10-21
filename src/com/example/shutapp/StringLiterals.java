@@ -93,8 +93,15 @@ public abstract class StringLiterals {
 	public static final String FILENAME_SETTINGS = "SETTINGS";
 
 	public static final double LOCATION_TO_GEOPOINT_CONVERTER = 1E6;
-	public static final double START_LATITUDE = 57.691469;
-	public static final double START_LONGITUDE = 11.977469;
+	public static final double START_LATITUDE = 57.68869;
+	public static final double START_LONGITUDE = 11.978102;
+	
+	public static final double SECOND_LATITUDE = 57.684347;
+	public static final double SECOND_LONGITUDE = 11.983442;
+	
+	public static final double THIRD_LATITUDE = 57.692833;
+	public static final double THIRD_LONGITUDE = 11.965869;
+	
 	public static final int ZOOM_LEVEL = 17;
 	public static final float RADIUS = 1000;
 

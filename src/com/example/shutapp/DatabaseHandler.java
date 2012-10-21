@@ -24,6 +24,13 @@
  */
 package com.example.shutapp;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,13 +40,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
-
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import org.apache.http.util.ByteArrayBuffer;
 
@@ -279,7 +279,8 @@ public class DatabaseHandler extends SQLiteOpenHelper implements Runnable{
 			Log.d(TAG, "Copying DB from server version into app");
 			is = mContext.openFileInput("db_name.s3db");
 			os = new FileOutputStream(
-					"/data/data/com.example.shutapp/databases/chatroomsManager");
+					"/data/data/com.example.shutapp/databases" +
+					"/chatroomsManager");
 
 			copyFile(os, is);
 		} catch (Exception e) {

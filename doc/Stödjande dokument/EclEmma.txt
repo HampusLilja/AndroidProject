@@ -1,0 +1,6 @@
+C:\.....\android_sdk\tools
+android update project --name ShutApp --target 6 --path "C:\Users\{user.name}\...\GitHub\AndroidProject\TestShutApp"
+
+C:\Users\{user.name}\.....\GitHub\AndroidProject\TestShutApp
+ant emma debug install
+ant emma debug install test

@@ -24,9 +24,6 @@
  */
 package com.example.shutapp;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -46,6 +43,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class for the Chat room Activity.

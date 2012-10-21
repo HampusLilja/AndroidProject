@@ -42,26 +42,14 @@
         android:background="@layout/ic_social_group"
         android:onClick="updateChatroomList" />
 
-    <Button
+        <Button
         android:id="@+id/map_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="20dp"
-        android:layout_toLeftOf="@+id/settings_button"
-        android:background="@drawable/ic_location_map"
-        android:onClick="toGpsActivity" />
-
-    <Button
-        android:id="@+id/chat_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="22dp"
-        android:layout_toRightOf="@+id/nearby_conversations_button"
-        android:background="@drawable/ic_social_chat"
-        android:onClick="toChatActivity" />
-
+        android:layout_toLeftOf="@+id/imageView3"
+        android:background="@layout/ic_location_map"
+        android:onClick="toGpsActivity" />
     <Button
         android:id="@+id/create_new_chatroom_button"
         android:layout_width="wrap_content"
@@ -87,6 +75,7 @@
 
     <ImageView
         android:id="@+id/imageView1"
+        android:contentDescription="@+id/menu_splitter1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -104,6 +93,7 @@
 
     <ImageView
         android:id="@+id/imageView2"
+        android:contentDescription="@+id/menu_splitter2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -112,23 +102,18 @@
 
     <ImageView
         android:id="@+id/imageView3"
+        android:contentDescription="@+id/menu_splitter3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/settings_button"
         android:src="@drawable/ic_menu_splitter" />
 
-    <Button
-        android:id="@+id/map_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/imageView3"
-        android:background="@layout/ic_location_map"
-        android:onClick="toGpsActivity" />
+
 
     <ImageView
         android:id="@+id/imageView4"
+        android:contentDescription="@+id/menu_splitter4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -137,6 +122,7 @@
 
     <ImageView
         android:id="@+id/imageView5"
+        android:contentDescription="@+id/menu_splitter5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -24,15 +24,15 @@
  */
 package com.example.shutapp;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.maps.ItemizedOverlay;
+import com.google.android.maps.OverlayItem;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
-import com.google.android.maps.ItemizedOverlay;
-import com.google.android.maps.OverlayItem;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class to place a item on a map.

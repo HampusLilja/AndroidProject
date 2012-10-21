@@ -24,9 +24,6 @@
  */
 package com.example.shutapp;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -39,6 +36,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class representing the Settings Activity.

@@ -24,11 +24,11 @@
  */
 package com.example.shutapp.test;
 
-import junit.framework.Assert;
-
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.widget.Button;
+
+import junit.framework.Assert;
 
 import com.example.shutapp.R;
 import com.example.shutapp.Settings;
