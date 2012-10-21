@@ -26,7 +26,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
        xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:sql="http://java.sun.com/jsp/jstl/sql" >
 <sql:setDataSource var="ROOMS" driver="org.sqlite.JDBC"
-url="jdbc:sqlite:C:\Users\Hampus\Desktop\SugarSync\Chalmers\SoftwareEngineering\GitHub\AndroidProject\server-package\ShutAPP_GCM_SERVER\src\main\webapp\shutappdb.db" user="gcm" password="gcm"
+url="jdbc:sqlite:C:\Tomas\Software Engineering\ShutAPP_GCM_SERVER\src\main\webapp\shutappdb_v3.db" user="gcm" password="gcm"
 scope="page"/>
 <sql:query dataSource="${ROOMS}" var="chatroomresult">
 SELECT * from CHATROOMS
@@ -44,9 +44,10 @@ SELECT * from CHATROOMS
     <section>
         <form action="GCM" method="POST">
         <input type="hidden" name="action" value="chatRoomMsg" />
-        <b>Multicast message (to all users in chatroom);</b>
+        <b>Multicast message (to all users in chatroom):</b>
         <br />Enter chatroom to send to:<br/><input type="text" name="chatRoom" value="" />
-        <br/>Write your message here:<br/><textarea name="Message" rows="3" cols="60" > </textarea> 
+        <input type="hidden" name="user" value="SERVER"/>
+        <br/>Write your message here:<br/><textarea name="Message" rows="3" cols="20" > </textarea> 
         <br/><input type="submit" name="submit" value="Submit" />
         </form>   
     </section>
@@ -54,8 +55,8 @@ SELECT * from CHATROOMS
         <form action="GCM" method="POST">
         <input type="hidden" name="action" value="joinChatroom" />
         <b>Join chatroom:</b><br/>
-        <br/>Chatroom: <br/><textarea name="name" rows="3" cols="60" > </textarea> 
-        <br/>Regid: <br/><textarea name="regid" rows="3" cols="60" > </textarea> 
+        <br/>Chatroom: <br/><textarea name="name" rows="3" cols="20" > </textarea> 
+        <br/>Regid: <br/><textarea name="regid" rows="3" cols="20" > </textarea> 
         <br/><input type="submit" name="submit" value="Submit" />
         </form>  
     </section>
@@ -63,26 +64,25 @@ SELECT * from CHATROOMS
         <form action="GCM" method="POST">
         <input type="hidden" name="action" value="leaveChatroom" />
         <b>Leave chatroom:</b><br/>
-        <br/>Chatroom: <br/><textarea name="name" rows="3" cols="60" > </textarea> 
-        <br/>Regid: <br/><textarea name="regid" rows="3" cols="60" > </textarea> 
+        <br/>Chatroom: <br/><textarea name="name" rows="3" cols="20" > </textarea> 
+        <br/>Regid: <br/><textarea name="regid" rows="3" cols="20" > </textarea> 
         <br/><input type="submit" name="submit" value="Submit" />
         </form>  
     </section>
+
         <section>
         <form action="GCM" method="POST">
         <input type="hidden" name="action" value="createNewChatRoom" />
         <b>Add new chatroom to DB:</b><br/>
-        <br/>Name: <br/><textarea name="NAME" rows="3" cols="60" > </textarea> 
-        <br/>Members: <br/><textarea name="MEMBERS" rows="3" cols="60" > </textarea> 
-        <br/>LAT: <br/><textarea name="LAT" rows="3" cols="60" > </textarea> 
-        <br/>LONG: <br/><textarea name="LONG" rows="3" cols="60" > </textarea> 
-        <br/>RADIUS: <br/><textarea name="RADIUS" rows="3" cols="60" > </textarea>
-        <br/>PASSWD: <br/><textarea name="PASSWD" rows="3" cols="60" > </textarea> 
+        <br/>Name: <br/><textarea name="NAME" rows="1" cols="20" > </textarea> 
+        <br/>Members: <br/><textarea name="MEMBERS" rows="3" cols="20" > </textarea> 
+        <br/>LAT: <br/><textarea name="LAT" rows="1" cols="20" > </textarea> 
+        <br/>LONG: <br/><textarea name="LONG" rows="1" cols="20" > </textarea> 
+        <br/>RADIUS: <br/><textarea name="RADIUS" rows="1" cols="20" > </textarea>
+        <br/>PASSWD: <br/><textarea name="PASSWD" rows="1" cols="20"> </textarea> 
         <br/><input type="submit" name="submit" value="Submit" />
         </form>  
     </section>
-    <br></br><br></br>
-
     <br></br>
    <footer>Current chatrooms:
             <table border="1" width="100%">
