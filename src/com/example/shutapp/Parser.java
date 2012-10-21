@@ -7,21 +7,21 @@
  ** A copy of the license is included in the section entitled "LICENSE.txt".
  */
 /*
-** This file is part of ShutApp.
-**
-** ShutApp is free software: you can redistribute it and/or modify
-** it under the terms of the GNU General Public License as published by
-** the Free Software Foundation, either version 3 of the License, or
-** (at your option) any later version.
-**
-** ShutApp is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-** GNU General Public License for more details.
-**
-** You should have received a copy of the GNU General Public License
-** along with ShutApp.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ ** This file is part of ShutApp.
+ **
+ ** ShutApp is free software: you can redistribute it and/or modify
+ ** it under the terms of the GNU General Public License as published by
+ ** the Free Software Foundation, either version 3 of the License, or
+ ** (at your option) any later version.
+ **
+ ** ShutApp is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ ** GNU General Public License for more details.
+ **
+ ** You should have received a copy of the GNU General Public License
+ ** along with ShutApp.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.example.shutapp;
 
 import java.io.BufferedReader;
@@ -31,7 +31,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import android.content.Context;
 import android.util.Log;
 
@@ -42,14 +41,14 @@ import android.util.Log;
  *
  */
 public abstract class Parser {
-	
+
 	private static String chatR = "ChatRoom";
 	private static String ioE = "IOException";
 	private static String fnfE = "FileNotFoundException";
-	
-	
+
+
 	/**
-	 * Creates an empty file
+	 * Creates an empty file.
 	 * @param filename
 	 * @param ctx
 	 */
@@ -63,10 +62,10 @@ public abstract class Parser {
 		} catch (FileNotFoundException e) {
 			String exception = e.toString();
 			Log.d(chatR , fnfE + exception);
-	    }catch(IOException e){
-	    	String exception = e.toString();
+		}catch(IOException e){
+			String exception = e.toString();
 			Log.d(chatR , ioE + exception);
-	    }
+		}
 	}
 	/**
 	 * This method writes text to a new line
@@ -85,12 +84,12 @@ public abstract class Parser {
 		} catch (FileNotFoundException e) {
 			String exception = e.toString();
 			Log.d(chatR , fnfE + exception);
-	    }catch(IOException e){
+		}catch(IOException e){
 			String exception = e.toString();
 			Log.d(chatR , ioE + exception);
-	    }
+		}
 	}
-	
+
 	/**
 	 * Writes a text to the specified line in wished file.
 	 * @param index Index of the line to be changed.
@@ -109,9 +108,9 @@ public abstract class Parser {
 		}
 		clean(filename, ctx);
 		write(sb.toString(), filename, ctx);
-		
+
 	}
-	
+
 	/**
 	 * Cleans wished file for all data.
 	 * @param filename Target filename.
@@ -127,12 +126,12 @@ public abstract class Parser {
 		} catch (FileNotFoundException e) {
 			String exception = e.toString();
 			Log.d(chatR , fnfE + exception);
-	    }catch(IOException e){
+		}catch(IOException e){
 			String exception = e.toString();
 			Log.d(chatR , ioE + exception);
-	    }
+		}
 	}
-	
+
 	/**
 	 * Reads the first line of the file.
 	 * @param filename Target filename.
@@ -154,7 +153,7 @@ public abstract class Parser {
 		}
 		return firstLine;
 	}
-	
+
 	/**
 	 * Reads the line at wished index.
 	 * @param index Index of the line to be read.
@@ -166,7 +165,7 @@ public abstract class Parser {
 		try {
 			InputStream is = ctx.openFileInput(filename);
 			BufferedReader bfr = new BufferedReader(new InputStreamReader(is));
-			
+
 			for(int i=0; i<=index; i++){
 				tempLine = bfr.readLine();
 			}
@@ -179,7 +178,7 @@ public abstract class Parser {
 		}
 		return tempLine;
 	}
-	
+
 	/**
 	 * Reads the whole file.
 	 * @param filename Target filename.
@@ -204,7 +203,13 @@ public abstract class Parser {
 		}
 		return allText;
 	}
-	
+
+	/**
+	 * Check if file exists.
+	 * @param filename
+	 * @param ctx
+	 * @return yes or no
+	 */
 	public static boolean checkFileExistance(String filename, Context ctx){
 		File file = ctx.getFileStreamPath(filename);
 		return file.exists();

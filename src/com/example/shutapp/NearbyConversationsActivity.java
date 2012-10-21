@@ -7,21 +7,21 @@
  ** A copy of the license is included in the section entitled "LICENSE.txt".
  */
 /*
-** This file is part of ShutApp.
-**
-** ShutApp is free software: you can redistribute it and/or modify
-** it under the terms of the GNU General Public License as published by
-** the Free Software Foundation, either version 3 of the License, or
-** (at your option) any later version.
-**
-** ShutApp is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-** GNU General Public License for more details.
-**
-** You should have received a copy of the GNU General Public License
-** along with ShutApp.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ ** This file is part of ShutApp.
+ **
+ ** ShutApp is free software: you can redistribute it and/or modify
+ ** it under the terms of the GNU General Public License as published by
+ ** the Free Software Foundation, either version 3 of the License, or
+ ** (at your option) any later version.
+ **
+ ** ShutApp is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ ** GNU General Public License for more details.
+ **
+ ** You should have received a copy of the GNU General Public License
+ ** along with ShutApp.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.example.shutapp;
 
 import java.util.ArrayList;
@@ -46,6 +46,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+/**
+ * A class for the Chat room Activity.
+ * @author Group12
+ *
+ */
 public class NearbyConversationsActivity extends Activity implements OnItemClickListener{
 
 	private List<String> nearbyChatRoomNames;
@@ -55,10 +60,11 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	private int numberOfGreenChatRooms;
 
 	private Location currentLocation = new Location("current");
-	
+
 	private DatabaseHandler db;
+
 	/**
-	 * Creates an environment for NearbyConversationActivity 
+	 * Creates an environment for NearbyConversationActivity. 
 	 *
 	 * @param savedInstanceState	the state of the saved instance
 	 */
@@ -69,34 +75,33 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		Log.d("onCreate", "get here");
 		db = new DatabaseHandler(this);
 		/* Use the LocationManager class to obtain GPS locations */
-		LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+		LocationManager locationManager = 
+				(LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		LocationListener locationListener = new MyLocationListener();
-		locationManager.requestLocationUpdates(locationManager.getBestProvider(new Criteria(), false), 
+		locationManager.requestLocationUpdates(locationManager.getBestProvider(
+				new Criteria(), false), 
 				StringLiterals.LOCATION_UPDATE_INTERVALL, 0, locationListener);
-		
-		
-		
-		
-		
+
 		String bestProvider = locationManager.getBestProvider(new Criteria(), false);       
-        Location startLocation = locationManager.getLastKnownLocation(bestProvider);
-        
+		Location startLocation = locationManager.getLastKnownLocation(bestProvider);
+
 		if (startLocation != null){
 			updatePosition(startLocation.getLatitude(), startLocation.getLongitude());
 		} else {
 			Log.e("geoPointS","Unable to get startlocation");
-			updatePosition(StringLiterals.START_LATITUDE, StringLiterals.START_LONGITUDE);
+			updatePosition(StringLiterals.START_LATITUDE,
+					StringLiterals.START_LONGITUDE);
 		}
-		
+
 		nearbyChatRoomNames = new ArrayList<String>();
 		farAwayChatRoomNames = new ArrayList<String>();
 		allChatRoomNames = new ArrayList<String>();
 		initiateChatRooms();
-		
+
 	}
-	
+
 	/**
-	 * Initiate chat rooms
+	 * Initiate chat rooms.
 	 */
 	private void initiateChatRooms() {
 		List<Chatroom> allChatRoom;
@@ -118,8 +123,9 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		}
 
 	}
+
 	/**
-	 * Add a chat room
+	 * Add a chat room.
 	 *
 	 * @param name 	a string containing the name of the room 
 	 */
@@ -127,40 +133,51 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		new Chatroom(name, currentLocation, this);
 		updateChatroomList(findViewById(R.layout.activity_nearby_conversations));
 	}
+
 	/**
-	 * Create an array adapter only showing nearby chat rooms
+	 * Create an array adapter only showing nearby chat rooms.
 	 */
 	private void createOnlyNearbyChatRoomArrayAdapter() {
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nearbyChatRoomNames);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+				this, android.R.layout.simple_list_item_1, nearbyChatRoomNames);
 		ListView listView = (ListView) findViewById(R.id.listOfNearbyConversations);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(this); 
 	}
+
 	/**
-	 * Create an array adapter with all chat rooms
+	 * Create an array adapter with all chat rooms.
 	 */
 	private void createAllChatRoomsArrayAdapter() {
-		String[] stringArray = allChatRoomNames.toArray(new String[allChatRoomNames.size()]); 
-		
-		ArrayAdapter<String> adapter = new ListChatRoomRowArrayAdapter(this, stringArray, numberOfGreenChatRooms);
+		String[] stringArray = allChatRoomNames.toArray(
+				new String[allChatRoomNames.size()]); 
+
+		ArrayAdapter<String> adapter = new ListChatRoomRowArrayAdapter(
+				this, stringArray, numberOfGreenChatRooms);
 		ListView listView = (ListView) findViewById(R.id.listOfNearbyConversations);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(this);
 
 	}
+
 	/**
-	 * Show a dialog when creating a chat room
+	 * Show a dialog when creating a chat room.
 	 *
 	 * @param view	a view of the text model
 	 */
 	public void showCreateChatroomDialog(View view){
 		final Dialog newChatroomDialog = new Dialog(this);
 		newChatroomDialog.setContentView(R.layout.create_chatroom_dialog);
-		final EditText etChatroomInput = (EditText) newChatroomDialog.findViewById(R.id.chatroom_name);
-		
-		Button btnDialogCreateChatroom = (Button) newChatroomDialog.findViewById(R.id.create_chatroom);
+		final EditText etChatroomInput = 
+				(EditText) newChatroomDialog.findViewById(R.id.chatroom_name);
+
+		Button btnDialogCreateChatroom = 
+				(Button) newChatroomDialog.findViewById(R.id.create_chatroom);
 		btnDialogCreateChatroom.setOnClickListener(new OnClickListener() {
-			
+
+			/**
+			 * On Click event.
+			 */
 			public void onClick(View view){
 				String chatRoomToBeAdded = etChatroomInput.getText().toString();
 				if(chatRoomToBeAdded.equals("") || chatRoomToBeAdded == null){
@@ -168,13 +185,14 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 				}
 				addChatroom(chatRoomToBeAdded);
 				newChatroomDialog.cancel();
-				
+
 			}
 		});
 		newChatroomDialog.show();
 	}
+
 	/**
-	 * Update the position
+	 * Update the position.
 	 *
 	 * @param latitude		value with new latitude
 	 * @param longitude 	value with new longitude
@@ -183,8 +201,9 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		currentLocation.setLatitude(latitude);
 		currentLocation.setLongitude(longitude);
 	}
+
 	/**
-	 * Redirects the user to toNearbyConversationsActivity.java
+	 * Redirects the user to toNearbyConversationsActivity.java.
 	 *
 	 * @param view	a view of the text model
 	 */
@@ -193,8 +212,9 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		startActivity(intent);
 		overridePendingTransition(0, 0);
 	}
+
 	/**
-	 * Redirects the user to ChatActivity.java
+	 * Redirects the user to ChatActivity.java.
 	 *
 	 * @param view	a view of the text model
 	 */
@@ -203,8 +223,9 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		startActivity(intentToRedirect);
 		overridePendingTransition(0, 0);
 	}
+
 	/**
-	 * Redirects the user to GpsActivity.java
+	 * Redirects the user to GpsActivity.java.
 	 *
 	 * @param view	a view of the text model
 	 */
@@ -213,8 +234,9 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		startActivity(intentToRedirect);
 		overridePendingTransition(0, 0);
 	}
+
 	/**
-	 * Redirects the user to SettingsActivity.java
+	 * Redirects the user to SettingsActivity.java.
 	 *
 	 * @param view	a view of the text model
 	 */
@@ -223,8 +245,9 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 		startActivity(intent);
 		overridePendingTransition(0, 0);
 	}
+
 	/**
-	 * When an item is clicked
+	 * When an item is clicked.
 	 *
 	 * @param arg0		
 	 * @param view		a view of the text model
@@ -233,7 +256,7 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 	 */
 	public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) {
 		String clickedChatroom = "";
-		
+
 		Log.d("listan", "you clicked item " + position);
 		if( position < numberOfGreenChatRooms ){
 			clickedChatroom = nearbyChatRoomNames.get(position);
@@ -243,16 +266,21 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 			Log.d("listan", "you clicked on a forbidden item ");
 		}
 
-		
+
 	}
-	
+
+	/**
+	 * Calculates the distance to chat room.
+	 * @param cr
+	 * @return
+	 */
 	private boolean inRangeOfChatRoom(Chatroom cr) {
 		float dist = (cr.getRadius()/2 - currentLocation.distanceTo(cr.getLocation()));
 		return (dist >= 0);
 	}
-	
+
 	/**
-	 * Lists all the chat Rooms
+	 * Lists all the chat Rooms.
 	 */
 	@Override
 	protected void onResume() {
@@ -264,40 +292,59 @@ public class NearbyConversationsActivity extends Activity implements OnItemClick
 			createOnlyNearbyChatRoomArrayAdapter();
 		}
 	}
-	
-	
+
+
 	/**
-	 * Class My Location Listener
+	 * Class My Location Listener.
 	 */
 	public class MyLocationListener implements LocationListener	{
-		
+
+		/**
+		 * Empty constructor.
+		 */
 		public MyLocationListener(){
-			
-		}
-		
-		public void onLocationChanged(Location loc) {
-			
-			updatePosition(loc.getLatitude(), loc.getLongitude());
-			
+
 		}
 
+		/**
+		 * When location changes.
+		 * @param loc
+		 */
+		public void onLocationChanged(Location loc) {
+
+			updatePosition(loc.getLatitude(), loc.getLongitude());
+
+		}
+
+		/**
+		 * When provider disables.
+		 * @param provider
+		 */
 		public void onProviderDisabled(String provider)	{
 			Toast.makeText( getApplicationContext(),
-			"Gps Disabled",
-			Toast.LENGTH_SHORT ).show();
+					"Gps Disabled",
+					Toast.LENGTH_SHORT ).show();
 		}
 
+		/**
+		 * When the provider enables.
+		 * @param provider
+		 */
 		public void onProviderEnabled(String provider) {
 			Toast.makeText( getApplicationContext(),
 					"Gps Enabled", Toast.LENGTH_SHORT).show();
 		}
 
+		/**
+		 * When status change.
+		 * @param provider
+		 * @param status
+		 * @param extras
+		 */
 		public void onStatusChanged(String provider, int status, Bundle extras)	{
 
 		}
 
 	}/* End of Class MyLocationListener */
-	
-	
 
 }

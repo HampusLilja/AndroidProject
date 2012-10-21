@@ -39,6 +39,11 @@ import android.widget.TextView;
 
 //Got a lot of help and inspiration from http://avilyne.com/?p=267
 
+/**
+ * A class for Chat Activity.
+ * @author Group12
+ *
+ */
 public class ChatActivity extends Activity {
 
 	// This intent filter will be set to filter on the string "GCM_RECEIVED_ACTION"
@@ -52,10 +57,10 @@ public class ChatActivity extends Activity {
 
 	/**
 	 * This broadcastreceiver instance will receive messages broadcast
-	 * with the action "GCM_RECEIVED_ACTION" via the gcmFilter
+	 * with the action "GCM_RECEIVED_ACTION" via the gcmFilter.
 	 */
 	private BroadcastReceiver gcmReceiver = new BroadcastReceiver() {
-		
+
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String receivedMessage = "No broadcast message";
@@ -66,8 +71,9 @@ public class ChatActivity extends Activity {
 			}
 		}
 	};
+
 	/**
-	 * Creates an environment for chatActivity 
+	 * Creates an environment for chatActivity. 
 	 *
 	 * @param savedInstanceState	the state of the saved instance 	
 	 * 
@@ -76,7 +82,7 @@ public class ChatActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chat);
-		
+
 		//prevents androidkeyboard from autopopping when entering activity
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -102,35 +108,38 @@ public class ChatActivity extends Activity {
 		// broadcast receiver.
 		gcmFilter = new IntentFilter();
 		gcmFilter.addAction("GCM_RECEIVED_ACTION");
-		
+
 		DatabaseHandler db = new DatabaseHandler(this);
 		//check if you currently are in a chatroom, if not you are redirected
 		//to nearbyChatroomsactivity
 		try{
 			chatroom = db.getChatroom(Settings.getCurrentChatroom());
 			if(chatroom != null){
-				
+
 				if(!Parser.checkFileExistance(chatroom.getName(), this)){
 					Parser.initiateFile(chatroom.getName(), this);
 				}
-				
-				new HttpMessage(StringLiterals.JOIN_CHATROOM_MESSAGE_TYPE, chatroom.getName(), Settings.getREGID(), null, null, null);
+
+				new HttpMessage(
+						StringLiterals.JOIN_CHATROOM_MESSAGE_TYPE,
+						chatroom.getName(), Settings.getREGID(),
+						null, null, null);
 				appendSome(StringLiterals.LINE_BUFFER);
 				tvChatLogHistory.append(chatroom.readLog(this));
 			}
-			
+
 		} catch(Exception e){
 			String exception = e.toString();
 			Log.e("TAG", "Not joind a chat room" + exception);
 			toNearbyConversationsActivity(findViewById(R.layout.activity_chat));
 		}
-		
+
 		registerReceiver(gcmReceiver, gcmFilter);
 	}
 
-	//
 	/**
-	 * this is a fuckugly dummysolution to the "start writing in the bottom" - problem
+	 * this is a fuckugly dummysolution to the 
+	 * "start writing in the bottom" - problem.
 	 * @param n the amount of lines you want to buffeer
 	 */
 	private void appendSome(int n){
@@ -139,59 +148,73 @@ public class ChatActivity extends Activity {
 		}
 	}
 
-	 // If our activity is paused, it is important to UN-register any
-    // broadcast receivers.
-    @Override
-    protected void onPause() {
-         
-        unregisterReceiver(gcmReceiver);
-        super.onPause();
-    }
-     
-    // When an activity is resumed, be sure to register any
-    // broadcast receivers with the appropriate intent
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(gcmReceiver, gcmFilter);
- 
-    }
+	/**
+	 * If our activity is paused, it is important to UN-register any
+	 * broadcast receivers.
+	 */
+	@Override
+	protected void onPause() {
+
+		unregisterReceiver(gcmReceiver);
+		super.onPause();
+	}
+
+	/**
+	 * When an activity is resumed, be sure to register any
+	 * broadcast receivers with the appropriate intent
+	 */
+	@Override
+	protected void onResume() {
+		super.onResume();
+		registerReceiver(gcmReceiver, gcmFilter);
+
+	}
+
+	/**
+	 * Leav the chat room.
+	 */
 	@Override
 	public void onStop(){
 		if(chatroom != null){
 			Log.d("Chatroom", "Leaving chatroom " + chatroom.getName());
-			new HttpMessage(StringLiterals.LEAVE_CHATROOM_MESSAGE_TYPE, chatroom.getName(), Settings.getREGID(), null, null, null);
+			new HttpMessage(StringLiterals.LEAVE_CHATROOM_MESSAGE_TYPE,
+					chatroom.getName(), Settings.getREGID(),
+					null, null, null);
 		}
 		super.onStop();
-		
+
 	} 
+
 	/**
-	 * Is called when the send button is pressed and sends the message
+	 * Is called when the send button is 
+	 * pressed and sends the message.
 	 *
 	 * @param view	a view of the text model
 	 */
 	public void sendMessage(View view){
 		// This EditText is used for messageinput
 		EditText etMessageInput;
-		
+
 		etMessageInput = (EditText) findViewById(R.id.written_msg);
 		String messageToSend = etMessageInput.getText().toString();
 		if(messageToSend.equals("") || messageToSend == null){
 			return;
 		}
-		new HttpMessage(StringLiterals.CHATROOM_MESSAGE_TYPE, chatroom.getName(), Settings.getNickname(), messageToSend, null, null);
+		new HttpMessage(StringLiterals.CHATROOM_MESSAGE_TYPE,
+				chatroom.getName(), Settings.getNickname(),
+				messageToSend, null, null);
 		etMessageInput.setText("");
 	}
 
 	/**
 	 * Appends a username and message to the correct format
-	 * to the textview representating the chatlog
+	 * to the textview representating the chatlog.
 	 * @param username Username to be appended
 	 * @param message Message to be appended
 	 */
 	private void appendToChatLogHistory(String username, String message) {
 		if (username != null && message != null) {
-			tvChatLogHistory.append(username + ": ");								
+			tvChatLogHistory.append(username + ": ");
 			tvChatLogHistory.append(message + "\n");
 		}
 	}
@@ -213,8 +236,7 @@ public class ChatActivity extends Activity {
 			}
 			sb.deleteCharAt(sb.length()-1);
 			message = sb.toString();
-		}
-		else{
+		}else{
 			message = temp[1];
 		}
 		chatroom.saveMessage(username + ": " + message, this);
@@ -222,7 +244,7 @@ public class ChatActivity extends Activity {
 
 	}
 	/**
-	 * Redirects the user to ChatActivity.java
+	 * Redirects the user to ChatActivity.java.
 	 *
 	 * @param view	a view of the text model
 	 */
@@ -233,7 +255,7 @@ public class ChatActivity extends Activity {
 	} 
 
 	/**
-	 * Redirects the user to NearbyConversationsActivity.java
+	 * Redirects the user to NearbyConversationsActivity.java.
 	 *
 	 * @param view	a view of the text model
 	 */
@@ -244,7 +266,7 @@ public class ChatActivity extends Activity {
 	}
 
 	/**
-	 * Redirects the user to GpsACtivity.java
+	 * Redirects the user to GpsACtivity.java.
 	 *
 	 * @param view	a view of the text model
 	 */
@@ -254,7 +276,7 @@ public class ChatActivity extends Activity {
 		overridePendingTransition(0, 0);
 	}
 	/**
-	 * Redirects the user to SettingsActivity.java
+	 * Redirects the user to SettingsActivity.java.
 	 *
 	 * @param view	a view of the text model
 	 */
@@ -265,7 +287,7 @@ public class ChatActivity extends Activity {
 	} 
 
 	/**
-	 * Saves the message
+	 * Saves the message.
 	 *
 	 * @param view	a view of the text model
 	 * @return chatmessage A string of the send message 
@@ -273,9 +295,6 @@ public class ChatActivity extends Activity {
 	public String saveMessage(View view){
 		EditText thetext = (EditText)findViewById(R.id.written_msg);
 		return thetext.getText().toString();
-	
+
 	}
 }
-
-
-

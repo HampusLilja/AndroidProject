@@ -26,17 +26,18 @@ package com.example.shutapp;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
-
-
 import com.google.android.gcm.GCMRegistrar;
 
+/**
+ * The Main Activity containing Splash.
+ * @author Group12
+ *
+ */
 public class MainActivity extends Activity {
 
 	// This tag is used in Log.x() calls
@@ -45,8 +46,9 @@ public class MainActivity extends Activity {
 	private static final long SPLASHDELAY = 3000;
 
 	private String registrationStatus = "Not yet registered";
+
 	/**
-	 * Sets the content view and 
+	 * Sets the content view. 
 	 *
 	 * @param savedInstanceState the state of the saved instance
 	 */
@@ -58,21 +60,20 @@ public class MainActivity extends Activity {
 		DatabaseHandler db = new DatabaseHandler(this);
 		db.downloadAndCopyDB();
 
-
-
 		//if it is the first time you run this app then you will have to
 		//initiate the settingsfile
 		if(Parser.checkFileExistance(StringLiterals.FILENAME_SETTINGS, this)){
-			Settings.setNickname(Parser.readAtIndex(StringLiterals.NICKNAME_INDEX, StringLiterals.FILENAME_SETTINGS, this), this);
-		}
-		else{
+			Settings.setNickname(Parser.readAtIndex(
+					StringLiterals.NICKNAME_INDEX,
+					StringLiterals.FILENAME_SETTINGS, this), this);
+		}else{
 			Settings.initiateSettingsFile(this);
 		}
 
 		registerClient();
 
 		TimerTask splashTask = new TimerTask() {
-			
+
 			@Override
 			public void run() {
 				finish();
@@ -91,7 +92,8 @@ public class MainActivity extends Activity {
 	 *
 	 */
 	public void registerClient() {
-		// This string will hold the lengthy registration id that comes from GCMRegistrar.register()
+		// This string will hold the lengthy registration id that 
+		//comes from GCMRegistrar.register()
 		String regId = "";
 
 		try {
@@ -129,7 +131,7 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * Called when the redirect button is pressed, redirected to another activity 
+	 * Called when the redirect button is pressed, redirected to another activity.
 	 *
 	 * @param view a view of the text model
 	 */
@@ -142,7 +144,3 @@ public class MainActivity extends Activity {
 
 
 }
-
-
-
-
