@@ -174,9 +174,9 @@ public class GpsActivity extends MapActivity implements LocationListener {
 				boolean nearby = inRangeOfChatRoom(
 						currentLocation, room);
 				if(Settings.allChatRoomsDisplayed()){
-					setShadedCircleOnLocation(room.getLocation().getLatitude(), 
-							room.getLocation().getLongitude(), room.getRadius(),
-							nearby);
+					setShadedCircleOnLocation(room.getLocation().getLatitude(),
+							room.getLocation().getLongitude(),
+							room.getRadius(), nearby);
 				} else {
 					if(nearby){
 						setShadedCircleOnLocation(

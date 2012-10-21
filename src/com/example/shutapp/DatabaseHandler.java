@@ -31,6 +31,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import org.apache.http.util.ByteArrayBuffer;
+
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -41,7 +43,6 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.util.ByteArrayBuffer;
 
 /**
  * 
