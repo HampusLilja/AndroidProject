@@ -223,7 +223,6 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
 				(Button) changeNicknameDialog.findViewById(
 						R.id.btn_change_nickname);
 		btnDialogChangeNickname.setOnClickListener(new OnClickListener() {
-
 			/**
 			 * OnClick action.
 			 * @param view
@@ -235,17 +234,14 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
 						|| nameToBeChanged.equals("SERVER")){
 					return;
 				}
-				Settings.setNickname(
-						nameToBeChanged,
+				Settings.setNickname(nameToBeChanged,
 						SettingsActivity.this);
 				updateSettingsList();
 				changeNicknameDialog.cancel();
-
 			}
 		});
 		changeNicknameDialog.show();
-
-	} 
+	}
 
 
 }
