@@ -3,6 +3,29 @@ AndroidProject
 
 SoftwareEngineering
 
+FINAL
+==============
+Release Notice for FINAL:
+New from previous release is that now you can choose to display all chat rooms on the map and in the list of
+Nearby Chat Rooms. Leave chat room when exiting the chat activity. A lot of refactoring.
+We have support for setting a specific radius in the code but not yet implemented it in the UI.
+We have support for setting password on a chat room on the server but not yet on the application.
+When you enter a chat room you will get a welcome message from the server. This message will not be saved in 
+the local log file.
+
+All documentations are under /doc. Or linked thorugh the DeveloperManual.pdf. 
+ProjectReflections.pdf represents all our reflection documents.
+
+Known buggs and limitations:
+You can not use едц when writing a message. This is caused by GCM "content type related error".
+If the application shuts down when you are in a chat room the server do not get the "leave chat room" info.
+If you stay active in a chat room you can walk out of range and still be able send and receive messages.
+UI only supports xhdpi.
+If server is not online you can still see the chat rooms downloaded on previous runs.
+The splash screen is time based so if you have slow connection you may have to click an extra time on 
+the chat room list to connect to the server one more time.
+  
+
 HANDIN_05
 ==============
 Release Notice for HANDIN_05: 
