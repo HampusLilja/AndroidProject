@@ -230,11 +230,13 @@ public class ChatActivity extends Activity {
 	private void appendToChatLogHistory(String username, String message) {
 		if (username != null && message != null) {
 			if(username.equals("SERVER")){
-				Spannable WordtoSpan = new SpannableString(username + ": " + message + "\n");        
-				WordtoSpan.setSpan(new ForegroundColorSpan(Color.BLUE), 0, WordtoSpan.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-				tvChatLogHistory.append(WordtoSpan);
-			}
-			else{
+				Spannable wordToSpan = new SpannableString(
+						username + ": " + message + "\n");        
+				wordToSpan.setSpan(new ForegroundColorSpan(Color.BLUE),
+						0, wordToSpan.length(),
+						Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+				tvChatLogHistory.append(wordToSpan);
+			}else{
 				tvChatLogHistory.append(username + ": ");
 				tvChatLogHistory.append(message + "\n");
 			}
@@ -261,8 +263,9 @@ public class ChatActivity extends Activity {
 		}else{
 			message = temp[1];
 		}
-		if(!username.equals("SERVER"))
+		if(!username.equals("SERVER")){
 			chatroom.saveMessage(username + ": " + message, this);
+		}
 		appendToChatLogHistory(username, message);
 
 	}

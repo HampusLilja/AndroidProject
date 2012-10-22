@@ -231,7 +231,8 @@ public class SettingsActivity extends Activity implements OnItemClickListener{
 			public void onClick(View view){
 				String nameToBeChanged = 
 						etChatroomInput.getText().toString();
-				if(nameToBeChanged.equals("") || nameToBeChanged == null || nameToBeChanged.equals("SERVER")){
+				if(nameToBeChanged.equals("") || nameToBeChanged == null
+						|| nameToBeChanged.equals("SERVER")){
 					return;
 				}
 				Settings.setNickname(
